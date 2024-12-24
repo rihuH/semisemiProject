@@ -1,4 +1,4 @@
-package com.kh.quali.Qualification.model.vo;
+package com.kh.quali.common.model.vo;
 
 public class dumy {
 //
