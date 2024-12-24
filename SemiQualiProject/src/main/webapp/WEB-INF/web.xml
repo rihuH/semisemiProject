@@ -43,7 +43,7 @@
 	    <description></description>
 	    <display-name>MemberController</display-name>
 	    <servlet-name>MemberController</servlet-name>
-	    <servlet-class>com.kh.hyper.member.controller.MemberController</servlet-class>
+	    <servlet-class>com.kh.quali.member.controller.MemberController</servlet-class>
 	  </servlet>
 	  
 	  <servlet-mapping>

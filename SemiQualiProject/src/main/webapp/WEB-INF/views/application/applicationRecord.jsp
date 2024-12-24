@@ -12,10 +12,11 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	
 	
-	<div>
-	<jsp:include page="../common/leftbar.jsp"></jsp:include>
-	<jsp:include page="../content_right/application_record.jsp"></jsp:include>
+	<div style="display: flex;">
+		<jsp:include page="../common/leftbar.jsp"></jsp:include>
+		<jsp:include page="../content_right/application_record.jsp"></jsp:include>
 	</div>
+
 	
 	
 	<jsp:include page="../common/footer.jsp"></jsp:include>

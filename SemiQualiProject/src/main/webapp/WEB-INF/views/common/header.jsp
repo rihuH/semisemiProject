@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Header</title>
+    <title>Document</title>
     
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -141,18 +141,17 @@
         }
 
         #hide-menu{
-            width: auto;
+            width: 100%;
             height: 300px;
-            margin-left: 90px;
-            padding-top: 20px;
             display: none;
+            
+            background-color: white ;
+
+            justify-content: center;
             text-align: center;
-            
-            background-color: white;
-            
+            align-items: center;
+
             position: absolute;
-            
-            
         }
 
         #hide-menu > div{
@@ -226,7 +225,7 @@
                     </a>
                 </li>                
                 <li>
-                    <a href="/quali/application.me"> <!-- 공백 채울것 -->
+                    <a href=""> <!-- 공백 채울것 -->
                         마이페이지
                     </a>
                 </li>                

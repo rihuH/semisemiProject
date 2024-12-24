@@ -10,14 +10,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
-
-        #all{
-            background-color: rgb(245, 245, 245);
-        }
+        div{
+		overflow:hidden;
+	    }
 
         #content{
             width: 180px;
-            height: 800px;
+            height: auto;
             margin: auto;
 
         }
@@ -28,7 +27,7 @@
             float: left;
         }
 
-        #menuname{
+        #leftbar-menuname{
             width: 100%;
             height: 120px;
             background-color: rgb(0, 0, 0);
@@ -97,7 +96,7 @@
     <div id="all">
         <div id="content">
             <div id="content-left">
-                <div id="menuname">메뉴 이름</div>
+                <div id="leftbar-menuname">메뉴 이름</div>
 
                 <div class="descript" style="color: white; background-color: rgb(137, 137, 137);">
                     <div class="descript-main1" >상세 메뉴 이름1</div>

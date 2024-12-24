@@ -34,6 +34,7 @@
 
         #menuname{
             font-weight: bold;
+            font-size: 42px;
         }
 
         .selectmenu{
@@ -133,7 +134,7 @@
 
         .content-2{
             width: 900px;
-            height: 50px;
+            height: 70px;
 
             display: flex;
 
@@ -144,23 +145,25 @@
 
         .content-2-1{
             width: 150px;
-            height: 50px;
+            height: 70px;
             border-right: 1px solid rgb(230, 230, 230);
         }
         .content-2-2{
             width: 650px;
-            height: 50px;
+            height: 70px;
         }
         .content-2-3{
             width: 100px;
-            height: 50px;
+            height: 70px;
             border-left: 1px solid rgb(230, 230, 230);
+
+            
         }
 
         .selectbtn{
             width: 80px;
             background-color: rgb(229, 229, 229);
-            margin-top: 2px;
+            margin-top: 5px;
             margin-bottom: 2px;
 
             margin-left: 10px;
@@ -187,7 +190,7 @@
 
             <div style="margin-left: 20px; margin-top: 10px;">
                 <!-- 이 부분은 descropt-menu-a의 값임 -->
-                <h1 id="menuname">상세메뉴1</h1>
+                <p id="menuname">상세메뉴1</p>
             </div>
 
             <div>
@@ -246,7 +249,7 @@
             <div class="content-1">
                 <div>
                     <div class="content-2">
-                    <div class="content-2-1">${원서접수타이틀}</div>
+                    <div class="content-2-1">원서접수타이틀</div>
                     <div class="content-2-2">
                         <div>24년 12월 2일 오전 12:34 접수신청됨</div>
                         <div>현재 접수 진행중</div>
