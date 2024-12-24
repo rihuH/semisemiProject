@@ -1,5 +1,5 @@
 package com.kh.quali.member.model.service;
 
-public class dumy {
-//
+public interface MemberService {
+
 }

@@ -11,13 +11,15 @@
 <body>
 
 
-	<jsp:include page="views/common/header.jsp"></jsp:include>
+	<jsp:include page="common/header.jsp"></jsp:include>
 	
 	
-	<div style="height: 500px;"></div>
+	<div style="height: 500px;">
+	
+	</div>
 	
 	
-	<jsp:include page="views/common/footer.jsp"></jsp:include>
+	<jsp:include page="common/footer.jsp"></jsp:include>
 
 </body>
 </html>

@@ -141,11 +141,18 @@
         }
 
         #hide-menu{
-            width: 1200px;
+            width: auto;
             height: 300px;
-            margin: auto;
+            margin-left: 90px;
+            padding-top: 20px;
             display: none;
             text-align: center;
+            
+            background-color: white;
+            
+            position: absolute;
+            
+            
         }
 
         #hide-menu > div{
@@ -219,7 +226,7 @@
                     </a>
                 </li>                
                 <li>
-                    <a href=""> <!-- 공백 채울것 -->
+                    <a href="/quali/application.me"> <!-- 공백 채울것 -->
                         마이페이지
                     </a>
                 </li>                
