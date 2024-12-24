@@ -9,5 +9,6 @@
 <body>
 	<h1>웰컴파일</h1>
 
+	<jsp:forward page="WEB-INF/views/main.jsp"></jsp:forward>
 </body>
 </html>
