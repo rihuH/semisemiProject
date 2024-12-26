@@ -10,7 +10,10 @@ public interface MemberService {
 	void appicationRecord();
 	
 	// 회원가입
-	void insertMember();
+	void signUp(Member member);
+
+	// 아이디 중복체크
+	String checkId(String memberId);
 	
 	// 로그인
 	Member loginMember(Member member);
@@ -23,6 +26,7 @@ public interface MemberService {
 
 	// 회원삭제
 	void deleteMember();
+
 	
 	
 }

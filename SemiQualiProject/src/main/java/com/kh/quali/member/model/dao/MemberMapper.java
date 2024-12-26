@@ -8,6 +8,10 @@ import com.kh.quali.member.model.vo.Member;
 public interface MemberMapper {
 
 	Member login(Member member);
+	
+	void signUp(Member member);
+	
+	int checkId(String memberId);
 
 	void updateMember(Member member);
 	

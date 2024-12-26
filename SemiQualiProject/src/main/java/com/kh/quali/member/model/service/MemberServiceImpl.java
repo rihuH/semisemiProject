@@ -31,7 +31,7 @@ public class MemberServiceImpl implements MemberService {
 	public Member loginMember(Member member) {
 		
 		// 아이디 검증을 validator에게 맡긴다.
-		Member loginMember = validator.validatorMemberExist(member);
+		Member loginMember = validator.validateMemberExist(member);
 		
 		// 만약 loginUser가 돌아왔다면, 비밀번호 검증은 PasswordEncryptor을 이용한다.
 		if(!passwordEncoder.matches(member.getMemberPwd(), loginMember.getMemberPwd())) {
@@ -44,8 +44,22 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void insertMember() {
+	public void signUp(Member member) {
 		
+		// validator 클래스를 이용해서 아이디중복, 아이디길이, 비밀번호길이 등 검증을 거치고 돌아옴
+		validator.validateJoinMember(member);
+		
+		// 예외사항이 발생하지않고 돌아왔다면 비밀번호를 암호화 해준다.
+		member.setMemberPwd(passwordEncoder.encode(member.getMemberPwd()));
+		
+		mapper.signUp(member);
+		
+	}
+	
+	@Override
+	public String checkId(String memberId) {
+		// 아이디가 중복이라면 "NNNNN", 중복이 아니라면 "NNNNY"
+		return mapper.checkId(memberId) > 0 ? "NNNNN" : "NNNNY";
 	}
 
 
@@ -57,7 +71,7 @@ public class MemberServiceImpl implements MemberService {
 		// 사용자가 업데이트 하고싶어하는 내용이 DB에 존재하는 컬럼의 크기에 넘치지 않는지 || 제약조건에 부합하는지
 		// 위와같은 검증인 validator에서 진행
 		
-		validator.validatorMemberExist(member);
+		validator.validateMemberExist(member);
 		log.info("{}", session.getAttribute("loginMember"));
 		log.info("{}", member);
 		

@@ -8,7 +8,7 @@
 		SELECT
 				MEMBER_NO memberNo,
 				MEMBER_ID memberId,
-				MEMBER_PW memberPwd,
+				MEMBER_PWD memberPwd,
 				MEMBER_NAME memberName,
 				MEMBER_BIRTH memberBirth,
 				MEMBER_RRN memberRrn,
@@ -25,6 +25,33 @@
 		<!-- 비밀번호의 경우 암호화 과정을 거쳤기에 여기서 판단 불가능 -->
 	</select>
 
+	<insert id="signUp" parameterType="member">
+		INSERT
+		  INTO
+		  		MEMBER
+		VALUES
+				(
+				SEQ_MEMBER_NO.NEXTVAL,
+				#{memberId},
+				#{memberPwd},
+				#{memberName},
+				#{memberBirth},
+				#{memberRrn},
+				#{phone},
+				default,
+				default
+				)
+	</insert>
 
+	<select id="checkId" parameterType="String" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		MEMBER
+		 WHERE
+		 		MEMBER_ID = #{memberId}
+		   AND
+		   		STATUS = 'N'
+	</select>
 
 </mapper>

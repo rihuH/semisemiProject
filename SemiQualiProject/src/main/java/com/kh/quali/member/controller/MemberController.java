@@ -44,9 +44,19 @@ public class MemberController {
 		return mv.setViewNameAndData("main", null);
 	}
 
-	@PostMapping("enrollform.me")
-	public void insertMember() {
+	@GetMapping("enrollform.me")
+	public String insertMember() {
 		
+		return "member/enroll_form";
+	}
+	
+	@PostMapping("sign-up.me")
+	public ModelAndView signUp(Member member, HttpSession session) {
+		
+		memberService.signUp(member);
+		
+		
+		return mv.setViewNameAndData("main", null);
 	}
 
 	@PostMapping("edit-profile")
