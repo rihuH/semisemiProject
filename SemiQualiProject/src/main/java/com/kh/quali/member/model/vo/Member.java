@@ -10,7 +10,7 @@ public class Member {
 	private String memberPwd;
 	private String memberName;
 	private String memberBirth;
-	private String memberRRN;
+	private String memberRrn;
 	private String phone;
 	private String createDate;
 	private String status;

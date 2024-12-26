@@ -6,7 +6,10 @@
     <title>Document</title>
     
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
         
@@ -76,20 +79,51 @@
             list-style-type: none;
         }
 
-        #menubar-right>ul{
+        #menubar-right-1>ul{
             display: flex;
             gap: 15px;
             padding-left: 12px;
-            margin-top: 15px;
+
+            margin-top: 5px;
+            margin-bottom: 10px;
         }
 
-        #menubar-right>ul>li{
+        #menubar-right-1>ul>li{
             align-items: center;
             justify-content: space-between;
             display: flex;
         }
 
-        #menubar-right>ul>li>a{
+        #menubar-right-1>ul>li>a{
+            background-color: black;
+            color: white;
+
+
+            padding: 10px 20px;
+            border-radius: 30px;
+            
+            font-size: 13px;
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        #menubar-right-2>ul{
+            display: flex;
+            gap: 15px;
+            padding-left: 12px;
+
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        #menubar-right-2>ul>li{
+            align-items: center;
+            justify-content: space-between;
+            display: flex;
+        }
+
+        #menubar-right-2>ul>li>a{
             background-color: black;
             color: white;
 
@@ -144,7 +178,7 @@
             width: 100%;
             height: 300px;
             display: none;
-            
+
             background-color: white ;
 
             justify-content: center;
@@ -210,45 +244,64 @@
         <div id="menubar-center">
             <ul id="menubar-category">
                 <li>
-                    <a href=""> <!-- 공백 채울것 -->
+                    <a href="national-exam.do">
                         국가자격시험
                     </a>
                 </li>
                 <li>
-                    <a href=""> <!-- 공백 채울것 -->
+                    <a href="certification-info.do">
                         자격정보
                     </a>
                 </li>                
                 <li>
-                    <a href=""> <!-- 공백 채울것 -->
+                    <a href="certificates.do">
                         자격증, 확인서
                     </a>
                 </li>                
                 <li>
-                    <a href=""> <!-- 공백 채울것 -->
+                    <a href="mypage.me">
                         마이페이지
                     </a>
                 </li>                
                 <li>
-                    <a href=""> <!-- 공백 채울것 -->
+                    <a href="support.help">
                         고객지원
                     </a>
                 </li>
             </ul>
         </div>
         <div id="menubar-right">
-            <ul>
-                <li>
-                    <a href=""> <!-- 공백 채울것 -->
-                        로그인
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        회원가입
-                    </a>
-                </li>
-            </ul>
+            <!-- 로그인 전에 보여줄것 -->
+                <div id="menubar-right-1">
+                    <ul>
+                        <li>
+                            <a href="login.me">
+                                SignIn
+                            </a>
+                        </li>
+                        <li>
+                            <a href="enrollform.me">
+                                SignUp
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+            <!-- 로그인 후에 보여줄것-->
+            <div id="menubar-right-2">
+                <ul>
+                    <li>
+                        <a href="application.me">
+                            MyPage
+                        </a>
+                    </li>
+                    <li>
+                        <a href="logout.me">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     </div>
@@ -256,43 +309,43 @@
         <div id="hide-div1">
             <h3>국가자격시험</h3>
             <ul>
-                <li><a href="">원서접수내역</a></li> <!-- 공백 채울것 -->
-                <li><a href="">원서접수신청</a></li> <!-- 공백 채울것 -->
-                <li><a href="">시험결과보기</a></li> <!-- 공백 채울것 -->
-                <li><a href="">사후환불신청</a></li> <!-- 공백 채울것 -->
+                <li><a href="application-history.do">원서접수내역</a></li> 
+                <li><a href="application-apply.do">원서접수신청</a></li>
+                <li><a href="exam-results.do">시험결과보기</a></li> 
+                <li><a href="refund-request.do">사후환불신청</a></li>
             </ul>
         </div>
         <div id="hide-div2">
             <h3>자격정보</h3>
             <ul>
-                <li><a href="">응시자격자가진단</a></li> <!-- 공백 채울것 -->
-                <li><a href="">응시가능종목확인</a></li> <!-- 공백 채울것 -->
+                <li><a href="eligibility-check.do">응시자격자가진단</a></li> 
+                <li><a href="available-exams.do">응시가능종목확인</a></li>
             </ul>
         </div>
         <div id="hide-div3">
             <h3>자격증, 확인서</h3>
             <ul>
-                <li><a href="">자격증 확인/발급</a></li> <!-- 공백 채울것 -->
-                <li><a href="">자격증발급현황</a></li> <!-- 공백 채울것 -->
+                <li><a href="certificate-verify.do">자격증 확인/발급</a></li>
+                <li><a href="certificate-status.do">자격증발급현황</a></li> 
             </ul>
         </div>
         <div id="hide-div4">
             <h3>마이페이지</h3>
             <ul>
-                <li><a href="">개인정보수정</a></li> <!-- 공백 채울것 -->
-                <li><a href="">학력/경력수정</a></li> <!-- 공백 채울것 -->
-                <li><a href="">회원탈퇴</a></li> <!-- 공백 채울것 -->
-                <li><a href="">관심자격증등록</a></li> <!-- 공백 채울것 -->
+                <li><a href="edit-profile.me">개인정보수정</a></li>
+                <li><a href="edit-education.me">학력/경력수정</a></li>
+                <li><a href="account-delete.me">회원탈퇴</a></li>
+                <li><a href="favorite-certificates.me">관심자격증등록</a></li>
             </ul>
         </div>
         <div id="hide-div5">
             <h3>고객지원</h3>
             <ul>
-                <li><a href="">공지사항</a></li> <!-- 공백 채울것 -->
-                <li><a href="">수험생가이드</a></li> <!-- 공백 채울것 -->
-                <li><a href="">환불안내</a></li> <!-- 공백 채울것 -->
-                <li><a href="">부정신고센터</a></li> <!-- 공백 채울것 -->
-                <li><a href="">자주묻는질문</a></li> <!-- 공백 채울것 -->
+                <li><a href="notices">공지사항</a></li>
+                <li><a href="exam-guide">수험생가이드</a></li>
+                <li><a href="refund-info">환불안내</a></li>
+                <li><a href="report-misconduct">부정신고센터</a></li>
+                <li><a href="faq.do">자주묻는질문</a></li>
             </ul>
         </div>
     </div>

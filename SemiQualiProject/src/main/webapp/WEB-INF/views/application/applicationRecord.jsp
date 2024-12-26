@@ -10,7 +10,7 @@
 		#contentA{
 			width: 1300px;
 			height: auto;
-			float: left;
+			margin: auto;
 			
 			display: flex;
 			justify-content: center;
@@ -20,10 +20,12 @@
 		
 		#contentA-a{
 			width: 180px;
+			margin-top: 20px;
 		}
 		
 		#contentA-b{
 			width : 950px;
+			margin-top: 20px;
 		}
 	</style>
 </head>
@@ -35,7 +37,7 @@
 	
 	<div id="contentA">
 		<div id="contentA-a">
-			<jsp:include page="../common/leftbar.jsp"></jsp:include>
+			<jsp:include page="../member/leftbar-member.jsp"></jsp:include>
 		</div>
 		<div id="contentA-b">
 			<jsp:include page="../content_right/application_record.jsp"></jsp:include>
