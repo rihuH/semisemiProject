@@ -37,6 +37,7 @@ public class MemberServiceImpl implements MemberService {
 		if(!passwordEncoder.matches(member.getMemberPwd(), loginMember.getMemberPwd())) {
 			//일치하지 않는다면 예외 발생, ExceptionHandling 클래스로 넘긴다.
 			throw new ComparePasswordException("비밀번호가 틀렸습니다.");
+			
 		} else {
 			// 비밀번호가 맞는다면 Member의 정보를 들고 Controller로 돌아간다.
 			return loginMember;
