@@ -36,13 +36,8 @@ public class MemberValidator {
 	
 	// 2. 값이 정해둔 크기보다 클 경우
 	public void validateIdLength(Member member) {
-		if(member.getMemberId().length() > 20) {
+		if(member.getMemberId().length() > 30) {
 			throw new TooLargeValueException("아이디가 입력 할 수 있는 크기를 넘었습니다.");
-		}
-	}
-	public void validatePwdLength(Member member) {
-		if(member.getMemberPwd().length() > 50) {
-			throw new TooLargeValueException("비밀번호가 입력 할 수 있는 크기를 넘었습니다.");
 		}
 	}
 	
@@ -50,7 +45,6 @@ public class MemberValidator {
 	public void validateJoinMember(Member member) {
 		validateDuplicateMember(member);
 		validateIdLength(member);
-		validatePwdLength(member);
 	}
 	
 	

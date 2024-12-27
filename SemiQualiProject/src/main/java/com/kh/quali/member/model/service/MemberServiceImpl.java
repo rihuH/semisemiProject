@@ -46,11 +46,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void signUp(Member member) {
 		
-		// validator 클래스를 이용해서 아이디중복, 아이디길이, 비밀번호길이 등 검증을 거치고 돌아옴
+		// validator 클래스를 이용해서 아이디중복, 아이디길이 등 검증을 거치고 돌아옴
 		validator.validateJoinMember(member);
 		
 		// 예외사항이 발생하지않고 돌아왔다면 비밀번호를 암호화 해준다.
 		member.setMemberPwd(passwordEncoder.encode(member.getMemberPwd()));
+		
+		
 		
 		mapper.signUp(member);
 		

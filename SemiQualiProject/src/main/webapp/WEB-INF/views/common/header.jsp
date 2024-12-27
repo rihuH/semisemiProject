@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -228,6 +230,13 @@
 </head>
 <body>
 
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alertify.alert('축하드립니다', '${alertMsg}', function(){alertify.success('요청성공')});
+		</script>
+		<c:remove var="alertMsg" scope="session"/>
+	</c:if>
+
 
     <div id="menubar">
         <div id="menubar-left"></div>
@@ -271,37 +280,43 @@
             </ul>
         </div>
         <div id="menubar-right">
-            <!-- 로그인 전에 보여줄것 -->
-                <div id="menubar-right-1">
-                    <ul>
-                        <li>
-                            <a href="login.me">
-                                SignIn
-                            </a>
-                        </li>
-                        <li>
-                            <a href="enrollform.me">
-                                SignUp
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            <c:choose>
+            	<c:when test="${ empty sessionScope.loginMember }">
+		            <!-- 로그인 전에 보여줄것 -->
+	                <div id="menubar-right-1">
+	                    <ul>
+	                        <li>
+	                            <a href="login.me">
+	                                SignIn
+	                            </a>
+	                        </li>
+	                        <li>
+	                            <a href="enrollform.me">
+	                                SignUp
+	                            </a>
+	                        </li>
+	                    </ul>
+	                </div>
+            	</c:when>
+            	<c:otherwise>
+		            <!-- 로그인 후에 보여줄것-->
+		            <div id="menubar-right-2">
+		                <ul>
+		                    <li>
+		                        <a href="application.me">
+		                            MyPage
+		                        </a>
+		                    </li>
+		                    <li>
+		                        <a href="logout.me">
+		                            Logout
+		                        </a>
+		                    </li>
+		                </ul>
+		            </div>
+            	</c:otherwise>
+            </c:choose>
                 
-            <!-- 로그인 후에 보여줄것-->
-            <div id="menubar-right-2">
-                <ul>
-                    <li>
-                        <a href="application.me">
-                            MyPage
-                        </a>
-                    </li>
-                    <li>
-                        <a href="logout.me">
-                            Logout
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
     </div>

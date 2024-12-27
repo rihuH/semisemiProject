@@ -47,7 +47,7 @@ public class MemberController {
 	@GetMapping("enrollform.me")
 	public String insertMember() {
 		
-		return "member/enroll_form";
+		return "/member/enroll_form";
 	}
 	
 	@PostMapping("sign-up.me")
@@ -55,6 +55,7 @@ public class MemberController {
 		
 		memberService.signUp(member);
 		
+		session.setAttribute("alertMsg", "회원가입 성공");
 		
 		return mv.setViewNameAndData("main", null);
 	}
