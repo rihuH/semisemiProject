@@ -25,5 +25,16 @@
 	
 	
 	
+	<interceptors>
+	
+		<interceptor>
+			<mapping path="/mypage.me/**"/> <!-- 뒤에 작성된 /**는 mypage.me 에 이어지는 모든 경로를 포함하겠다는 뜻 -->
+			<mapping path="/application.me/**"/>
+			<beans:bean class="com.kh.quali.common.interceptor.LoginInterceptor" id="loginInceptor"></beans:bean>
+		</interceptor>
+
+		
+	</interceptors>
+	
 	
 </beans:beans>

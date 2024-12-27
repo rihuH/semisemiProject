@@ -30,6 +30,12 @@ public class MemberController {
 		return "/application/applicationRecord";
 	}
 	
+	@GetMapping("login.do")
+	public String loginPage() {
+		
+		return "/member/loginPage";
+	}
+	
 	@PostMapping("login.me")
 	public ModelAndView loginMember(Member member, HttpSession session) {
 		
@@ -42,6 +48,12 @@ public class MemberController {
 		
 		// 세션에 추가했다면 모든 요청을 처리했으니 화면지정으로 마무리한다.
 		return mv.setViewNameAndData("main", null);
+	}
+	
+	@GetMapping("logout.me")
+	public String logout(HttpSession session) {
+		session.removeAttribute("loginMember");
+		return "main";
 	}
 
 	@GetMapping("enrollform.me")
