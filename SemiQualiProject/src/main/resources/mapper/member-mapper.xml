@@ -10,15 +10,15 @@
 				MEMBER_ID memberId,
 				MEMBER_PWD memberPwd,
 				MEMBER_NAME memberName,
-				MEMBER_BIRTH memberBirth,
 				MEMBER_RRN memberRrn,
 				PHONE,
+				EMAIL,
 				CREATE_DATE createDate,
-				STATUS,
+				STATUS
 		  FROM
 		  		MEMBER
 		 WHERE
-				USER_ID = #{memberId}
+				MEMBER_ID = #{memberId}
 		   AND
 		   		STATUS = 'N'
 		   		
@@ -35,9 +35,9 @@
 				#{memberId},
 				#{memberPwd},
 				#{memberName},
-				#{memberBirth},
 				#{memberRrn},
 				#{phone},
+				#{email},
 				default,
 				default
 				)
