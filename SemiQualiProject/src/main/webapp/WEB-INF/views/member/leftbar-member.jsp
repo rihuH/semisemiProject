@@ -128,7 +128,7 @@
                     <div class="descript-main4">개인정보관리</div>
                 </div>
                 <div class="descript-menu">
-                    <li><a href="edit-profile" class="descript-menu-a" data-main="descript-main4">개인정보수정</a></li>
+                    <li><a href="mypage" class="descript-menu-a" data-main="descript-main4">개인정보수정</a></li>
                     <li><a href="edit-education" class="descript-menu-a" data-main="descript-main4">학력/경력수정</a></li>
                     <li><a href="account-deletee" class="descript-menu-a" data-main="descript-main4">회원탈퇴</a></li>
                     <li><a href="favorite-certificates" class="descript-menu-a" data-main="descript-main4">관심자격증등록</a></li>

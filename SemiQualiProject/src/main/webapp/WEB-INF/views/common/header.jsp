@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/themes/default.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
 
     <style>
         
@@ -232,9 +235,10 @@
 </head>
 <body>
 
-	<c:if test="${ not empty alertMsg }">
+	<c:if test="${ not empty sessionScope.alertMsg }">
 		<script>
-			alertify.alert('축하드립니다', '${alertMsg}', function(){alertify.success('요청성공')});
+			alertify.alert('메세지', '${alertMsg}', 
+				function(){alertify.success('요청성공')});
 		</script>
 		<c:remove var="alertMsg" scope="session"/>
 	</c:if>
@@ -270,9 +274,18 @@
                     </a>
                 </li>                
                 <li>
-                    <a href="mypage.me">
-                        마이페이지
-                    </a>
+                	<c:choose>
+                		<c:when test="${ not empty sessionScope.loginMember }">
+		                    <a href="mypage.me">
+		                        마이페이지
+		                    </a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="login.do">
+		                        마이페이지
+		                    </a>
+                		</c:otherwise>
+                	</c:choose>
                 </li>                
                 <li>
                     <a href="support.help">

@@ -72,7 +72,7 @@ public class MemberController {
 		return mv.setViewNameAndData("main", null);
 	}
 
-	@PostMapping("edit-profile")
+	@GetMapping("edit-profile")
 	public ModelAndView updateMember(Member member, HttpSession session) {
 		
 		memberService.updateMember(member, session);
@@ -80,6 +80,11 @@ public class MemberController {
 		
 		
 		return mv.setViewNameAndData("redirect:edit-profile", null);
+	}
+	
+	@GetMapping("mypage")
+	public String myPage() {
+		return "/member/mypage";
 	}
 
 	
