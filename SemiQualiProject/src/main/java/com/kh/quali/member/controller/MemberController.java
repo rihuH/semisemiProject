@@ -30,6 +30,12 @@ public class MemberController {
 		return "/application/applicationRecord";
 	}
 	
+	@GetMapping("login.do")
+	public String loginPage() {
+		
+		return "/member/loginPage";
+	}
+	
 	@PostMapping("login.me")
 	public ModelAndView loginMember(Member member, HttpSession session) {
 		
@@ -43,11 +49,17 @@ public class MemberController {
 		// 세션에 추가했다면 모든 요청을 처리했으니 화면지정으로 마무리한다.
 		return mv.setViewNameAndData("main", null);
 	}
+	
+	@GetMapping("logout.me")
+	public String logout(HttpSession session) {
+		session.removeAttribute("loginMember");
+		return "main";
+	}
 
 	@GetMapping("enrollform.me")
 	public String insertMember() {
 		
-		return "member/enroll_form";
+		return "/member/enroll_form";
 	}
 	
 	@PostMapping("sign-up.me")
@@ -55,11 +67,12 @@ public class MemberController {
 		
 		memberService.signUp(member);
 		
+		session.setAttribute("alertMsg", "회원가입 성공");
 		
 		return mv.setViewNameAndData("main", null);
 	}
 
-	@PostMapping("edit-profile")
+	@GetMapping("edit-profile")
 	public ModelAndView updateMember(Member member, HttpSession session) {
 		
 		memberService.updateMember(member, session);
@@ -67,6 +80,11 @@ public class MemberController {
 		
 		
 		return mv.setViewNameAndData("redirect:edit-profile", null);
+	}
+	
+	@GetMapping("mypage")
+	public String myPage() {
+		return "/member/mypage";
 	}
 
 	

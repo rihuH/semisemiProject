@@ -9,9 +9,9 @@ public class Member {
 	private String memberId;
 	private String memberPwd;
 	private String memberName;
-	private String memberBirth;
 	private String memberRrn;
 	private String phone;
+	private String email;
 	private String createDate;
 	private String status;
 		

@@ -1,15 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Document</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  </head>
     
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/themes/default.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/alertifyjs/build/alertify.min.js"></script>
 
     <style>
         
@@ -228,6 +235,14 @@
 </head>
 <body>
 
+	<c:if test="${ not empty sessionScope.alertMsg }">
+		<script>
+			alertify.alert('메세지', '${alertMsg}', 
+				function(){alertify.success('요청성공')});
+		</script>
+		<c:remove var="alertMsg" scope="session"/>
+	</c:if>
+
 
     <div id="menubar">
         <div id="menubar-left"></div>
@@ -259,9 +274,18 @@
                     </a>
                 </li>                
                 <li>
-                    <a href="mypage.me">
-                        마이페이지
-                    </a>
+                	<c:choose>
+                		<c:when test="${ not empty sessionScope.loginMember }">
+		                    <a href="mypage.me">
+		                        마이페이지
+		                    </a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="login.do">
+		                        마이페이지
+		                    </a>
+                		</c:otherwise>
+                	</c:choose>
                 </li>                
                 <li>
                     <a href="support.help">
@@ -271,37 +295,43 @@
             </ul>
         </div>
         <div id="menubar-right">
-            <!-- 로그인 전에 보여줄것 -->
-                <div id="menubar-right-1">
-                    <ul>
-                        <li>
-                            <a href="login.me">
-                                SignIn
-                            </a>
-                        </li>
-                        <li>
-                            <a href="enrollform.me">
-                                SignUp
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            <c:choose>
+            	<c:when test="${ empty sessionScope.loginMember }">
+		            <!-- 로그인 전에 보여줄것 -->
+	                <div id="menubar-right-1">
+	                    <ul>
+	                        <li>
+	                            <a href="login.do">
+	                                SignIn
+	                            </a>
+	                        </li>
+	                        <li>
+	                            <a href="enrollform.me">
+	                                SignUp
+	                            </a>
+	                        </li>
+	                    </ul>
+	                </div>
+            	</c:when>
+            	<c:otherwise>
+		            <!-- 로그인 후에 보여줄것-->
+		            <div id="menubar-right-2">
+		                <ul>
+		                    <li>
+		                        <a href="application.me">
+		                            MyPage
+		                        </a>
+		                    </li>
+		                    <li>
+		                        <a href="logout.me">
+		                            Logout
+		                        </a>
+		                    </li>
+		                </ul>
+		            </div>
+            	</c:otherwise>
+            </c:choose>
                 
-            <!-- 로그인 후에 보여줄것-->
-            <div id="menubar-right-2">
-                <ul>
-                    <li>
-                        <a href="application.me">
-                            MyPage
-                        </a>
-                    </li>
-                    <li>
-                        <a href="logout.me">
-                            Logout
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
     </div>

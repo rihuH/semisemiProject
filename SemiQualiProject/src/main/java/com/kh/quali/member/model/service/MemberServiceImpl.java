@@ -37,6 +37,7 @@ public class MemberServiceImpl implements MemberService {
 		if(!passwordEncoder.matches(member.getMemberPwd(), loginMember.getMemberPwd())) {
 			//일치하지 않는다면 예외 발생, ExceptionHandling 클래스로 넘긴다.
 			throw new ComparePasswordException("비밀번호가 틀렸습니다.");
+			
 		} else {
 			// 비밀번호가 맞는다면 Member의 정보를 들고 Controller로 돌아간다.
 			return loginMember;
@@ -46,11 +47,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void signUp(Member member) {
 		
-		// validator 클래스를 이용해서 아이디중복, 아이디길이, 비밀번호길이 등 검증을 거치고 돌아옴
+		// validator 클래스를 이용해서 아이디중복, 아이디길이 등 검증을 거치고 돌아옴
 		validator.validateJoinMember(member);
 		
 		// 예외사항이 발생하지않고 돌아왔다면 비밀번호를 암호화 해준다.
 		member.setMemberPwd(passwordEncoder.encode(member.getMemberPwd()));
+		
+		
 		
 		mapper.signUp(member);
 		

@@ -31,5 +31,17 @@
 		</interceptor>
 	</interceptors>               
 	
+	<interceptors>
+	
+		<interceptor>
+			<!-- 로그인 후에 확인 가능한 페이지 interceptor로 넘어가도록 지정 -->
+			<mapping path="/mypage.me/**"/> 
+			<mapping path="/application.me/**"/>
+			<beans:bean class="com.kh.quali.common.interceptor.LoginInterceptor" id="loginInterceptor"></beans:bean>
+		</interceptor>
+
+		
+	</interceptors>
+	
 	
 </beans:beans>
