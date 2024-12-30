@@ -191,24 +191,6 @@
             $(this).data('clicked', true).css('color', 'skyblue');
         });
 
-        // 오른쪽div - 현재위치 관련 스크립트
-
-        $('.descript-menu-a').click(function() {
-            const mainMenu = $('#menuname').text();
-            const mainSelector = $(this).data('main');
-            const mainValue = $(`.${mainSelector}`).text();
-
-            const subValue = $(this).text();
-
-            $('#address2').text(mainMenu);
-            $('#address3').text(mainValue);
-            $('#address4').text(subValue);
-
-            $('#address2').attr('href', `#${mainMenu}`);
-            $('#address3').attr('href', `#${mainSelector}`);
-            $('#address4').attr('href', `#${subValue}`);
-        });
-
 
 
     </script>

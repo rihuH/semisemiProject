@@ -53,5 +53,32 @@
 		   AND
 		   		STATUS = 'N'
 	</select>
+	
+	<update id="updateMember" parameterType="member">
+		UPDATE
+				MEMBER
+		   SET
+		   		MEMBER_PWD = #{memberPwd},
+		   		MEMBER_NAME = #{memberName},
+		   		MEMBER_RRN = #{memberRrn},
+		   		EMAIL = #{email},
+		   		PHONE = #{phone}
+		  WHERE
+		  		MEMBER_ID = #{memberId}
+		   		
+	</update>
+	
+	<!-- 학력상태 불러오기, 있는지 확인하기 -->
+	<select id="selectMemberEducation" parameterType="" resultType="_int">
+		SELECT
+				EDUCATION,
+				SCHOOL_NAME schoolName,
+				GRADUATION_DATE graduationDate,
+				MAJOR
+		  FROM
+		  		EDUCATION_STATUS
+		 WHERE
+		 		MEM_NO = #{memberNo}
+	</select>
 
 </mapper>

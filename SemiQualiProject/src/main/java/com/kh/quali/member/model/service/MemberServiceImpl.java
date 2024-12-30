@@ -78,9 +78,33 @@ public class MemberServiceImpl implements MemberService {
 		log.info("{}", session.getAttribute("loginMember"));
 		log.info("{}", member);
 		
+		if(member.getMemberPwd().length() < 15) {
+			member.setMemberPwd(passwordEncoder.encode(member.getMemberPwd()));
+		}
+		
 		mapper.updateMember(member);
 		
+		
 		session.setAttribute("loginMember", mapper.login(member));
+		
+	}
+
+	@Override
+	public void selectMemberEducation() {
+		
+		
+		
+	}
+	
+	@Override
+	public void insertMemberEducation() {
+		
+	}
+
+	@Override
+	public void updateMemberEducation() {
+		
+		
 		
 	}
 
@@ -88,10 +112,7 @@ public class MemberServiceImpl implements MemberService {
 	public void deleteMember() {
 		
 	}
-
-	@Override
-	public void updateMemberEducation() {
-		
-	}
-
+	
+	
+	
 }

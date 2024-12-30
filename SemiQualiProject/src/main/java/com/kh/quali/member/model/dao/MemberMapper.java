@@ -15,6 +15,12 @@ public interface MemberMapper {
 
 	void updateMember(Member member);
 	
+	void selectMemberEducation(int memberId);
+	
+	void insertMemberEducation();
+	
+	void updateMemberEducation();
+	
 	void deleteMember(Member member);
 
 }

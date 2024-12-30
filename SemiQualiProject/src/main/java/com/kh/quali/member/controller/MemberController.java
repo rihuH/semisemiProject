@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.quali.common.ModelAndViewUtil;
 import com.kh.quali.member.model.service.MemberService;
+import com.kh.quali.member.model.vo.EducationStatus;
 import com.kh.quali.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class MemberController {
 	private final ModelAndViewUtil mv;
 	
 	@GetMapping("mypage.me")
-	public String applicatioRecord() {
+	public String applicatioRecord1() {
 		
 		// header의 마이페이지를 눌렀을 경우
 		return "/application/applicationRecord";
@@ -72,19 +73,41 @@ public class MemberController {
 		return mv.setViewNameAndData("main", null);
 	}
 
+<<<<<<< Updated upstream
+=======
+	@GetMapping("mypage")
+	public String myPage() {
+		return "/member/mypage";
+	}
+	
+>>>>>>> Stashed changes
 	@PostMapping("edit-profile")
 	public ModelAndView updateMember(Member member, HttpSession session) {
 		
 		memberService.updateMember(member, session);
 		
+<<<<<<< Updated upstream
 		
 		
 		return mv.setViewNameAndData("redirect:edit-profile", null);
+=======
+		session.setAttribute("alertMsg", "정보수정에 성공했습니다");
+		
+		session.removeAttribute("loginMember");
+		
+		return mv.setViewNameAndData("main", null);
+>>>>>>> Stashed changes
 	}
 
 	
-	public void updateMemberEducation() {
+	@PostMapping("edit-education")
+	public ModelAndView updateMemberEducation(EducationStatus education, HttpSession session) {
 		
+		memberService.updateMemberEducation(education);
+		
+		return mv.setViewNameAndData("main", null);
 	}
+	
+
 	
 }
