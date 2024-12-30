@@ -1,15 +1,13 @@
-package com.kh.quali.qualification.model.dao;
+package com.kh.quali.qualification.model.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.kh.quali.qualification.model.vo.Confirmation;
 
-@Mapper
-public interface QualificationMapper {
+public interface QualificationService {
 
 	List<Confirmation> findAllConfirmation();
 	
 	List<String> findAllQuailficationName();
+	
 }

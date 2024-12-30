@@ -6,7 +6,11 @@
 
 	<select id="findAllConfirmation" resultType="confirmation">
 		SELECT CONFIRMATION_NO, CONFIRMATION_NAME 
-		FROM 
+		FROM TB_QUALI_CONFIRMATION
+	</select>
+	
+	<select id="findAllQuailficationName" resultType="String">
+	
 	</select>
 
 
