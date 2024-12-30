@@ -2,7 +2,7 @@ package com.kh.quali.qualification.model.service;
 
 import java.util.List;
 
-import com.kh.quali.qualification.model.vo.Confirmation;
+import com.kh.quali.confirmation.model.vo.Confirmation;
 
 public interface QualificationService {
 	

@@ -1,4 +1,4 @@
-package com.kh.quali.qualification.model.vo;
+package com.kh.quali.confirmation.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

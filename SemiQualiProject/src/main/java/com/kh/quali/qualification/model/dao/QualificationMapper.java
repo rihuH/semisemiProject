@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.kh.quali.qualification.model.vo.Confirmation;
+import com.kh.quali.confirmation.model.vo.Confirmation;
 
 @Mapper
 public interface QualificationMapper {

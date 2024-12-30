@@ -6,8 +6,8 @@ import javax.servlet.ServletContext;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.quali.confirmation.model.vo.Confirmation;
 import com.kh.quali.qualification.model.dao.QualificationMapper;
-import com.kh.quali.qualification.model.vo.Confirmation;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

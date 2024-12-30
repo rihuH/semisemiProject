@@ -13,7 +13,7 @@
 
 확인서발급신청
 
-<form>
+<form action="confirmation-application" method="post">
 	<div>
 		자격구분<select name="quali_type" id="quali_type" onchange="sortChange();">
 			<option value="none">선택</option>
@@ -22,37 +22,84 @@
 		</select>
 	</div>
 	<div>
-		시험구분<select id="sort-select" name="sort-select">
-			<option id="sort-select-select-option">선택</option>
-			<option id="sort-select-option">시험검색이 되지 않았습니다</option>
+		시험구분<select id="sort-select" name="sort-select" onchange="typeChange();">
+			<option value="none">선택</option>
+			<option class="sort-select-option" value="none">시험검색이 되지 않았습니다</option>
 		</select>
 	</div>
 	<div>
-		확인서종류<select id="confirm-type" name="confirm-type">
+		확인서종류<select id="confirm-type" name="confirmationNo">
 			<option>선택</option>
 			<option id="confirm-type-option">발급가능 확인서가 없습니다</option>
 		</select>
 	</div>
-
+	<button type="submit">확인서신청</button>
 </form>
 
-<!-- hide와 show -->
+
 <script>
-	function sortChange(){
-	const qualiType = document.getElementById('quali_type').value;
-	
-	$.ajax({
-		url : '/qualification/confirmQualiType',
-		type : 'get',
-		data : {
-			typeValue : qualiType
-		},
-		success : {
-			console.log('wk');
-		}
-	})
-	
-	}
+    function sortChange() {
+        const qualiType = document.getElementById('quali_type').value;
+
+        if (qualiType !== 'none') {
+            // Ajax 요청
+            $.ajax({
+                url: 'confirmQualiType',
+                type: 'get',
+                data: {
+                    selected: qualiType
+                },
+                success: function (list) {
+                        console.log(list); 
+                        $('.sort-select-option').hide();
+
+                        $('.add-option').remove();
+                        
+                        const selectDiv = document.getElementById('sort-select');
+                        var i = 0;
+                        console.log(list[i]);
+                        while(list[i]){
+	                        selectDiv.innerHTML += `<option class="add-option" value="\${ list[i] }" >\${ list[i] }</option>`;
+	                        i = i+1;
+                        }
+                }
+            });
+        } else{
+        	$('.sort-select-option').show();
+        	$('.add-option').remove();
+        	$('.add-option-2').remove();
+        	$('#confirm-type-option').show();
+        }
+    }
+    
+    function typeChange(){
+    	const sortType = document.getElementById('sort-select').value;
+    	
+    	if(sortType !== 'none'){
+    		$.ajax({
+    			url : 'confirmType',
+    			type : 'get',
+    			data : {
+    			},
+    			success : function(list){
+    				console.log(list);
+    				$('#confirm-type-option').hide();
+    				$('.add-option-2').remove();
+    				
+    				const confirmDiv = document.getElementById('confirm-type');
+    				var i = 0;
+    				while(list[i]){
+    					confirmDiv.innerHTML += `<option class="add-option-2" value="\${ list[i].confirmationNo }">\${ list[i].confirmationName }</option>`;
+    					i = i + 1;
+    				}
+    			}
+    		
+    		});
+    	} else{
+    		$('.add-option-2').remove();
+    		$('#confirm-type-option').show();
+    	}
+    }
 </script>
 
 </body>
