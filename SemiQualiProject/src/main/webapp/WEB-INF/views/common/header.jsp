@@ -309,8 +309,8 @@
         <div id="hide-div1">
             <h3>국가자격시험</h3>
             <ul>
-                <li><a href="application-history.do">원서접수내역</a></li> 
-                <li><a href="application-apply.do">원서접수신청</a></li>
+                <li><a href="application-guide">원서접수안내</a></li> 
+                <li><a href="application-apply">원서접수신청</a></li>
                 <li><a href="exam-results.do">시험결과보기</a></li> 
                 <li><a href="refund-request.do">사후환불신청</a></li>
             </ul>
@@ -325,8 +325,8 @@
         <div id="hide-div3">
             <h3>자격증, 확인서</h3>
             <ul>
-                <li><a href="certificate-verify.do">자격증 확인/발급</a></li>
-                <li><a href="certificate-status.do">자격증발급현황</a></li> 
+                <li><a href="confirmation/application">확인서 발급신청</a></li>
+                <li><a href="confirmation/authenticity">확인서 진위확인</a></li> 
             </ul>
         </div>
         <div id="hide-div4">

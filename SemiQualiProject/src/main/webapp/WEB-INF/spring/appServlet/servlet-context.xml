@@ -23,7 +23,13 @@
 	
 	<context:component-scan base-package="com.kh.quali" />
 	
-	
+		<!-- 확인서 발급 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/confirmation/**"/>
+			<beans:bean class="com.kh.quali.common.interseptor.ConfirmationInterceptor" id="confirmationInterceptor"/>
+		</interceptor>
+	</interceptors>               
 	
 	
 </beans:beans>

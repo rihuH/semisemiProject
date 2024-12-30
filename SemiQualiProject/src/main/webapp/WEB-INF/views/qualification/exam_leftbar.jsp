@@ -96,40 +96,34 @@
     <div id="all">
         <div id="content">
             <div id="content-left">
-                <div id="leftbar-menuname">메뉴 이름</div>
+                <div id="leftbar-menuname">국가자격시험</div>
 
                 <div class="descript" style="color: white; background-color: rgb(137, 137, 137);">
-                    <div class="descript-main1" >상세 메뉴 이름1</div>
+                    <div class="descript-main1" >원서접수</div>
                 </div>
                 <div class="descript-menu" style="display: block;">
-                    <li><a href="#" class="descript-menu-a" data-main="descript-main1" style="color: skyblue;">상세메뉴1</a></li>
-                    <li><a href="#" class="descript-menu-a" data-main="descript-main1">상세메뉴2</a></li>
-                    <li><a href="#" class="descript-menu-a" data-main="descript-main1">상세메뉴3</a></li>
-                    <li><a href="#" class="descript-menu-a" data-main="descript-main1">상세메뉴4</a></li>
+                    <li><a href="#" class="descript-menu-a" data-main="descript-main1" style="color: skyblue;">원서접수 안내</a></li>
+                    <li><a href="#" class="descript-menu-a" data-main="descript-main1">원서접수 신청</a></li>
+                    <li><a href="#" class="descript-menu-a" data-main="descript-main1">원서접수 현황</a></li>
+                    <li><a href="#" class="descript-menu-a" data-main="descript-main1">장애유형별 편의제공안내</a></li>
                 </div>
 
                 <div class="descript">
-                    <div class="descript-main2">상세 메뉴 이름2</div>
+                    <div class="descript-main2">합격자/답안발표</div>
                 </div>
                 <div class="descript-menu">
-                    <li><a href="#" class="descript-menu-a" data-main="descript-main2">상세메뉴1</a></li>
-                    <li><a href="#" class="descript-menu-a" data-main="descript-main2">상세메뉴2</a></li>
-                    <li><a href="#" class="descript-menu-a" data-main="descript-main2">상세메뉴3</a></li>
-                    <li><a href="#" class="descript-menu-a" data-main="descript-main2">상세메뉴4</a></li>
+                    <li><a href="#" class="descript-menu-a" data-main="descript-main2">합격자발표 조회</a></li>
+                    <li><a href="#" class="descript-menu-a" data-main="descript-main2">응시서류 불합격자발표</a></li>
+                    <li><a href="#" class="descript-menu-a" data-main="descript-main2">가답안/확정답안</a></li>
+                    <li><a href="#" class="descript-menu-a" data-main="descript-main2">가답안의견제시</a></li>
                 </div>
 
                 <div class="descript">
-                    <div class="descript-main3">상세 메뉴 이름3</div>
-                </div>
-                <div class="descript-menu">
-                    <li><a href="#" class="descript-menu-a" data-main="descript-main3">상세메뉴1</a></li>
-                    <li><a href="#" class="descript-menu-a" data-main="descript-main3">상세메뉴2</a></li>
-                    <li><a href="#" class="descript-menu-a" data-main="descript-main3">상세메뉴3</a></li>
-                    <li><a href="#" class="descript-menu-a" data-main="descript-main3">상세메뉴4</a></li>
+                    <div class="descript-main3">월간시험일정</div>
                 </div>
 
                 <div class="descript">
-                    <div class="descript-main4">상세 메뉴 이름4</div>
+                    <div class="descript-main4">시험안내</div>
                 </div>
                 <div class="descript-menu">
                     <li><a href="#" class="descript-menu-a" data-main="descript-main4">상세메뉴1</a></li>
