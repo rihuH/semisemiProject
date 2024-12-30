@@ -28,9 +28,9 @@ public class QualificationController {
 	}
 	
 	@GetMapping("confirmation/application")
-	public String applicateConfirmation() {
+	public ModelAndView applicateConfirmation() {
 		List<Confirmation> confirmationList = qs.findAllConfirmation();
-		List<String> qualificationNameList = qs.findAllQuailficationName();
+		List<String> qualificationNameList = qs.findAllProQuailficationName();
 		return "confirmation/applicate_confirm";
 	}
 }

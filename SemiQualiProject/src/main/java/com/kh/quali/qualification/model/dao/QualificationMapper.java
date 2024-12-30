@@ -11,5 +11,5 @@ public interface QualificationMapper {
 
 	List<Confirmation> findAllConfirmation();
 	
-	List<String> findAllQuailficationName();
+	List<String> findAllProQuailficationName();
 }

@@ -9,8 +9,11 @@
 		FROM TB_QUALI_CONFIRMATION
 	</select>
 	
-	<select id="findAllQuailficationName" resultType="String">
-	
+	<select id="findAllProQuailficationName" resultType="String">
+		SELECT QUALIFICATION_NAME 
+		FROM (SELECT QUALIFICATION_NAME, QUALIFICATION_NO 
+		FROM TB_PROFESIONAL_QUALIFICATION
+		ORDER BY QUALIFICATION_NO)
 	</select>
 
 

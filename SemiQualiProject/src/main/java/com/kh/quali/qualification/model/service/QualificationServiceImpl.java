@@ -22,8 +22,8 @@ public class QualificationServiceImpl implements QualificationService {
 	}
 
 	@Override
-	public List<String> findAllQuailficationName() {
-		List<String> list = mapper.findAllQuailficationName();
+	public List<String> findAllProQuailficationName() {
+		List<String> list = mapper.findAllProQuailficationName();
 		return list;
 	}
 

@@ -8,6 +8,6 @@ public interface QualificationService {
 
 	List<Confirmation> findAllConfirmation();
 	
-	List<String> findAllQuailficationName();
+	List<String> findAllProQuailficationName();
 	
 }
