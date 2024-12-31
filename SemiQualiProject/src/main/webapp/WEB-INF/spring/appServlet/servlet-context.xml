@@ -33,7 +33,14 @@
 			<mapping path="/application.me/**"/>
 			<beans:bean class="com.kh.quali.common.interceptor.LoginInterceptor" id="loginInterceptor"></beans:bean>
 		</interceptor>
-
+		
+		<!--  
+		<interceptor>
+		확인서신청 페이지 인터셉터 매핑값변경필요**************************************************************************
+			<mapping path="con"/>
+			<beans:bean class="com.kh.quali.common.interceptor.ConfirmationInterceptor" id="confirmationInterceptor"/>
+		</interceptor>
+	-->
 		
 	</interceptors>
 	

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.quali.qualification.model.dao.QualificationMapper">
+
+	<select id="findAllConfirmation" resultType="confirmation">
+		SELECT CONFIRMATION_NO confirmationNo, CONFIRMATION_NAME confirmationName 
+		FROM TB_QUALI_CONFIRMATION
+	</select>
+	
+	<select id="findAllProQualificationName" resultType="String">
+	SELECT QUALIFICATION_NAME 
+	FROM TB_PROFESIONAL_QUALIFICATION 
+	ORDER BY QUALIFICATION_NAME
+	</select>
+
+
+</mapper>
+
