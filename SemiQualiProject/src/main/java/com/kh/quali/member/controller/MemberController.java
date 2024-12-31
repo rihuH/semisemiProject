@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.quali.common.ModelAndViewUtil;
 import com.kh.quali.member.model.service.MemberService;
+import com.kh.quali.member.model.vo.EducationStatus;
 import com.kh.quali.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,9 @@ public class MemberController {
 	private final ModelAndViewUtil mv;
 	
 	@GetMapping("mypage.me")
-	public String applicatioRecord() {
+	public String applicatioRecord1() {
 		
-		// headerÀÇ ¸¶ÀÌÆäÀÌÁö¸¦ ´­·¶À» °æ¿ì
+		// headerì˜ ë§ˆì´í˜ì´ì§€ë¥¼ ëˆŒë €ì„ ê²½ìš°
 		return "/application/applicationRecord";
 	}
 	
@@ -39,14 +40,14 @@ public class MemberController {
 	@PostMapping("login.me")
 	public ModelAndView loginMember(Member member, HttpSession session) {
 		
-		//¼­ºñ½º·Î ¿äÃ»º¸³¿
+		//ì„œë¹„ìŠ¤ë¡œ ìš”ì²­ë³´ëƒ„
 		Member loginMember = memberService.loginMember(member);
 		
-		// ¼­ºñ½º·Î º¸³½ ¿äÃ»ÀÌ validator, passwordEncryptor, mapper, DBµîÀ» °ÅÃÄ¼­ ÀÏÄ¡ÇÒ°æ¿ì µ¹¾Æ¿È
-		// µ¹¾Æ¿Â °æ¿ì ¼¼¼Ç¿¡ Ãß°¡ÇÑ´Ù.
+		// ì„œë¹„ìŠ¤ë¡œ ë³´ë‚¸ ìš”ì²­ì´ validator, passwordEncryptor, mapper, DBë“±ì„ ê±°ì³ì„œ ì¼ì¹˜í• ê²½ìš° ëŒì•„ì˜´
+		// ëŒì•„ì˜¨ ê²½ìš° ì„¸ì…˜ì— ì¶”ê°€í•œë‹¤.
 		session.setAttribute("loginMember", memberService.loginMember(member));
 		
-		// ¼¼¼Ç¿¡ Ãß°¡Çß´Ù¸é ¸ğµç ¿äÃ»À» Ã³¸®ÇßÀ¸´Ï È­¸éÁöÁ¤À¸·Î ¸¶¹«¸®ÇÑ´Ù.
+		// ì„¸ì…˜ì— ì¶”ê°€í–ˆë‹¤ë©´ ëª¨ë“  ìš”ì²­ì„ ì²˜ë¦¬í–ˆìœ¼ë‹ˆ í™”ë©´ì§€ì •ìœ¼ë¡œ ë§ˆë¬´ë¦¬í•œë‹¤.
 		return mv.setViewNameAndData("main", null);
 	}
 	
@@ -67,19 +68,29 @@ public class MemberController {
 		
 		memberService.signUp(member);
 		
-		session.setAttribute("alertMsg", "È¸¿ø°¡ÀÔ ¼º°ø");
+		session.setAttribute("alertMsg", "íšŒì›ê°€ì… ì„±ê³µ");
 		
 		return mv.setViewNameAndData("main", null);
 	}
 
-	@GetMapping("edit-profile")
+	
+	@GetMapping("mypage")
+	public String myPage() {
+		return "/member/mypage";
+		
+	}
+	
+	@PostMapping("edit-profile")
 	public ModelAndView updateMember(Member member, HttpSession session) {
 		
 		memberService.updateMember(member, session);
 		
 		
+		session.setAttribute("alertMsg", "ì •ë³´ìˆ˜ì •ì— ì„±ê³µí–ˆìŠµë‹ˆë‹¤");
 		
-		return mv.setViewNameAndData("redirect:edit-profile", null);
+		session.removeAttribute("loginMember");
+		
+		return mv.setViewNameAndData("main", null);
 	}
 	
 	@GetMapping("mypage")
@@ -88,8 +99,18 @@ public class MemberController {
 	}
 
 	
-	public void updateMemberEducation() {
+	@PostMapping("edit-education")
+	public ModelAndView updateMemberEducation(EducationStatus education, HttpSession session) {
 		
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		memberService.updateMemberEducation(memberNo, education);
+		
+		return mv.setViewNameAndData("main", null);
 	}
+	
+
 	
 }
