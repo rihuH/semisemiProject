@@ -2,6 +2,7 @@ package com.kh.quali.member.model.service;
 
 import javax.servlet.http.HttpSession;
 
+import com.kh.quali.member.model.vo.EducationStatus;
 import com.kh.quali.member.model.vo.Member;
 
 public interface MemberService {
@@ -22,12 +23,9 @@ public interface MemberService {
 	void updateMember(Member member, HttpSession session);
 	
 	// 학력정보수정 (업데이트)
-	// 먼저 있는지 없는지 확인해보고
-	void selectMemberEducation();
-	// 있으면 insert
-	void insertMemberEducation();
-	// 없으면 update
-	void updateMemberEducation();
+	int selectMemberEducation(int memberNo);
+	void insertMemberEducation(int memberNo, EducationStatus education);
+	void updateMemberEducation(int memberNo, EducationStatus education);
 
 	// 회원삭제
 	void deleteMember();

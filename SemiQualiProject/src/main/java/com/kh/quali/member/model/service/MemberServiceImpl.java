@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.kh.quali.exception.ComparePasswordException;
 import com.kh.quali.member.model.dao.MemberMapper;
+import com.kh.quali.member.model.vo.EducationStatus;
 import com.kh.quali.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -90,21 +91,29 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void selectMemberEducation() {
-		
-		
-		
+	public int selectMemberEducation(int memberNo) {
+		int result = mapper.selectMemberEducation(memberNo);
+		return result;
 	}
 	
 	@Override
-	public void insertMemberEducation() {
-		
+	public void insertMemberEducation(int memberNo, EducationStatus education) {
+		mapper.insertMemberEducation(memberNo, education);
 	}
 
 	@Override
-	public void updateMemberEducation() {
+	public void updateMemberEducation(int memberNo, EducationStatus education) {
 		
+		// select를 먼저 하고 있는지 없는지 돌아오는 값을 보고 확인
+		int select = selectMemberEducation(memberNo);
 		
+		if(select > 0) {
+			// 만약 돌아온 값이 0보다 크다면 있다는거니까 update로 정보수정
+			mapper.updateMemberEducation(memberNo, education);
+		} else {
+			// 돌아온 값이 0이라면 없다는거니까 insert로 정보 추가
+			insertMemberEducation(memberNo, education);
+		}
 		
 	}
 

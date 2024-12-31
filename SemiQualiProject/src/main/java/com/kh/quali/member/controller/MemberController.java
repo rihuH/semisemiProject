@@ -73,58 +73,35 @@ public class MemberController {
 		return mv.setViewNameAndData("main", null);
 	}
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
-	@GetMapping("edit-profile")
-=======
-	@PostMapping("edit-profile")
->>>>>>> Stashed changes
-	public ModelAndView updateMember(Member member, HttpSession session) {
-		
-		memberService.updateMember(member, session);
-		
-<<<<<<< Updated upstream
-		
-		
-		return mv.setViewNameAndData("redirect:edit-profile", null);
-	}
 	
->>>>>>> Stashed changes
 	@GetMapping("mypage")
 	public String myPage() {
 		return "/member/mypage";
-=======
 		
-		return mv.setViewNameAndData("redirect:edit-profile", null);
->>>>>>> Stashed changes
 	}
 	
->>>>>>> Stashed changes
 	@PostMapping("edit-profile")
 	public ModelAndView updateMember(Member member, HttpSession session) {
 		
 		memberService.updateMember(member, session);
 		
-<<<<<<< Updated upstream
 		
-		
-		return mv.setViewNameAndData("redirect:edit-profile", null);
-=======
 		session.setAttribute("alertMsg", "정보수정에 성공했습니다");
 		
 		session.removeAttribute("loginMember");
 		
 		return mv.setViewNameAndData("main", null);
->>>>>>> Stashed changes
 	}
 
 	
 	@PostMapping("edit-education")
 	public ModelAndView updateMemberEducation(EducationStatus education, HttpSession session) {
 		
-		memberService.updateMemberEducation(education);
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		memberService.updateMemberEducation(memberNo, education);
 		
 		return mv.setViewNameAndData("main", null);
 	}
