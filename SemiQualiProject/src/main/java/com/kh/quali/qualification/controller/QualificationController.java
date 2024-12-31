@@ -1,15 +1,11 @@
 package com.kh.quali.qualification.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.quali.common.ModelAndViewUtil;
 import com.kh.quali.confirmation.model.vo.Confirmation;
@@ -68,7 +64,9 @@ public class QualificationController {
 	
 	@GetMapping("qualification/typeSelect.quali")
 	public void typeSelect(String qualiType) {
-		log.info(qualiType);
+		// 국가전문/국가기술 선택여부에 따라 그 다음 카테고리를 보내주는 메소드
+		
+		
 	}
 
 	
