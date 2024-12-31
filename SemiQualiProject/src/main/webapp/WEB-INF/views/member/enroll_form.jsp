@@ -8,10 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
 
     <!--
         memberId
@@ -138,8 +142,8 @@
                     <div class="input-title" style="font-weight: bold; margin-top: 30px;">
                         아이디
                     </div><br>
-                    <input type="text" class="input-detail" name="memberId" required>  <br>
                     <div id="check-result" style="font-size:0.7em; display:none"></div>
+                    <input type="text" class="input-detail" name="memberId" required>  <br>
                     <div class="input-title" style="font-weight: bold;">
                         비밀번호
                     </div><br>
@@ -156,8 +160,8 @@
                     <div class="input-title" style="font-weight: bold;">
                         주민등록번호
                     </div><br>
-                    <input type="text" id="rrn-first" class="rrn-class" maxlength="6" placeholder="예시) 990415"> -
-                    <input type="password" id="rrn-second" class="rrn-class" maxlength="7" placeholder="예시) 1234567"> <br>
+                    <input type="text" id="rrn-first" class="rrn-class" maxlength="6" placeholder="예시) 000000"> -
+                    <input type="password" id="rrn-second" class="rrn-class" maxlength="7" placeholder="예시) 1111111"> <br>
                     <input type="hidden" id="rrn_full" name="memberRrn">
 
                     <div class="input-title">
@@ -181,8 +185,8 @@
 
 
                     <div class="btns">
-                        <button type="submit" id="join-btn" style="margin-right: 10px;">회원가입</button>
-                        <button type="reset">초기화</button>
+                        <button type="submit" id="join-btn" class="btn btn-primary" style="margin-right: 10px;">회원가입</button>
+                        <button type="reset" class="btn btn-danger">초기화</button>
                     </div>
                 </form>
             </div>
@@ -193,14 +197,14 @@
     <script>
         
         // 비밀번호 확인 script
-        $('#check-password-btn').click(function(){
+        $('#check-password').keyup(function() {
             const pwd = $('#password').val().trim();
             const checkpwd = $('#check-password').val().trim();
 
-            if(pwd === checkpwd){
-                $('#password-result').text("통과입니다.").css('color', 'green');
-            } else{
-                $('#password-result').text("다시한번 확인해주세요.").css('color', 'red');
+            if (pwd === checkpwd) {
+                $('#password-result').html("통과입니다.").css('color', 'green');
+            } else {
+                $('#password-result').html("다시한번 확인해주세요.").css('color', 'red');
             }
         });
 

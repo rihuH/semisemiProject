@@ -28,11 +28,19 @@
 	<interceptors>
 	
 		<interceptor>
-			<mapping path="/mypage.me/**"/> <!-- 뒤에 작성된 /**는 mypage.me 에 이어지는 모든 경로를 포함하겠다는 뜻 -->
+			<!-- 로그인 후에 확인 가능한 페이지 interceptor로 넘어가도록 지정 -->
+			<mapping path="/mypage.me/**"/> 
 			<mapping path="/application.me/**"/>
-			<beans:bean class="com.kh.quali.common.interceptor.LoginInterceptor" id="loginInceptor"></beans:bean>
+			<beans:bean class="com.kh.quali.common.interceptor.LoginInterceptor" id="loginInterceptor"></beans:bean>
 		</interceptor>
-
+		
+		<!--  
+		<interceptor>
+		확인서신청 페이지 인터셉터 매핑값변경필요**************************************************************************
+			<mapping path="con"/>
+			<beans:bean class="com.kh.quali.common.interceptor.ConfirmationInterceptor" id="confirmationInterceptor"/>
+		</interceptor>
+	-->
 		
 	</interceptors>
 	

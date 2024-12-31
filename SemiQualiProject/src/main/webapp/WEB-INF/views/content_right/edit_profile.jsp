@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
@@ -142,8 +143,8 @@
                     <input type="password" id="rrn-second" class="rrn-class" maxlength="7" value="${ rrnSecond }" readonly> <br>
                     <input type="hidden" id="rrn_full" name="memberRrn">
 
-					<input type="hidden" name="createDate" value="${ sessionScope.loginMember.createDate }"/>
-					<input type="hidden" name="status" value="${ sessionScope.loginMember.status }"/>
+		          			<input type="hidden" name="createDate" value="${ sessionScope.loginMember.createDate }"/>
+	  	        			<input type="hidden" name="status" value="${ sessionScope.loginMember.status }"/>
 
                     <div class="input-title">
                         이메일

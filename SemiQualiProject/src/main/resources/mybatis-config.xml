@@ -9,12 +9,13 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="com.kh.quali.qualification.model.vo.Qualification" alias="qualification" />
+		<typeAlias type="com.kh.quali.confirmation.model.vo.Confirmation" alias="confirmation" />
 		<typeAlias type="com.kh.quali.member.model.vo.Member" alias="member"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="/mapper/member-mapper.xml" />
+		<mapper resource="/mapper/qualification-mapper.xml" />
 	</mappers>
 
 
