@@ -14,6 +14,24 @@
 	FROM TB_PROFESIONAL_QUALIFICATION 
 	ORDER BY QUALIFICATION_NAME
 	</select>
+	
+	<select id="findQualiType" parameterType="String" resultType="com.kh.quali.qualification.model.vo.TypeQualification">
+	SELECT QUALIFICATION_CODE qualificationCode, QUALIFICATION_TYPE qualificationType 
+	FROM TB_TYPE_QUALIFICATION 
+	WHERE QUALIFICATION_TYPE = #{qualiType}
+	</select>
+	
+	<select id="findAllTechnicalField" parameterType="com.kh.quali.qualification.model.vo.TechnicalField" resultType="com.kh.quali.qualification.model.vo.TechnicalField">
+	SELECT FIELD_NO fieldNo, FIELD_NAME fieldName  
+	FROM TB_QUALI_TECHNICAL_FIELD
+	ORDER BY fieldName
+	</select>
+	
+	<select id="findAllProfesionalDeft" parameterType="com.kh.quali.qualification.model.vo.ProfesionalDept" resultType="com.kh.quali.qualification.model.vo.ProfesionalDept">
+	SELECT CATEGORY_NO categoryNo, RELEVANT_DEPARTMENT relevantDepartment  
+	FROM TB_QUALI_PROFESIONAL_DEPT
+	ORDER BY relevantDepartment
+	</select>
 
 
 </mapper>

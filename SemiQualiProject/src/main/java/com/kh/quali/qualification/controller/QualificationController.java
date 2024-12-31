@@ -62,11 +62,21 @@ public class QualificationController {
 		return "qualification/select";
 	}
 	
-	@GetMapping("qualification/typeSelect.quali")
-	public void typeSelect(String qualiType) {
+	@ResponseBody
+	@GetMapping(value="qualification/typeSelect.quali", produces="application/json; charset=UTF-8")
+	public List typeSelect(String qualiType) {
 		// 국가전문/국가기술 선택여부에 따라 그 다음 카테고리를 보내주는 메소드
-		
-		
+		//ajax
+		log.info("{}", qualiType);
+		List fieldList = qs.selectQualiType(qualiType);
+		log.info("{}", fieldList);
+		return fieldList;
+	}
+	
+	@ResponseBody
+	@GetMapping(value="qualification/fieldSelect.quali", produces="application/json; charset=UTF-8")
+	public void fieldSelect(String qualiType, String fieldSelect) {
+		con
 	}
 
 	
