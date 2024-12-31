@@ -74,10 +74,31 @@ public class MemberController {
 	}
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+	@GetMapping("edit-profile")
+=======
+	@PostMapping("edit-profile")
+>>>>>>> Stashed changes
+	public ModelAndView updateMember(Member member, HttpSession session) {
+		
+		memberService.updateMember(member, session);
+		
+<<<<<<< Updated upstream
+		
+		
+		return mv.setViewNameAndData("redirect:edit-profile", null);
+	}
+	
+>>>>>>> Stashed changes
 	@GetMapping("mypage")
 	public String myPage() {
 		return "/member/mypage";
+=======
+		
+		return mv.setViewNameAndData("redirect:edit-profile", null);
+>>>>>>> Stashed changes
 	}
 	
 >>>>>>> Stashed changes
