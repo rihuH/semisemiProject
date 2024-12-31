@@ -15,6 +15,15 @@ public interface MemberMapper {
 
 	void updateMember(Member member);
 	
+<<<<<<< Updated upstream
+=======
+	void selectMemberEducation(int memberNo);
+	
+	void insertMemberEducation();
+	
+	void updateMemberEducation();
+	
+>>>>>>> Stashed changes
 	void deleteMember(Member member);
 
 }
