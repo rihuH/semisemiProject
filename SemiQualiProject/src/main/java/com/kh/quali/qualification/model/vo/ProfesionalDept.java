@@ -18,6 +18,6 @@ public class ProfesionalDept {
 
 	private Long categoryNo;
 	private String relevantDepartment;
-	private TypeQualification type;
+	private TypeQualification typeQualification;
 	
 }

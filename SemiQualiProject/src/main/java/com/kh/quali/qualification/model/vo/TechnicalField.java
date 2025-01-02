@@ -17,6 +17,6 @@ public class TechnicalField {
 
 	private Long fieldNo;
 	private String fieldName;
-	private TypeQualification type;
+	private TypeQualification typeQualification;
 	
 }
