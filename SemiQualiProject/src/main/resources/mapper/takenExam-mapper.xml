@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.quali.takenQualiExam.model.dao.TakenQualiExamMapper">
+
+	<resultMap id="TakenQualiExam" type="takenQualiExam">
+		<id column="EXAM_NO" property="examNo" />
+	    <result column="EXAM_START_DATE" property="examStartDate" />
+	    <result column="EXAM_FINAL_DATE" property="examFinalDate" />
+	    <result column="RECEPTION_START_DATE" property="receptionStartDate" />
+	    <result column="RECEPTION_END_DATE" property="receptionEndDate" />
+	    <result column="OPINION_START_DATE" property="opinionStartDate" />
+	    <result column="OPINION_END_DATE" property="opinionEndDate" />
+	    <collection property="qualificationExam" ofType="techQualificationExam">
+	    	<id column="EXAM_TYPE_NO" property="examTypeNo" />
+    		<result column="QUALIFICATION_RANK" property="qualificationRank" />
+    		<collection property="technicalQualification" ofType="technicalQualification">
+    			<id column="QUALIFICATION_NO" property="qualificationNo"/>
+				<result column="QUALIFICATION_NAME" property="qualificationName"/>
+				<result column="STATUS" property="status"/>
+				<result column="REQUIRED_RANK" property="requiredRank"/>
+				<collection property="techCategory" ofType="techCategory">
+					<id column="CATEGORY_NO" property="categoryNo"/>
+					<result column="CATEGORY_NAME" property="categoryName"/>
+					<collection property="technicalField" ofType="technicalField">
+						<id column="FIELD_NO" property="fieldNo"/>
+						<result column="FIELD_NAME" property="fieldName"/>
+						<collection property="typeQualification" ofType="typeQualification">
+							<id column="QUALIFICATION_CODE" property="qualificationCode"/>
+							<result column="QUALIFICATION_TYPE" property="qualificationType"/>
+						</collection>
+					</collection>
+				</collection>
+    		</collection>
+	    </collection>
+	</resultMap>
+	
+</mapper>

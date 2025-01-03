@@ -30,6 +30,7 @@
 	<!-- Mapper인터페이스스캔 -->
 	<mybatis-spring:scan base-package="com.kh.quali.member.model.dao" />
 	<mybatis-spring:scan base-package="com.kh.quali.qualification.model.dao"/>
+	<mybatis-spring:scan base-package="com.kh.quali.takenQualiExam.model.dao"/>
 	<mybatis-spring:scan base-package="com.kh.quali.notice.model.dao"/>
 	
 	<!-- Transaction 처리를 위한 빈 등록 -->

@@ -19,6 +19,6 @@ public class QualiApplicantIssue {
 	private Date issueDate;           
 	private Long applicationNo;     
 	private String status;        
-	private String confirmationNo;
+	private Confirmation confirmation;
 	
 }
