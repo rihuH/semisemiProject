@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class EducationStatus {
 
+	private int memNo;
 	private String education;
 	private String schoolName;
 	private String graduationDate;

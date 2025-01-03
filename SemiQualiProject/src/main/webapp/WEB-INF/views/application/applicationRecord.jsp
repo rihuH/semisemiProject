@@ -40,7 +40,7 @@
 			<jsp:include page="../member/leftbar-member.jsp"></jsp:include>
 		</div>
 		<div id="contentA-b">
-			<jsp:include page="../content_right/application_record.jsp"></jsp:include>
+			<jsp:include page="../content_member/application_record.jsp"></jsp:include>
 		</div>
 	</div>
 

@@ -11,10 +11,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
     <style>
@@ -109,6 +111,8 @@
     <c:set var="email" value="${ sessionScope.loginMember.email }" />
 	<c:set var="emailId" value="${fn:substringBefore(email, '@')}" />
 	<c:set var="emailDomain" value="${fn:substringAfter(email, '@')}" />
+	
+	
 
     <div id="content-right">
         <div id="update-div-outer">
@@ -143,9 +147,11 @@
                     <input type="password" id="rrn-second" class="rrn-class" maxlength="7" value="${ rrnSecond }" readonly> <br>
                     <input type="hidden" id="rrn_full" name="memberRrn">
 
-		          			<input type="hidden" name="createDate" value="${ sessionScope.loginMember.createDate }"/>
-	  	        			<input type="hidden" name="status" value="${ sessionScope.loginMember.status }"/>
-
+					<input type="hidden" name="memberNo" value="${ sessionScope.loginMember.memberNo }" />
+		          	<input type="hidden" name="createDate" value="${ sessionScope.loginMember.createDate }"/>
+	  	        	<input type="hidden" name="status" value="${ sessionScope.loginMember.status }"/>
+						
+					
                     <div class="input-title">
                         이메일
                     </div><br>
@@ -183,13 +189,15 @@
 
             <div id="update-div-education">
                 <form action="edit-education" method="post">
+        			<input type="hidden" name="memNo" value="${ sessionScope.loginMember.memberNo }" />
+                
                     <div style="margin-top: 20px;">
                         학교명 <br>
-                        <input type="text" id="school-name" name="schoolName" class="input-detail">
+                        <input type="text" id="school-name" name="schoolName" maxlength="100" value="${ sessionScope.education.schoolName }" class="input-detail">
                     </div>
                     <div>
                         학력상태 <br>
-                        <input type="text" id="education" name="education" style="width: 380px;" readonly>
+                        <input type="text" id="education" name="education" value="${ sessionScope.education.education }" style="width: 380px;" readonly>
                         <select class="select" id="select-education" title="학력상태 선택">
                             <option value="">-선택-</option>
                             <option value="중학교 졸업">중학교 졸업</option>
@@ -203,11 +211,11 @@
                     </div>
                     <div>
                         졸업일 <br>
-                        <input type="date" id="graduation-date" name="graduationDate" class="input-detail">
+                        <input type="date" id="graduation-date" name="graduationDate" value="${ sessionScope.education.graduationDate.substring(0, 10) }" class="input-detail">
                     </div>
                     <div>
                         전공 <br>
-                        <input type="text" id="major" name="major" placeholder="직접 기재해주세요" class="input-detail">
+                        <input type="text" id="major" name="major" maxlength="200" value="${ sessionScope.education.major }" placeholder="직접 기재해주세요" class="input-detail">
                     </div>
 
                     <div class="btns">
@@ -259,6 +267,7 @@
 
             if (pwd === checkpwd) {
                 $('#password-result').html("통과입니다.").css('color', 'green');
+                
             } else {
                 $('#password-result').text("다시한번 확인해주세요.").css('color', 'red');
             }
@@ -285,6 +294,7 @@
             $('#select-education').on('change', function () {
                 const education = $('#education').val().trim();
                 const selectEducation = $(this).val();
+                console.log('Selected value:', selectEducation);
 
                 if (selectEducation) {
                     $('#education').val(selectEducation); 
@@ -318,6 +328,14 @@
 
         });
 
+        
+		// 학력정보 중 졸업일자 저장 시 정보입력을 했을경우에만 값 들어감
+		$(function(){
+            const graduationDate = "${sessionScope.education.graduationDate}";
+            if (graduationDate && graduationDate.length >= 10) {
+                document.getElementById("graduation-date").value = graduationDate.substring(0, 10);
+            }
+		})
 
     </script>
 

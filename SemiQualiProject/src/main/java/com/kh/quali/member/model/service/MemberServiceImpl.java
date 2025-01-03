@@ -91,35 +91,60 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int selectMemberEducation(int memberNo) {
-		int result = mapper.selectMemberEducation(memberNo);
-		return result;
+	public EducationStatus selectMemberEducation(int memberNo) {
+		return mapper.selectMemberEducation(memberNo);
 	}
 	
 	@Override
-	public void insertMemberEducation(int memberNo, EducationStatus education) {
-		mapper.insertMemberEducation(memberNo, education);
+	public EducationStatus insertMemberEducation(EducationStatus educationStatus) {
+		mapper.insertMemberEducation(educationStatus);
+		return educationStatus;
 	}
 
 	@Override
-	public void updateMemberEducation(int memberNo, EducationStatus education) {
+	public void updateMemberEducation(EducationStatus educationStatus, HttpSession session) {
 		
 		// select를 먼저 하고 있는지 없는지 돌아오는 값을 보고 확인
-		int select = selectMemberEducation(memberNo);
+		//EducationStatus edu = selectMemberEducation(memberNo);
+		// 위 과정은 로그인할때 진행했음
 		
-		if(select > 0) {
-			// 만약 돌아온 값이 0보다 크다면 있다는거니까 update로 정보수정
-			mapper.updateMemberEducation(memberNo, education);
+		//log.info("{}", educationStatus);
+		// 여기는 html에서 값을 담아왓으니 null일수가 없음.
+		// selectMemberEducation을 한번 더 실행해서 null인지 아닌지 판단해야함
+		
+		Member member = (Member) session.getAttribute("loginMember");
+		
+		// log.info("{}",selectMemberEducation(member.getMemberNo()));
+		EducationStatus edu = selectMemberEducation(member.getMemberNo());
+		// 뒤의 getMemNo()를 지우고 != null을 쓸 경우 null이 하나라도 있으면 insert문을 실행해서 안됨.
+		// selectMemberEducation(member.getMemberNo()).getMemNo() 로 진행하면
+		// insert문이 실행되지 않음 (NullpointException발생)
+		if(edu != null) {
+			// 돌아온값이 null이라면 정보 수정
+			mapper.updateMemberEducation(educationStatus);
 		} else {
-			// 돌아온 값이 0이라면 없다는거니까 insert로 정보 추가
-			insertMemberEducation(memberNo, education);
+			// 돌아온 값이 null이 아니라면 추가
+			insertMemberEducation(educationStatus);
 		}
 		
+		session.setAttribute("education", educationStatus);
 	}
+	
 
 	@Override
-	public void deleteMember() {
+	public void deleteMember(String memberPwd, HttpSession session) {
 		
+		// 일단 member에 로그인되어있는 유저의 정보를 담는다.
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		loginMember.setMemberPwd(memberPwd);
+		Member memberInfo = validator.validateMemberExist(loginMember);
+		
+		// 비밀번호는 여기서 확인하기때문에 SQL문을 쓸 때 확인하지 않아도 된다.
+		if(!(passwordEncoder.matches(loginMember.getMemberPwd(), memberInfo.getMemberPwd()))) {
+			throw new ComparePasswordException("비밀번호가 일치하지 않습니다.");
+		}
+		
+		mapper.deleteMember(memberInfo);
 	}
 	
 	

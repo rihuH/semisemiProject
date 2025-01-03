@@ -288,7 +288,7 @@
                 	</c:choose>
                 </li>                
                 <li>
-                    <a href="support.help">
+                    <a href="notices">
                         고객지원
                     </a>
                 </li>
