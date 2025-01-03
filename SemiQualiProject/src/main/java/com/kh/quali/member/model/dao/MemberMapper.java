@@ -2,6 +2,7 @@ package com.kh.quali.member.model.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.kh.quali.member.model.vo.EducationStatus;
 import com.kh.quali.member.model.vo.Member;
 
 @Mapper
@@ -15,15 +16,18 @@ public interface MemberMapper {
 
 	void updateMember(Member member);
 	
-<<<<<<< Updated upstream
-=======
 	void selectMemberEducation(int memberNo);
 	
 	void insertMemberEducation();
 	
 	void updateMemberEducation();
 	
->>>>>>> Stashed changes
+	int selectMemberEducation(int memberNo);
+	
+	void insertMemberEducation(int memberNo, EducationStatus education);
+	
+	void updateMemberEducation(int memberNo, EducationStatus education);
+	
 	void deleteMember(Member member);
 
 }

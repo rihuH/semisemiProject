@@ -12,9 +12,16 @@
 <body>
 	관리자페이지
 	
-	<a href="qualification/insert">자격증 인서트</a>
-	<a href="qualification/update">자격증 업데이트</a>
+	<a href="/quali/qualification/insert_form">자격증 인서트</a>
+	<a href="/quali/qualification/qualiList">자격증 업데이트</a>
 	<a href="qualification/delete">자격증 딜리트</a>
-	<a href="qualification/select">자격증 조회하기</a>	
+	<a href="/quali/qualification/select">자격증 조회하기</a>
+	<br><br>
+	
+	<a href="/quali/taken_quali_exam/exam_insert_form">시행시험 인서트</a>
+	시행시험 업데이트
+	시행시험 딜리트
+	시행시험 조회
+	
 </body>
 </html>

@@ -53,5 +53,62 @@
 		   AND
 		   		STATUS = 'N'
 	</select>
+	
+	<update id="updateMember" parameterType="member">
+		UPDATE
+				MEMBER
+		   SET
+		   		MEMBER_PWD = #{memberPwd},
+		   		MEMBER_NAME = #{memberName},
+		   		MEMBER_RRN = #{memberRrn},
+		   		EMAIL = #{email},
+		   		PHONE = #{phone}
+		  WHERE
+		  		MEMBER_ID = #{memberId}
+		   		
+	</update>
+	
+	<!-- 학력상태 불러오기, 있는지 확인하기 1이 돌아오면 있는거, 0이 돌아오면 없는거-->
+	<select id="selectMemberEducation" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		EDUCATION_STATUS
+		 WHERE
+		 		MEM_NO = #{memberNo}
+	</select>
+	
+	<!-- 없다면 INSERT -->
+	<insert id="insertMemberEducation" parameterType="EducationStatus">
+		INSERT
+		  INTO 
+		  		EDUCATION_STATUS 
+		  		(
+	        MEM_NO,
+	        EDUCATION,
+	        SCHOOL_NAME,
+	        GRADUATION_DATE,
+	        MAJOR
+	    ) VALUES (
+	        #{memberNo},
+	        #{education.education},
+	        #{education.schoolName},
+	        #{education.graduationDate},
+	        #{education.major}
+ 		)
+		
+	</insert>
+	
+	<update id="updateMemberEducation" parameterType="EducationStatus">
+	    UPDATE 
+	    		EDUCATION_STATUS
+		   SET
+		        EDUCATION = #{education.education},
+		        SCHOOL_NAME = #{education.schoolName},
+		        GRADUATION_DATE = #{education.graduationDate},
+		        MAJOR = #{education.major}
+		 WHERE
+		        MEM_NO = #{memberNo}
+	</update>
 
 </mapper>

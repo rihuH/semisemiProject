@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,46 +100,59 @@
 
 </head>
 <body>
+
+    <!-- 주민등록번호 데이터를 세션에서 가져오기 -->
+    <c:set var="rrn" value="${sessionScope.loginMember.memberRrn}" />
+    <c:set var="rrnFirst" value="${fn:substringBefore(rrn, '-')}" />
+    <c:set var="rrnSecond" value="${fn:substringAfter(rrn, '-')}" />
+    
+    <c:set var="email" value="${ sessionScope.loginMember.email }" />
+	<c:set var="emailId" value="${fn:substringBefore(email, '@')}" />
+	<c:set var="emailDomain" value="${fn:substringAfter(email, '@')}" />
+
     <div id="content-right">
         <div id="update-div-outer">
             <div id="update-div-member">
-                <form action="#" method="post" style="display: block;">
+                <form action="edit-profile" method="post" style="display: block;">
                     <div class="input-title" style="font-weight: bold; margin-top: 30px;">
                         아이디
                     </div><br>
                     <!-- 아이디는 변경 불가능, readonly속성 추가-->
-                    <input type="text" class="input-detail" name="memberId" required readonly>  <br>
+                    <input type="text" class="input-detail" name="memberId" value="${ sessionScope.loginMember.memberId }" required readonly>  <br>
                     <div class="input-title" style="font-weight: bold;">
                         비밀번호
                     </div><br>
                     <!-- 비밀번호는 변경 가능, 기존 비밀번호는 DB에서 불러와서 value속성에 넣는다. -->
-                    <input type="password" class="input-detail" id="password" value="" required>  <br>
+                    <input type="password" class="input-detail" id="password" value="${ sessionScope.loginMember.memberPwd }" required>  <br>
                     <div class="input-title" style="width: 300px; font-weight: bold;">
                         비밀번호 확인 <div id="password-result"></div>
                     </div><br>
                     <!-- 비밀번호 확인을 입력하고, 현재 비밀번호와 같아야 정보수정가능 ajax 사용하면 바로 처리가능 -->
-                    <input type="password" class="input-detail"  id="check-password" name="memberPwd" required> 
+                    <input type="password" class="input-detail"  id="check-password" name="memberPwd" value="${ sessionScope.loginMember.memberPwd }" required> 
                     <button type="button" id="check-password-btn">확인</button><br>
                     <div class="input-title" style="font-weight: bold;">
                         이름
                     </div><br>
                     <!-- 이름 변경 가능 DB에서 가져온 값 value에 넣기 -->
-                    <input type="text" class="input-detail" name="memberName" value="" required>  <br>
+                    <input type="text" class="input-detail" name="memberName" value="${ sessionScope.loginMember.memberName }" required>  <br>
                     <div class="input-title" style="font-weight: bold;">
                         주민등록번호
                     </div><br>
                     <!-- 주민등록번호 변경 불가능 -->
-                    <input type="text" id="rrn-first" class="rrn-class" maxlength="6" value="" readonly> -
-                    <input type="password" id="rrn-second" class="rrn-class" maxlength="7" value="" readonly> <br>
-                    <input type="hidden" id="rrn_full" name="rrn_full">
+                    <input type="text" id="rrn-first" class="rrn-class" maxlength="6" value="${ rrnFirst }" readonly> -
+                    <input type="password" id="rrn-second" class="rrn-class" maxlength="7" value="${ rrnSecond }" readonly> <br>
+                    <input type="hidden" id="rrn_full" name="memberRrn">
+
+		          			<input type="hidden" name="createDate" value="${ sessionScope.loginMember.createDate }"/>
+	  	        			<input type="hidden" name="status" value="${ sessionScope.loginMember.status }"/>
 
                     <div class="input-title">
                         이메일
                     </div><br>
                     <!-- 이메일 수정 가능 -->
-                    <input type="text" id="email_id" value=""  maxlength="18" /> @ 
-                    <input type="text" id="email_domain" value=""  maxlength="18"/>
-                    <input type="hidden" id="email_full" name="email_full"> 
+                    <input type="text" id="email_id" value="${ emailId }"  maxlength="18" /> @ 
+                    <input type="text" id="email_domain" value="${ emailDomain }"  maxlength="18"/>
+                    <input type="hidden" id="email_full" name="email"> 
                     <select class="select" id="select_domain" title="이메일 도메인 주소 선택">
                         <option value="">-선택-</option>
                         <option value="naver.com">naver.com</option>
@@ -149,7 +165,7 @@
                         핸드폰번호
                     </div><br>
                     <!-- 핸드폰번호 수정 가능 -->
-                    <input type="text" class="input-detail" maxlength="13" value="" placeholder="예시) 010-0000-0000" name="phone">
+                    <input type="text" class="input-detail" maxlength="13" value="${ sessionScope.loginMember.phone }" placeholder="예시) 010-0000-0000" name="phone">
 
 
                     <div class="btns">
@@ -166,7 +182,7 @@
             </div>
 
             <div id="update-div-education">
-                <form action="" method="post">
+                <form action="edit-education" method="post">
                     <div style="margin-top: 20px;">
                         학교명 <br>
                         <input type="text" id="school-name" name="schoolName" class="input-detail">
@@ -195,8 +211,8 @@
                     </div>
 
                     <div class="btns">
-                        <button type="submit" style="margin-right: 10px;">정보수정</button>
-                        <button type="reset">초기화</button>
+                        <button type="submit" class="btn btn-primary" style="margin-right: 10px;">정보수정</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm">초기화</button>
                     </div>
                 </form>
             </div>
