@@ -39,7 +39,11 @@ public class MemberController {
 	@PostMapping("login.me")
 	public ModelAndView loginMember(Member member, HttpSession session) {
 		
+<<<<<<< Updated upstream
 		//¼­ºñ½º·Î ¿äÃ»º¸³¿
+=======
+		//ï¿½ê½Œé®ê¾©ë’ªæ¿¡ï¿½ ï¿½ìŠ‚ï§£ï¿½è¹‚ëŒ€ê¹‚
+>>>>>>> Stashed changes
 		Member loginMember = memberService.loginMember(member);
 		
 		// ¼­ºñ½º·Î º¸³½ ¿äÃ»ÀÌ validator, passwordEncryptor, mapper, DBµîÀ» °ÅÃÄ¼­ ÀÏÄ¡ÇÒ°æ¿ì µ¹¾Æ¿È
