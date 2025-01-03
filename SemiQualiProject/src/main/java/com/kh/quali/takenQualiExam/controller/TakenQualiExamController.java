@@ -21,7 +21,6 @@ import com.kh.quali.takenQualiExam.model.vo.TakenQualiExam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class TakenQualiExamController {
 
 	private final ModelAndViewUtil mv;
 
-	//private final TakenQualiExamService ts;
+	private final TakenQualiExamService ts;
 	private final QualificationService qs;
 	
 	@GetMapping("/taken_quali_exam/exam_insert_select")
@@ -56,7 +55,7 @@ public class TakenQualiExamController {
 			@RequestParam(name="qualificationRank")int qualificationRank) {
 		log.info("{}, {}" + qualificationRank, takenQualiExam, qualificationName);
 		
-		//ts.insertTakenTechExam(takenQualiExam, qualificationName, qualificationRank);
+		ts.insertTakenTechExam(takenQualiExam, qualificationName, qualificationRank);
 		
 		return null;
 	}
