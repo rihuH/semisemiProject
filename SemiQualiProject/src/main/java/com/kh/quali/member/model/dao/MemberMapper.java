@@ -16,17 +16,11 @@ public interface MemberMapper {
 
 	void updateMember(Member member);
 	
-	void selectMemberEducation(int memberNo);
+	EducationStatus selectMemberEducation(int memberNo);
 	
-	void insertMemberEducation();
+	void insertMemberEducation(EducationStatus education);
 	
-	void updateMemberEducation();
-	
-	int selectMemberEducation(int memberNo);
-	
-	void insertMemberEducation(int memberNo, EducationStatus education);
-	
-	void updateMemberEducation(int memberNo, EducationStatus education);
+	void updateMemberEducation(EducationStatus education);
 	
 	void deleteMember(Member member);
 

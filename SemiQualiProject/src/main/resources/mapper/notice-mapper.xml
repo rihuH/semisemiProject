@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.quali.notice.model.dao.NoticeMapper">
+
+	<select id="selectTotalCount" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		BOARD_NOTICE
+		 WHERE
+		 		NOTICE_STATUS = 'N'
+	</select>
+
+	<select id="selectBoardList" resultType="notice">
+		SELECT
+		    NOTICE_NO AS noticeNo,
+		    NOTICE_TITLE AS noticeTitle,
+		    NOTICE_CONTENT AS noticeContent,
+		    NOTICE_CREATED_AT AS noticeCreateAt,
+		    NOTICE_UPDATED_AT AS noticeUpdateAt,
+		    NOTICE_STATUS AS noticeStatus,
+		    MEMBER.MEMBER_ID AS memNo
+		FROM
+		    BOARD_NOTICE
+		JOIN
+		    MEMBER ON MEM_NO = MEMBER_NO
+		WHERE
+		    NOTICE_STATUS = 'N'
+		ORDER BY
+		    NOTICE_NO DESC
+	</select>
+	
+	<select id="getMemNo" resultType="string">
+		SELECT
+				MEMBER_NO AS memNo
+		  FROM
+		  		MEMBER
+         WHERE
+                MEMBER_ID = #{ memNo }
+	</select>
+	
+	<insert id="insertNotice" parameterType="notice">
+		INSERT
+		  INTO
+		        BOARD_NOTICE
+		VALUES
+		        (
+		        SEQ_NOTICE_NO.NEXTVAL,
+		        #{ noticeTitle },
+		        #{ noticeContent },
+		        DEFAULT,
+		        DEFAULT,
+		        DEFAULT,
+					(
+					SELECT
+							MEMBER_NO AS memNo
+					  FROM
+					  		MEMBER
+			         WHERE
+			                MEMBER_ID = #{ memNo }
+					)
+		        )
+	</insert>
+
+</mapper>
