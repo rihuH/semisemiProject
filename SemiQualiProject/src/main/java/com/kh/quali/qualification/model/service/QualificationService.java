@@ -34,4 +34,8 @@ public interface QualificationService {
 
 	void updatePro(String updatedQualiName, String qualiName);
 
+	List<TechnicalQualification> searchTechName(String searched);
+
+	List<ProfesionalQualification> searchProName(String searched);
+
 }

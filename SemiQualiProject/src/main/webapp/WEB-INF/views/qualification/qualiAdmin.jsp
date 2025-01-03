@@ -18,10 +18,12 @@
 	<a href="/quali/qualification/select">자격증 조회하기</a>
 	<br><br>
 	
-	<a href="/quali/taken_quali_exam/exam_insert_form">시행시험 인서트</a>
+	<a href="/quali/taken_quali_exam/exam_insert_select">시행시험 인서트</a>
 	시행시험 업데이트
 	시행시험 딜리트
-	시행시험 조회
+	<a href="/quali/taken_quali_exam/taken_quali_exam_list">시행시험 조회</a>
+	
+	
 	
 </body>
 </html>

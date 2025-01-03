@@ -246,5 +246,17 @@ public class QualificationServiceImpl implements QualificationService {
 		
 	}
 
+	@Override
+	public List<TechnicalQualification> searchTechName(String searched) {
+		List<TechnicalQualification> techList =  mapper.searchInTechQualiName(searched);
+		return techList;
+	}
+
+	@Override
+	public List<ProfesionalQualification> searchProName(String searched) {
+		List<ProfesionalQualification> proList = mapper.searchInProQualiName(searched);
+		return proList;
+	}
+
 
 }

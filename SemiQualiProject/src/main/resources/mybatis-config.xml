@@ -10,12 +10,23 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.quali.confirmation.model.vo.Confirmation" alias="confirmation" />
+		<typeAlias type="com.kh.quali.qualification.model.vo.ProfesionalQualification" alias="profesionalQualification" />
+		<typeAlias type="com.kh.quali.qualification.model.vo.TechnicalQualification" alias="technicalQualification" />
+		<typeAlias type="com.kh.quali.qualification.model.vo.TechCategory" alias="techCategory" />
+		<typeAlias type="com.kh.quali.qualification.model.vo.TechnicalField" alias="technicalField" />
+		<typeAlias type="com.kh.quali.qualification.model.vo.TypeQualification" alias="typeQualification" />
+		<typeAlias type="com.kh.quali.qualification.model.vo.ProfesionalDept" alias="profesionalDept" />
+		<typeAlias type="com.kh.quali.takenQualiExam.model.vo.TechQualificationExam" alias="techQualificationExam" />
+		<typeAlias type="com.kh.quali.takenQualiExam.model.vo.ProQualificationExam" alias="proQualificationExam" />
+		<typeAlias type="com.kh.quali.takenQualiExam.model.vo.TakenQualiExam" alias="takenQualiExam" />
+		<typeAlias type="com.kh.quali.takenQualiExam.model.vo.Subject" alias="subject" />
 		<typeAlias type="com.kh.quali.member.model.vo.Member" alias="member"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="/mapper/member-mapper.xml" />
 		<mapper resource="/mapper/qualification-mapper.xml" />
+		<mapper resource="/mapper/takenExam-mapper.xml" />
 	</mappers>
 
 

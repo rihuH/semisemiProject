@@ -68,6 +68,10 @@ public interface QualificationMapper {
 
 	void updatePro(Map<String, ProfesionalQualification> map);
 
+	List<TechnicalQualification> searchInTechQualiName(String searched);
+
+	List<ProfesionalQualification> searchInProQualiName(String searched);
+
 
 
 

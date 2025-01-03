@@ -157,5 +157,7 @@ public class QualificationController {
 		return mv.setViewNameAndData("redirect:/qualification/qualiList", null);
 	}
 	
+
+	
 	
 }
