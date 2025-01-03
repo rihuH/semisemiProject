@@ -23,12 +23,13 @@ public interface MemberService {
 	void updateMember(Member member, HttpSession session);
 	
 	// 학력정보수정 (업데이트)
-	int selectMemberEducation(int memberNo);
-	void insertMemberEducation(int memberNo, EducationStatus education);
-	void updateMemberEducation(int memberNo, EducationStatus education);
+	EducationStatus selectMemberEducation(int memberNo);
+	EducationStatus insertMemberEducation(EducationStatus educationStatus);
+	void updateMemberEducation(EducationStatus educationStatus, HttpSession session);
 
 	// 회원삭제
-	void deleteMember();
+	void deleteMember(String memberPwd, HttpSession session);
+
 
 	
 	

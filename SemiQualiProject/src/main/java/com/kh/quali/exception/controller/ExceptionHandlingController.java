@@ -10,30 +10,30 @@ import com.kh.quali.exception.UserIdNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ControllerAdvice // ¿¹¿ÜÃ³¸® ¾Ö³ëÅ×ÀÌ¼Ç
+@ControllerAdvice // ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½Ö³ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½
 public class ExceptionHandlingController {
 
-	// ¸ğµç ¿¹¿ÜÃ³¸®¸¦ ´ã´çÇÏ´Â Å¬·¡½º
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 
 	private ModelAndView createErrorResponse(String errorMsg, Exception e) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("errorMsg", errorMsg)
 		  .setViewName("common/error_page");
-		log.info("¹ß»ı ¿¹¿Ü : {}", e.getMessage(), e);
+		log.info("ì•ˆë‚´ë©”ì„¸ì§€", e.getMessage(), e);
 		return mv;
 	}
 	
 	
 	@ExceptionHandler(UserIdNotFoundException.class)
 	protected ModelAndView noSearchUserIdError(UserIdNotFoundException e) {
-		// ¾ÆÀÌµğ¸¦ Ã£Áö ¸øÇßÀ»°æ¿ìÀÇ ¿¹¿Ü ¹ß»ı
-		return createErrorResponse("¾ÆÀÌµğ¸¦ Àß¸øÀÔ·ÂÇÏ¼Ì½À´Ï´Ù.", e);
+		// ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½
+		return createErrorResponse("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” íšŒì›ì…ë‹ˆë‹¤.", e);
 	}
 	
 	@ExceptionHandler(ComparePasswordException.class)
 	protected ModelAndView notMatchingPasswordError(ComparePasswordException e) {
-		// ºñ¹Ğ¹øÈ£¸¦ ºñ±³ÇÏ´Â ¸Ş¼Òµå, ºñ¹Ğ¹øÈ£°¡ Æ²·ÈÀ» °æ¿ì ¿¹¿Ü ¹ß»ı
-		return createErrorResponse("ºñ¹Ğ¹øÈ£°¡ Æ²·È½À´Ï´Ù.", e);
+		// ï¿½ï¿½Ğ¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ş¼Òµï¿½, ï¿½ï¿½Ğ¹ï¿½È£ï¿½ï¿½ Æ²ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½
+		return createErrorResponse("ë¹„ë°€ë²ˆí˜¸ê°€ ì˜ëª»ëìŠµë‹ˆë‹¤.", e);
 	}
 	
 	

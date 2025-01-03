@@ -21,12 +21,15 @@
 		<typeAlias type="com.kh.quali.takenQualiExam.model.vo.TakenQualiExam" alias="takenQualiExam" />
 		<typeAlias type="com.kh.quali.takenQualiExam.model.vo.Subject" alias="subject" />
 		<typeAlias type="com.kh.quali.member.model.vo.Member" alias="member"/>
+		<typeAlias type="com.kh.quali.member.model.vo.EducationStatus" alias="educationStatus"/>
+		<typeAlias type="com.kh.quali.notice.model.vo.Notice" alias="notice"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="/mapper/member-mapper.xml" />
 		<mapper resource="/mapper/qualification-mapper.xml" />
 		<mapper resource="/mapper/takenExam-mapper.xml" />
+		<mapper resource="/mapper/notice-mapper.xml" />
 	</mappers>
 
 

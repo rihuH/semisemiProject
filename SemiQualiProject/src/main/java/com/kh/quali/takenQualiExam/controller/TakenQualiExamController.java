@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TakenQualiExamController {
 
 	private final ModelAndViewUtil mv;
+
 	//private final TakenQualiExamService ts;
 	private final QualificationService qs;
 	
@@ -59,7 +60,6 @@ public class TakenQualiExamController {
 		
 		return null;
 	}
-	
 	
 
 	

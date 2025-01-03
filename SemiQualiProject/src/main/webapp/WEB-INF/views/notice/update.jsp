@@ -45,10 +45,10 @@
 	
 	<div id="contentA">
 		<div id="contentA-a">
-			<jsp:include page="../member/leftbar-member.jsp"></jsp:include>
+			<jsp:include page="../notice/leftbar-member.jsp"></jsp:include>
 		</div>
 		<div id="contentA-b">
-			<jsp:include page="../content_member/edit_profile.jsp"></jsp:include>
+			<jsp:include page="../content_notice/notice_update.jsp"></jsp:include>
 		</div>
 	</div>
 	
