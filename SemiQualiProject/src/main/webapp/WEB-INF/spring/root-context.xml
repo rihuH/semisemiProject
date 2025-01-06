@@ -32,6 +32,8 @@
 	<mybatis-spring:scan base-package="com.kh.quali.qualification.model.dao"/>
 	<mybatis-spring:scan base-package="com.kh.quali.takenQualiExam.model.dao"/>
 	<mybatis-spring:scan base-package="com.kh.quali.notice.model.dao"/>
+	<mybatis-spring:scan base-package="com.kh.quali.answer.model.dao"/>
+	<mybatis-spring:scan base-package="com.kh.quali.comment.model.dao"/>
 	
 	<!-- Transaction 처리를 위한 빈 등록 -->
 	<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">

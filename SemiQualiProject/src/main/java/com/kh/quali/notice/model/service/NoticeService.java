@@ -16,10 +16,16 @@ public interface NoticeService {
 	
 	// 글 작성
 	void insertNotice(Notice notice, Member member);
+
+
+	Map<String, Object> selectNoticeId(int noticeNo);
+
 	
 	// 글 수정
+	void updateNotice(Notice notice);
 	
 	// 글 삭제
+	void deleteNotice(int noticeNo);
 	
 	// 공지에 댓글은 작성못하게할것.
 }

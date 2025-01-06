@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,7 +32,7 @@ public class NoticeController {
 		
 		Map<String, Object> map = noticeService.selectNoticeList();
 		
-		return mv.setViewNameAndData("/notice/list", map);
+		return mv.setViewNameAndData("notice/list", map);
 	}
 	
 	@GetMapping("noticeInsert")
@@ -46,16 +47,41 @@ public class NoticeController {
 		
 		session.setAttribute("alertMsg", "게시글 등록 성공");
 		
-		return mv.setViewNameAndData("/notice/list", null);
+		return mv.setViewNameAndData("redirect:/notices", null);
+	}
+
+	@GetMapping("notice/{id}")
+	public ModelAndView selectNoticeNo(@PathVariable(name="id") int id) {
+				
+		Map<String, Object> responseData = noticeService.selectNoticeId(id);
+		
+		return mv.setViewNameAndData("notice/detail", responseData);
 	}
 	
-	@PostMapping("notice-update")
-	public ModelAndView updateNotice() {
+	@PostMapping("notice/notice-update")
+	public ModelAndView updateForm(int noticeNo) {
+		
+		Map<String, Object> responseData = noticeService.selectNoticeId(noticeNo);
 		
 		
-		return mv.setViewNameAndData("/notice/list", null);
+		return mv.setViewNameAndData("notice/update", responseData);
 	}
 	
+	@PostMapping("notice/update")
+	public ModelAndView updateNotice(Notice notice) {
+		
+		noticeService.updateNotice(notice);
+		
+		return mv.setViewNameAndData("redirect:/notice/" + notice.getNoticeNo(), null);
+	}
 	
+	@PostMapping("notice/delete")
+	public ModelAndView deleteNotice(int noticeNo, HttpSession session) {
+		noticeService.deleteNotice(noticeNo);
+		
+		session.setAttribute("alertMsg", "게시글이 정상적으로 삭제되었습니다");
+		
+		return mv.setViewNameAndData("redirect:/notices", null);
+	}
 	
 }

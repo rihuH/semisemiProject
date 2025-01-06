@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.quali.exception.BoardNoValueException;
 import com.kh.quali.exception.BoardNotFoundException;
+import com.kh.quali.exception.InvalidParameterException;
 import com.kh.quali.member.model.vo.Member;
 import com.kh.quali.notice.model.dao.NoticeMapper;
 import com.kh.quali.notice.model.vo.Notice;
@@ -62,6 +63,27 @@ public class NoticeServiceImpl implements NoticeService {
 		return value.replaceAll("\n", "<br>");
 	}
 	
+	//-----------------------------------------------------------------
+	
+	// 게시글 번호 검증 메서드
+	// 수업 때 사용한 long 대신 int를 사용하니 문제가 발생함.
+	// long은 참조자료형이라 null 값이 들어갈 수 있지만 int에는 null값이 들어갈 수 없기때문
+	// int는 항상 초기화된 값을 가지기때문에 null값이 들어갈 수 없다.
+	// int대신 Integer를 사용하면 Integer는 참조자료형이기때문에 null값을 허용해 사용가능하다.
+	private void validateBoardNo(int noticeNo) {
+		if(noticeNo <= 0) {
+			throw new InvalidParameterException("게시글 번호가 유호하지 않습니다.");
+		}
+	}
+	
+	private Notice findBoardById(int noticeNo) {
+		Notice notice = mapper.selectById(noticeNo);
+		if(notice == null) {
+			throw new BoardNotFoundException("게시글을 찾을 수 없습니다");
+		}
+		return notice;
+	}
+	
 	@Override
 	public Map<String, Object> selectNoticeList() {
 		
@@ -97,6 +119,45 @@ public class NoticeServiceImpl implements NoticeService {
 		
 		//getMemNo(notice, member);
 		mapper.insertNotice(notice);
+		
+	}
+
+	@Override
+	public Map<String, Object> selectNoticeId(int noticeNo) {
+		
+		validateBoardNo(noticeNo);
+		
+		Notice notice = findBoardById(noticeNo);
+		
+		Map<String, Object> responseData = new HashMap();
+		responseData.put("noticeList", notice);
+		
+		return responseData;
+	}
+
+	@Override
+	public void updateNotice(Notice notice) {
+		validateBoardNo(notice.getNoticeNo());
+		findBoardById(notice.getNoticeNo());
+		
+		int result = mapper.updateBoard(notice);
+		
+		if(result <= 0) {
+			throw new BoardNotFoundException("업데이트에 실패했습니다.");
+		}
+		
+	}
+	
+	@Override
+	public void deleteNotice(int noticeNo) {
+		
+		Notice notice = findBoardById(noticeNo);
+		
+		int result = mapper.deleteBoard(noticeNo);
+		
+		if(result <= 0) {
+			throw new BoardNotFoundException("게시글 삭제에 실패했습니다.");
+		}
 		
 	}
 

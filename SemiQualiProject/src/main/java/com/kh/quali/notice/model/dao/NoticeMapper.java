@@ -22,6 +22,15 @@ public interface NoticeMapper {
 	Member getMemNo(Member member);
 
 	String getMemNo();
+
+	// 상세조회
+	Notice selectById(int noticeNo);
+
+	// 업데이트
+	int updateBoard(Notice notice);
+
+	// 삭제
+	int deleteBoard(int noticeNo);
 	
 
 }
