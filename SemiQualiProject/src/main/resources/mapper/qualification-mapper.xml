@@ -116,6 +116,7 @@
 	VALUES (SEQ_PRO_QUALI_NO.NEXTVAL, #{qualificationName}, 2, #{profesionalDept.categoryNo}) 
 	</insert>
 	
+	<!-- 이 밑에거 id 왜 findTechQualiByQualiName?? -->
 	<select id="findTechQualiByQualiName" resultMap="technicalQualification">
 	SELECT QUALIFICATION_NO, 
 	QUALIFICATION_NAME, 

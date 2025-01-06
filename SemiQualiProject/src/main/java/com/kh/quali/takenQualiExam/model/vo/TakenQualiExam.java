@@ -23,6 +23,7 @@ public class TakenQualiExam {
 	private String receptionEndDate; // Not null
 	private String opinionStartDate; // Not null
 	private String opinionEndDate;
+	private String round;
 	private Object qualificationExam; // ProQualification 또는 TechQualification
     
 }

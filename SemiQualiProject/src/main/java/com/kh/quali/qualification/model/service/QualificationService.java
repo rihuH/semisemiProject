@@ -28,8 +28,6 @@ public interface QualificationService {
 
 	List<ProfesionalQualification> findAllPro();
 
-	TechnicalQualification findTechByName(String qualificationName);
-
 	void updateTech(String updatedQualiName, String qualiName);
 
 	void updatePro(String updatedQualiName, String qualiName);
@@ -37,5 +35,10 @@ public interface QualificationService {
 	List<TechnicalQualification> searchTechName(String searched);
 
 	List<ProfesionalQualification> searchProName(String searched);
+
+	ProfesionalQualification findProQualiByName(String qualificationName);
+
+	TechnicalQualification findTechQualiByName(String qualificationName);
+
 
 }
