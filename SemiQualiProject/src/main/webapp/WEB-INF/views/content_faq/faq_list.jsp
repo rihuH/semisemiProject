@@ -49,11 +49,11 @@
         <div class="innerOuter" style="padding-top: 2%; padding-bottom: 5%; padding-left: 10%; padding-right: 10%;">
             <br>
             <div style="display: flex; justify-content: center; font-weight: bold; font-size: 30px;">
-                공지사항
+                질문게시판
             </div>
             <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
-            <c:if test="${ not empty sessionScope.loginMember and sessionScope.loginMember.status == 'A' }">
-	            <a class="btn btn-secondary" style="float:right;" href="noticeInsert">글쓰기</a>
+            <c:if test="${ not empty sessionScope.loginMember }">
+	            <a class="btn btn-secondary" style="float:right;" href="answerInsert">글쓰기</a>
             </c:if>
             
             <br>
@@ -61,17 +61,30 @@
             <table id="boardList" class="table table-hover" align="center">
                 <thead>
                     <tr>
+                    	<th>글번호</th>
                         <th>제목</th>
                         <th>작성자</th>
-                        <th>작성일</th>
+                        <th>질문일</th>
+                        <th>답변상태</th>
                     </tr>
                 </thead>
                 <tbody>
-					<c:forEach items="${ noticeList }" var="notice">
-						<tr onclick="detail('${notice.noticeNo}')">
-							<td>${ notice.noticeTitle }</td>
-							<td>${ notice.memNo }</td>
-							<td>${ notice.noticeCreateAt.substring(0, 10) }</td>
+					<c:forEach items="${ answer }" var="answer">
+						<tr onclick="detail('${ answer.answerNo }')">
+							<td>${ answer.answerNo }</td>
+							<td>${ answer.answerTitle }</td>
+							<td>${ answer.memNo }</td>
+							<td>${ answer.answerCreatedAt.substring(0, 10) }</td>
+							<c:if test="">
+								<c:choose>
+									<c:when test="">
+										<td>⭕</td>
+									</c:when>
+									<c:otherwise>
+										<td>❌</td>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
 						</tr>
 					</c:forEach>
                 </tbody>
@@ -82,23 +95,36 @@
             	function detail(num){
             		console.log(num);
             						//boards/게시글번호 로 입력됨
-            		location.href = `notice/\${num}`;
+            		location.href = `answer/\${num}`;
             	}
             	
             </script>
-	<!-- 
             <div id="pagingArea">
                 <ul class="pagination">
-                    <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">다음</a></li>
+					<c:choose>
+						<c:when test="${ pageInfo.currentPage ne 1 }">
+							<li class="page-item"><a class="page-link" href="help/ask?page=${ pageInfo.currentPage - 1 }">이전</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
+						</c:otherwise>									
+					</c:choose>
+                    
+                    <c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" var="num">
+	                    <li class="page-item"><a class="page-link" href="help/ask?page=${ num }">${ num }</a></li>
+                    </c:forEach>
+                    
+					<c:choose>
+						<c:when test="${ pageInfo.currentPage ne pageInfo.endPage }">
+							<li class="page-item"><a class="page-link" href="help/ask?page=${ pageInfo.currentPage + 1 }">다음</a></li>
+						</c:when>
+						<c:otherwise>
+				    		<li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
+						</c:otherwise>
+					</c:choose>
+				    
                 </ul>
             </div>
-	 -->
 
             <br clear="both"><br>
 

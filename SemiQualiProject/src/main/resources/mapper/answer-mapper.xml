@@ -2,8 +2,102 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kh.quali.board_answer.model.dao.BoardAnswer">
+<mapper namespace="com.kh.quali.answer.model.dao.AnswerMapper">
 
+	<select id="selectTotalCount" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		BOARD_ANSWER
+		 WHERE
+		 		ANSWER_STATUS = 'N'
+	</select>
 
-
+	<select id="selectBoardList" resultType="answer">
+		SELECT
+		    ANSWER_NO AS answerNo,
+		    ANSWER_TITLE AS answerTitle,
+		    ANSWER_CONTENT AS answerContent,
+		    ANSWER_CREATED_AT AS answerCreatedAt,
+		    ANSWER_UPDATED_AT AS answerUpdatedAt,
+		    ANSWER_STATUS AS answerStatus,
+		    MEMBER.MEMBER_ID AS memNo
+		FROM
+		    BOARD_ANSWER
+		JOIN
+		    MEMBER ON MEM_NO = MEMBER_NO
+		WHERE
+		    ANSWER_STATUS = 'N'
+		ORDER BY
+		    ANSWER_NO DESC
+	</select>
+	
+	<select id="selectBoardId" resultType="answer">
+		SELECT
+		    ANSWER_NO AS answerNo,
+		    ANSWER_TITLE AS answerTitle,
+		    ANSWER_CONTENT AS answerContent,
+		    ANSWER_CREATED_AT AS answerCreatedAt,
+		    ANSWER_UPDATED_AT AS answerUpdatedAt,
+		    ANSWER_STATUS AS answerStatus,
+		    MEMBER.MEMBER_ID AS memNo
+		FROM
+		    BOARD_ANSWER
+		JOIN
+		    MEMBER ON MEM_NO = MEMBER_NO
+		WHERE
+		    ANSWER_STATUS = 'N'
+		  AND
+		  	ANSWER_NO = #{answerNo}
+	</select>
+	
+	<insert id="insertAsk" parameterType="answer">
+		INSERT
+		  INTO
+		        BOARD_ANSWER
+		VALUES
+		        (
+		        SEQ_BOARD_ANSWER_NO.NEXTVAL,
+		        #{ answerTitle },
+		        #{ answerContent },
+		        DEFAULT,
+		        DEFAULT,
+		        DEFAULT,
+		        	(
+					SELECT
+							MEMBER_NO AS memNo
+					  FROM
+					  		MEMBER
+			         WHERE
+			                MEMBER_ID = #{ memNo }
+					)
+		        )
+	</insert>
+	
+	
+	<update id="updateBoard" parameterType="answer">
+		UPDATE
+				BOARD_ANSWER
+		   SET
+		   		ANSWER_TITLE = #{answerTitle},
+		   		ANSWER_CONTENT = #{answerContent},
+		   		ANSWER_UPDATED_AT = SYSDATE
+		 WHERE
+		 		ANSWER_STATUS = 'N'
+		   AND
+		   		ANSWER_NO = #{answerNo}
+	</update>
+	
+	<update id="deleteBoard" parameterType="answer">
+		UPDATE
+				BOARD_ANSWER
+		   SET
+		 		ANSWER_STATUS = 'Y',
+		   		ANSWER_UPDATED_AT = SYSDATE
+		 WHERE
+		 		ANSWER_STATUS = 'N'
+		   AND
+		   		ANSWER_NO = #{answerNo}
+	</update>
+	
 </mapper>

@@ -48,12 +48,11 @@
 			<jsp:include page="../notice/leftbar-notice.jsp"></jsp:include>
 		</div>
 		<div id="contentA-b">
-			<jsp:include page="../content_notice/notice_list.jsp"></jsp:include>
+			<jsp:include page="../content_notice/notice_detail.jsp"></jsp:include>
 		</div>
 	</div>
 	
-	<jsp:include page="../common/footer.jsp"></jsp:include>
-
+	
 
 </body>
 </html>
