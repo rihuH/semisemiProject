@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,35 +35,58 @@
             <h2>게시글 상세보기</h2>
             <br>
 
-            <a class="btn btn-secondary" style="float:right;" href="notices">목록으로</a>
+            <a class="btn btn-secondary" style="float:right;" href="help/ask">목록으로</a>
             <br><br>
 
-            <table id="contentArea" algin="center" class="table">
+            <table id="contentArea" align="center" class="table">
                 <tr>
                     <th width="100">제목</th>
-                    <td colspan="3">제목입니다요</td>
+                    <td colspan="3">${ answer.answerTitle }</td>
                 </tr>
                 <tr>
                     <th>작성자</th>
-                    <td>admin</td>
+                    <td>${ answer.memNo }</td>
                     <th>작성일</th>
-                    <td>2020-02-07</td>
+                    <td>${ answer.answerCreatedAt.substring(0, 10) }</td>
                 </tr>
                 <tr>
                     <th>내용</th>
                     <td colspan="3"></td>
                 </tr>
                 <tr>
-                    <td colspan="4"><p style="height:150px;">게시판 내용이 들어갈 자리!!</p></td>
+                    <td colspan="4"><p style="height:150px;">${ answer.answerContent }</p></td>
                 </tr>
             </table>
             <br>
 
             <div align="center">
                 <!-- 수정하기, 삭제하기 버튼은 이 글이 본인이 작성한 글일 경우에만 보여져야 함 -->
-                <a class="btn btn-primary" href="">수정하기</a>
-                <a class="btn btn-danger" href="">취소하기</a>
+                <c:if test="${ answer.memNo eq sessionScope.loginMember.memberId }">
+	                <a class="btn btn-primary" onclick="postSubmit(1);">수정하기</a>
+	                <a class="btn btn-danger" onclick="postSubmit(2);">삭제하기</a>
+                </c:if>
             </div>
+            
+            <script>
+				function postSubmit(num){
+					if(num == 1){
+						$('#postForm').attr('action', '/quali/faq/answer-update').submit();
+					} else{
+						$('#postForm').attr('action', '/quali/answer/delete').submit();
+					}
+				}
+            
+            </script>
+            
+            <form action="" method="post" id="postForm">
+            	<input type="hidden" name="answerNo" value="${ answer.answerNo }"/>
+            	<input type="hidden" name="memNo" value="${ answer.memNo }" />
+            	<!-- 
+            	<input type="hidden" name="userId" value="${ loginUser.userId }" />
+            	 -->
+            </form>
+            
+            
             <br><br>
 
             <!-- 댓글 기능은 나중에 ajax 배우고 나서 구현할 예정! 우선은 화면구현만 해놓음 -->
@@ -103,7 +126,6 @@
         -->
         
     </div>
-    
     
 </body>
 </html>

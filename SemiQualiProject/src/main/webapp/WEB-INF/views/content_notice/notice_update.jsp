@@ -40,14 +40,17 @@
     <div class="content">
         <br><br>
         <div class="innerOuter">
-            <h2>게시글 수정하기</h2>
+            <h2>공지사항 수정하기</h2>
             <br>
+            
+            <a class="btn btn-secondary" style="float:right;" href="/quali/notices">목록으로</a>
 
-            <form id="enrollForm" method="post" action="notice-update">
+            <form id="updateForm" method="post" action="notice/update">
+            	<input type="hidden" name="noticeNo" value="${ requestScope.noticeList.noticeNo }" />
                 <table algin="center">
                     <tr>
                         <th><label for="title">제목</label></th>
-                        <td><input type="text" id="title" class="form-control" style="width: 380px;" value="" name="noticeTitle" required></td>
+                        <td><input type="text" id="title" class="form-control" style="width: 380px;" value="${ requestScope.noticeList.noticeTitle }" name="noticeTitle" required></td>
                     </tr>
                     <tr>
                         <th><label for="writer">작성자</label></th>
@@ -55,7 +58,7 @@
                     </tr>
                     <tr>
                         <th><label for="content">내용</label></th>
-                        <td><textarea id="content" class="form-control" rows="10" style="width: 380px;" value="" name="noticeContent" required></textarea></td>
+                        <td><textarea id="content" class="form-control" rows="10" style="width: 380px;" name="noticeContent" required>${ requestScope.noticeList.noticeContent }</textarea></td>
                     </tr>
                 </table>
                 <br>
