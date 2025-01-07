@@ -14,6 +14,6 @@ public interface TakenQualiExamService {
 
 	void insertTakenProExam(TakenQualiExam takenQualiExam, String qualificationName, int qualificationRank);
 
-	List<ExamPlace> findAllExamPlacesByExam(String exam, String receptionDate);
+	Map<String, Object> findAllExamPlacesByExam(String exam, String receptionDate, String type);
 
 }

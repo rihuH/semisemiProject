@@ -4,7 +4,6 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kh.quali.takenQualiExam.model.dao.TakenQualiExamMapper">
 
-
 						
 	<resultMap id="takenTechQualiExam" type="takenQualiExam">
 		<id column="EXAM_NO" property="examNo" />
@@ -194,7 +193,6 @@
     JOIN TB_QUALI_PROFESIONAL_DEPT ON (TB_QUALI_PROFESIONAL_DEPT.CATEGORY_NO = TB_PROFESIONAL_QUALIFICATION.CATEGORY_NO) 
     JOIN TB_TYPE_QUALIFICATION ON (TB_TYPE_QUALIFICATION.QUALIFICATION_CODE = TB_QUALI_PROFESIONAL_DEPT.QUALIFICATION_CODE) 
     WHERE SYSDATE BETWEEN RECEPTION_START_DATE AND RECEPTION_END_DATE 
-    OR SYSDATE BETWEEN EXAM_START_DATE AND EXAM_FINAL_DATE 
     ORDER BY EXAM_NO DESC
 	</select>
 	
@@ -226,8 +224,7 @@
     JOIN TB_QUALI_TECH_CATEGORY ON (TB_TECHNICAL_QUALIFICATION.CATEGORY_NO = TB_QUALI_TECH_CATEGORY.CATEGORY_NO)
     JOIN TB_QUALI_TECHNICAL_FIELD ON (TB_QUALI_TECH_CATEGORY.FIELD_NO = TB_QUALI_TECHNICAL_FIELD.FIELD_NO) 
     JOIN TB_TYPE_QUALIFICATION ON (TB_QUALI_TECHNICAL_FIELD.QUALIFICATION_CODE = TB_TYPE_QUALIFICATION.QUALIFICATION_CODE) 
-    WHERE SYSDATE BETWEEN RECEPTION_START_DATE AND RECEPTION_END_DATE 
-    OR SYSDATE BETWEEN EXAM_START_DATE AND EXAM_FINAL_DATE 
+    WHERE SYSDATE BETWEEN RECEPTION_START_DATE AND RECEPTION_END_DATE  
     ORDER BY EXAM_NO DESC
 	</select>
 	
@@ -239,7 +236,292 @@
     WHERE TB_TAKEN_QUALI_EXAM.EXAM_TYPE_NO = #{qualificationExam.examTypeNo} AND EXAM_START_DATE &lt;= TO_DATE(#{examStartDate}, 'YYYY-MM-DD') 
 	</select> 
 	
+	<insert id="insertTechSubject">
+		INSERT INTO TB_SUBJECT (SUBJECT_NO, 
+			SUBJECT_PERIOD, 
+			EXAM_NO) 
+			VALUES (SEQ_SUBJECT_NO.NEXTVAL, 1, SEQ_TQE_NO.CURRVAL)
+	</insert>
 	
+	<insert id="insertProSubject">
+		INSERT INTO TB_SUBJECT (SUBJECT_NO, 
+			SUBJECT_PERIOD, 
+			EXAM_NO) 
+			VALUES (SEQ_SUBJECT_NO.NEXTVAL, #{i}, SEQ_TQE_NO.CURRVAL)
+	</insert>
 	
+	<select id="findTakenProExamByNameAndDate" resultMap="takenProQualiExam">
+	SELECT 
+    EXAM_NO,
+    TO_CHAR(EXAM_START_DATE, 'YYYY-MM-DD') AS EXAM_START_DATE,
+    TO_CHAR(EXAM_FINAL_DATE, 'YYYY-MM-DD') AS EXAM_FINAL_DATE,
+    TO_CHAR(RECEPTION_START_DATE, 'YYYY-MM-DD') AS RECEPTION_START_DATE,
+    TO_CHAR(RECEPTION_END_DATE, 'YYYY-MM-DD') AS RECEPTION_END_DATE,
+    TO_CHAR(OPINION_START_DATE, 'YYYY-MM-DD') AS OPINION_START_DATE,
+    TO_CHAR(OPINION_END_DATE, 'YYYY-MM-DD') AS OPINION_END_DATE,
+    TB_TAKEN_QUALI_EXAM.EXAM_TYPE_NO, 
+    TB_QUALIFICATION_EXAM.QUALIFICATION_RANK,
+    TB_QUALIFICATION_EXAM.QUALIFICATION_CODE,
+    TB_QUALIFICATION_EXAM.QUALIFICATION_NO, 
+    TB_PROFESIONAL_QUALIFICATION.QUALIFICATION_NAME,
+    TB_PROFESIONAL_QUALIFICATION.STATUS,
+    TB_PROFESIONAL_QUALIFICATION.REQUIRED_RANK,
+    TB_PROFESIONAL_QUALIFICATION.CATEGORY_NO, 
+    TB_QUALI_PROFESIONAL_DEPT.RELEVANT_DEPARTMENT,
+    TB_QUALI_PROFESIONAL_DEPT.QUALIFICATION_CODE,  
+    TB_TYPE_QUALIFICATION.QUALIFICATION_TYPE 
+FROM TB_TAKEN_QUALI_EXAM 
+JOIN TB_QUALIFICATION_EXAM ON (TB_TAKEN_QUALI_EXAM.EXAM_TYPE_NO = TB_QUALIFICATION_EXAM.EXAM_TYPE_NO) 
+JOIN TB_PROFESIONAL_QUALIFICATION ON (TB_PROFESIONAL_QUALIFICATION.QUALIFICATION_NO = TB_QUALIFICATION_EXAM.QUALIFICATION_NO) 
+JOIN TB_QUALI_PROFESIONAL_DEPT ON (TB_QUALI_PROFESIONAL_DEPT.CATEGORY_NO = TB_PROFESIONAL_QUALIFICATION.CATEGORY_NO) 
+JOIN TB_TYPE_QUALIFICATION ON (TB_TYPE_QUALIFICATION.QUALIFICATION_CODE = TB_QUALI_PROFESIONAL_DEPT.QUALIFICATION_CODE) 
+WHERE RECEPTION_START_DATE = TO_DATE(#{receptionStartDate}, 'YYYY-MM-DD')  
+    AND TB_PROFESIONAL_QUALIFICATION.QUALIFICATION_NAME = #{qualificationName} 
+    AND TB_QUALIFICATION_EXAM.QUALIFICATION_RANK = #{qualificationRank}
+	</select>
+	
+	<select id="findTakenTechExamByNameAndDate" resultMap="takenTechQualiExam">
+	SELECT
+    EXAM_NO,
+    TO_CHAR(EXAM_START_DATE, 'YYYY-MM-DD') AS EXAM_START_DATE,
+    TO_CHAR(EXAM_FINAL_DATE, 'YYYY-MM-DD') AS EXAM_FINAL_DATE,
+    TO_CHAR(RECEPTION_START_DATE, 'YYYY-MM-DD') AS RECEPTION_START_DATE,
+    TO_CHAR(RECEPTION_END_DATE, 'YYYY-MM-DD') AS RECEPTION_END_DATE,
+    TO_CHAR(OPINION_START_DATE, 'YYYY-MM-DD') AS OPINION_START_DATE,
+    TO_CHAR(OPINION_END_DATE, 'YYYY-MM-DD') AS OPINION_END_DATE,
+    TB_TAKEN_QUALI_EXAM.EXAM_TYPE_NO, 
+    QUALIFICATION_RANK,
+    TB_QUALIFICATION_EXAM.QUALIFICATION_NO, 
+    QUALIFICATION_NAME,
+    STATUS,
+    REQUIRED_RANK,
+    TB_TECHNICAL_QUALIFICATION.CATEGORY_NO, 
+    CATEGORY_NAME,
+    TB_QUALI_TECH_CATEGORY.FIELD_NO, 
+    FIELD_NAME, 
+	TB_QUALI_TECHNICAL_FIELD.QUALIFICATION_CODE, 
+    QUALIFICATION_TYPE
+    FROM
+    TB_TAKEN_QUALI_EXAM 
+    JOIN TB_QUALIFICATION_EXAM ON (TB_QUALIFICATION_EXAM.EXAM_TYPE_NO = TB_TAKEN_QUALI_EXAM.EXAM_TYPE_NO) 
+    JOIN TB_TECHNICAL_QUALIFICATION ON (TB_QUALIFICATION_EXAM.QUALIFICATION_NO = TB_TECHNICAL_QUALIFICATION.QUALIFICATION_NO)
+    JOIN TB_QUALI_TECH_CATEGORY ON (TB_TECHNICAL_QUALIFICATION.CATEGORY_NO = TB_QUALI_TECH_CATEGORY.CATEGORY_NO)
+    JOIN TB_QUALI_TECHNICAL_FIELD ON (TB_QUALI_TECH_CATEGORY.FIELD_NO = TB_QUALI_TECHNICAL_FIELD.FIELD_NO) 
+    JOIN TB_TYPE_QUALIFICATION ON (TB_QUALI_TECHNICAL_FIELD.QUALIFICATION_CODE = TB_TYPE_QUALIFICATION.QUALIFICATION_CODE) 
+    WHERE RECEPTION_START_DATE = TO_DATE(#{receptionStartDate}, 'YYYY-MM-DD')  
+    AND TB_TECHNICAL_QUALIFICATION.QUALIFICATION_NAME = #{qualificationName} 
+    AND TB_QUALIFICATION_EXAM.QUALIFICATION_RANK = #{qualificationRank}
+	</select>
+	
+	<resultMap id="techExamPlace" type="examPlace">
+			<id column="EXAM_LOCATION_NO" property="examLocationNo"/>
+			<collection property="takenQualiExam" ofType="takenQualiExam">
+			<id column="EXAM_NO" property="examNo" />
+		    <result column="EXAM_START_DATE" property="examStartDate" />
+		    <result column="EXAM_FINAL_DATE" property="examFinalDate" />
+		    <result column="RECEPTION_START_DATE" property="receptionStartDate" />
+		    <result column="RECEPTION_END_DATE" property="receptionEndDate" />
+		    <result column="OPINION_START_DATE" property="opinionStartDate" />
+		    <result column="OPINION_END_DATE" property="opinionEndDate" />
+		    <collection property="qualificationExam" ofType="techQualificationExam">
+		    	<id column="EXAM_TYPE_NO" property="examTypeNo" />
+	    		<result column="QUALIFICATION_RANK" property="qualificationRank" />
+	    		<collection property="technicalQualification" ofType="technicalQualification">
+	    			<id column="QUALIFICATION_NO" property="qualificationNo"/>
+					<result column="QUALIFICATION_NAME" property="qualificationName"/>
+					<result column="STATUS" property="status"/>
+					<result column="REQUIRED_RANK" property="requiredRank"/>
+					<collection property="techCategory" ofType="techCategory">
+						<id column="CATEGORY_NO" property="categoryNo"/>
+						<result column="CATEGORY_NAME" property="categoryName"/>
+						<collection property="technicalField" ofType="technicalField">
+							<id column="FIELD_NO" property="fieldNo"/>
+							<result column="FIELD_NAME" property="fieldName"/>
+							<collection property="typeQualification" ofType="typeQualification">
+								<id column="QUALIFICATION_CODE" property="qualificationCode"/>
+								<result column="QUALIFICATION_TYPE" property="qualificationType"/>
+							</collection>
+						</collection>
+					</collection>
+	    		</collection>
+		    </collection>
+		</collection>
+		<collection property="place" ofType="place">
+			<id column="LOCATION_NO" property="locationNo"/>
+			<result column="LOCATION_NAME" property="locationName"/>
+			<result column="MAXIMUM_OCCUPANCY" property="maximumOccupancy"/>
+			<collection property="district" ofType="district">
+				<id column="DISTRICT_NO" property="districtNo"/>
+				<result column="DISTRICT" property="district"/>
+				<result column="CITY_NAME" property="cityName"/>
+			</collection>
+		</collection>
+	</resultMap>
+	
+	<resultMap id="place" type="place">
+			<id column="LOCATION_NO" property="locationNo"/>
+			<result column="LOCATION_NAME" property="locationName"/>
+			<result column="MAXIMUM_OCCUPANCY" property="maximumOccupancy"/>
+			<collection property="district" ofType="district">
+				<id column="DISTRICT_NO" property="districtNo"/>
+				<result column="DISTRICT" property="district"/>
+				<result column="CITY_NAME" property="cityName"/>
+			</collection>
+		</resultMap>
+	
+	<resultMap id="proExamPlace" type="examPlace">
+			<id column="EXAM_LOCATION_NO" property="examLocationNo"/>
+			<collection property="takenQualiExam" ofType="takenQualiExam">
+			<id column="EXAM_NO" property="examNo" />
+		    <result column="EXAM_START_DATE" property="examStartDate" />
+		    <result column="EXAM_FINAL_DATE" property="examFinalDate" />
+		    <result column="RECEPTION_START_DATE" property="receptionStartDate" />
+		    <result column="RECEPTION_END_DATE" property="receptionEndDate" />
+		    <result column="OPINION_START_DATE" property="opinionStartDate" />
+		    <result column="OPINION_END_DATE" property="opinionEndDate" />
+		    <collection property="qualificationExam" ofType="proQualificationExam">
+		    	<id column="EXAM_TYPE_NO" property="examTypeNo" />
+	    		<result column="QUALIFICATION_RANK" property="qualificationRank" />
+	    		<collection property="profesionalQualification" ofType="profesionalQualification">
+	    			<id column="QUALIFICATION_NO" property="qualificationNo"/>
+					<result column="QUALIFICATION_NAME" property="qualificationName"/>
+					<result column="STATUS" property="status"/>
+					<result column="REQUIRED_RANK" property="requiredRank"/>
+					<collection property="profesionalDept" ofType="profesionalDept">
+						<id column="CATEGORY_NO" property="categoryNo"/>
+						<result column="RELEVANT_DEPARTMENT" property="relevantDepartment"/>
+						<collection property="typeQualification" ofType="typeQualification">
+							<id column="QUALIFICATION_CODE" property="qualificationCode"/>
+							<result column="QUALIFICATION_TYPE" property="qualificationType"/>
+						</collection>
+					</collection>
+	    		</collection>
+		    </collection>
+		</collection>
+		<collection property="place" ofType="place">
+			<id column="LOCATION_NO" property="locationNo"/>
+			<result column="LOCATION_NAME" property="locationName"/>
+			<result column="MAXIMUM_OCCUPANCY" property="maximumOccupancy"/>
+			<collection property="district" ofType="district">
+				<id column="DISTRICT_NO" property="districtNo"/>
+				<result column="DISTRICT" property="district"/>
+				<result column="CITY_NAME" property="cityName"/>
+			</collection>
+		</collection>
+	</resultMap>
+	
+	<select id="findAllPlaceOfProExam" resultMap="proExamPlace">
+	SELECT 
+    EXAM_LOCATION_NO,
+	TB_EXAM_PLACE.EXAM_NO,
+	TB_EXAM_PLACE.LOCATION_NO, 
+    TO_CHAR(EXAM_START_DATE, 'YYYY-MM-DD') AS EXAM_START_DATE,
+    TO_CHAR(EXAM_FINAL_DATE, 'YYYY-MM-DD') AS EXAM_FINAL_DATE,
+    TO_CHAR(RECEPTION_START_DATE, 'YYYY-MM-DD') AS RECEPTION_START_DATE,
+    TO_CHAR(RECEPTION_END_DATE, 'YYYY-MM-DD') AS RECEPTION_END_DATE,
+    TO_CHAR(OPINION_START_DATE, 'YYYY-MM-DD') AS OPINION_START_DATE,
+    TO_CHAR(OPINION_END_DATE, 'YYYY-MM-DD') AS OPINION_END_DATE,
+	EXAM_TYPE_NO, 
+    LOCATION_NAME,
+	MAXIMUM_OCCUPANCY,
+	TB_PLACE.DISTRICT_NO, 
+    DISTRICT,
+	CITY_NAME 
+    FROM TB_EXAM_PLACE 
+    JOIN TB_TAKEN_QUALI_EXAM ON (TB_EXAM_PLACE.EXAM_NO = TB_TAKEN_QUALI_EXAM.EXAM_NO) 
+    JOIN TB_PLACE ON (TB_EXAM_PLACE.LOCATION_NO = TB_PLACE.LOCATION_NO) 
+    JOIN TB_DISTRICT ON (TB_PLACE.DISTRICT_NO = TB_DISTRICT.DISTRICT_NO)
+    WHERE TB_EXAM_PLACE.EXAM_NO = #{examNo}	
+	</select>
+	
+	<select id="findAllPlaceOfTechExam" resultMap="techExamPlace">
+	SELECT 
+    EXAM_LOCATION_NO,
+	TB_EXAM_PLACE.EXAM_NO,
+	TB_EXAM_PLACE.LOCATION_NO, 
+    TO_CHAR(EXAM_START_DATE, 'YYYY-MM-DD') AS EXAM_START_DATE,
+    TO_CHAR(EXAM_FINAL_DATE, 'YYYY-MM-DD') AS EXAM_FINAL_DATE,
+    TO_CHAR(RECEPTION_START_DATE, 'YYYY-MM-DD') AS RECEPTION_START_DATE,
+    TO_CHAR(RECEPTION_END_DATE, 'YYYY-MM-DD') AS RECEPTION_END_DATE,
+    TO_CHAR(OPINION_START_DATE, 'YYYY-MM-DD') AS OPINION_START_DATE,
+    TO_CHAR(OPINION_END_DATE, 'YYYY-MM-DD') AS OPINION_END_DATE,
+	EXAM_TYPE_NO, 
+    LOCATION_NAME,
+	MAXIMUM_OCCUPANCY,
+	TB_PLACE.DISTRICT_NO, 
+    DISTRICT,
+	CITY_NAME 
+    FROM TB_EXAM_PLACE 
+    JOIN TB_TAKEN_QUALI_EXAM ON (TB_EXAM_PLACE.EXAM_NO = TB_TAKEN_QUALI_EXAM.EXAM_NO) 
+    JOIN TB_PLACE ON (TB_EXAM_PLACE.LOCATION_NO = TB_PLACE.LOCATION_NO) 
+    JOIN TB_DISTRICT ON (TB_PLACE.DISTRICT_NO = TB_DISTRICT.DISTRICT_NO)
+    WHERE TB_EXAM_PLACE.EXAM_NO = #{examNo}	
+	</select>
+	
+	<select id="findAllTechPlaceByDate" resultMap="techExamPlace">
+	SELECT 
+    EXAM_LOCATION_NO,
+	TB_EXAM_PLACE.EXAM_NO,
+	TB_EXAM_PLACE.LOCATION_NO, 
+    TO_CHAR(EXAM_START_DATE, 'YYYY-MM-DD') AS EXAM_START_DATE,
+    TO_CHAR(EXAM_FINAL_DATE, 'YYYY-MM-DD') AS EXAM_FINAL_DATE,
+    TO_CHAR(RECEPTION_START_DATE, 'YYYY-MM-DD') AS RECEPTION_START_DATE,
+    TO_CHAR(RECEPTION_END_DATE, 'YYYY-MM-DD') AS RECEPTION_END_DATE,
+    TO_CHAR(OPINION_START_DATE, 'YYYY-MM-DD') AS OPINION_START_DATE,
+    TO_CHAR(OPINION_END_DATE, 'YYYY-MM-DD') AS OPINION_END_DATE,
+	EXAM_TYPE_NO, 
+    LOCATION_NAME,
+	MAXIMUM_OCCUPANCY,
+	TB_PLACE.DISTRICT_NO, 
+    DISTRICT,
+	CITY_NAME 
+    FROM TB_EXAM_PLACE 
+    JOIN TB_TAKEN_QUALI_EXAM ON (TB_EXAM_PLACE.EXAM_NO = TB_TAKEN_QUALI_EXAM.EXAM_NO) 
+    JOIN TB_PLACE ON (TB_EXAM_PLACE.LOCATION_NO = TB_PLACE.LOCATION_NO) 
+    JOIN TB_DISTRICT ON (TB_PLACE.DISTRICT_NO = TB_DISTRICT.DISTRICT_NO)
+    WHERE #{examStartDate} &gt;= TO_CHAR(EXAM_START_DATE, 'YYYY-MM-DD')   
+    OR #{examFinalDate} &lt;= TO_CHAR(EXAM_FINAL_DATE, 'YYYY-MM-DD')
+	</select>
+	
+	<select id="findAllProPlaceByDate" resultMap="techExamPlace">
+	SELECT 
+    EXAM_LOCATION_NO,
+	TB_EXAM_PLACE.EXAM_NO,
+	TB_EXAM_PLACE.LOCATION_NO, 
+    TO_CHAR(EXAM_START_DATE, 'YYYY-MM-DD') AS EXAM_START_DATE,
+    TO_CHAR(EXAM_FINAL_DATE, 'YYYY-MM-DD') AS EXAM_FINAL_DATE,
+    TO_CHAR(RECEPTION_START_DATE, 'YYYY-MM-DD') AS RECEPTION_START_DATE,
+    TO_CHAR(RECEPTION_END_DATE, 'YYYY-MM-DD') AS RECEPTION_END_DATE,
+    TO_CHAR(OPINION_START_DATE, 'YYYY-MM-DD') AS OPINION_START_DATE,
+    TO_CHAR(OPINION_END_DATE, 'YYYY-MM-DD') AS OPINION_END_DATE,
+	EXAM_TYPE_NO, 
+    LOCATION_NAME,
+	MAXIMUM_OCCUPANCY,
+	TB_PLACE.DISTRICT_NO, 
+    DISTRICT,
+	CITY_NAME 
+    FROM TB_EXAM_PLACE 
+    JOIN TB_TAKEN_QUALI_EXAM ON (TB_EXAM_PLACE.EXAM_NO = TB_TAKEN_QUALI_EXAM.EXAM_NO) 
+    JOIN TB_PLACE ON (TB_EXAM_PLACE.LOCATION_NO = TB_PLACE.LOCATION_NO) 
+    JOIN TB_DISTRICT ON (TB_PLACE.DISTRICT_NO = TB_DISTRICT.DISTRICT_NO)
+    WHERE #{examStartDate} &gt;= TO_CHAR(EXAM_START_DATE, 'YYYY-MM-DD')   
+    OR #{examFinalDate} &lt;= TO_CHAR(EXAM_FINAL_DATE, 'YYYY-MM-DD')
+	</select>
+	
+	<select id="findAllPlaceByLocationNo" resultMap="place">
+	SELECT
+    LOCATION_NO,
+	LOCATION_NAME,
+	MAXIMUM_OCCUPANCY,
+	TB_PLACE.DISTRICT_NO,
+    DISTRICT,
+	CITY_NAME
+    FROM TB_PLACE
+    JOIN TB_DISTRICT ON (TB_DISTRICT.DISTRICT_NO = TB_PLACE.DISTRICT_NO)
+    WHERE LOCATION_NO NOT IN 
+    <foreach item="locationNo" index="index" collection="list" open="(" separator="," close=")">
+        #{locationNo}
+    </foreach>
+	</select>
 	
 </mapper>

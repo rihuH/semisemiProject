@@ -16,7 +16,7 @@ import lombok.ToString;
 public class District {
 
 	private Long districtNo; // Primary key
-    private String district; // Not null
-    private String cityName;
+    private String district; // 영등포구
+    private String cityName; // 서울특별시, 경기도
     
 }
