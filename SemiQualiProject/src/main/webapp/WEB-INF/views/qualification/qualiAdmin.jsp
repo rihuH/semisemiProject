@@ -23,6 +23,8 @@
 	시행시험 딜리트
 	<a href="/quali/taken_quali_exam/taken_quali_exam_list">시행시험 조회</a>
 	
+	<a href="/quali/taken_quali_exam/place_select_form">시험장소 등록</a> 
+	
 	
 	
 </body>

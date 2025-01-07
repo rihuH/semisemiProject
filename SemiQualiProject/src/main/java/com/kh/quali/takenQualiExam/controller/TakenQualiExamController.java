@@ -21,7 +21,6 @@ import com.kh.quali.takenQualiExam.model.vo.TakenQualiExam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class TakenQualiExamController {
 
 	private final ModelAndViewUtil mv;
 
-	//private final TakenQualiExamService ts;
+	private final TakenQualiExamService ts;
 	private final QualificationService qs;
 	
 	@GetMapping("/taken_quali_exam/exam_insert_select")
@@ -44,23 +43,50 @@ public class TakenQualiExamController {
 	
 	@GetMapping("/taken_quali_exam/exam_insert_form/tech{qualificationName}")
 	public ModelAndView examInsertForm(@PathVariable(name="qualificationName") String qualificationName) {
-		log.info("{}",qualificationName);
-		TechnicalQualification technicalQualification = qs.findTechByName(qualificationName);
+		TechnicalQualification technicalQualification = qs.findTechQualiByName(qualificationName);
 		Map<String, Object> map = new HashMap();
 		map.put("tech", technicalQualification);
 		return mv.setViewNameAndData("takenQualiExam/exam_insert", map);
 	}
-	
-	@PostMapping("taken_quali_exam/exam_insert")
-	public ModelAndView examInsert(TakenQualiExam takenQualiExam, @RequestParam(name="qualificationName")String qualificationName,
-			@RequestParam(name="qualificationRank")int qualificationRank) {
-		log.info("{}, {}" + qualificationRank, takenQualiExam, qualificationName);
-		
-		//ts.insertTakenTechExam(takenQualiExam, qualificationName, qualificationRank);
-		
-		return null;
+	@GetMapping("/taken_quali_exam/exam_insert_form/pro{qualificationName}")
+	public ModelAndView examProInsertForm(@PathVariable(name="qualificationName") String qualificationName) {
+		ProfesionalQualification profesionalQualification = qs.findProQualiByName(qualificationName);
+		Map<String, Object> map = new HashMap();
+		map.put("pro", profesionalQualification);
+		return mv.setViewNameAndData("takenQualiExam/exam_insert", map);
 	}
 	
+	
+	@PostMapping("taken_quali_exam/tech_exam_insert")
+	public String examTechInsert(TakenQualiExam takenQualiExam, @RequestParam(name="qualificationName")String qualificationName,
+			@RequestParam(name="qualificationRank")int qualificationRank) {
+		// 테크 인서트
+		ts.insertTakenTechExam(takenQualiExam, qualificationName, qualificationRank);
+		// 일단 관리자페이지로 돌아가기
+		return "redirect:../eligibility-check.do";
+	}
+	@PostMapping("taken_quali_exam/pro_exam_insert")
+	public String examProInsert(TakenQualiExam takenQualiExam, @RequestParam(name="qualificationName")String qualificationName,
+			@RequestParam(name="qualificationRank")int qualificationRank) {
+		// 프로 인서트
+		ts.insertTakenProExam(takenQualiExam, qualificationName, qualificationRank);
+		// 일단 관리자페이지로 돌아가기
+		return "redirect:../eligibility-check.do";
+	}
+	
+	@GetMapping("taken_quali_exam/taken_quali_exam_list")
+	public ModelAndView takenExamList() {
+		Map<String, Object> takenExamList = ts.getTakenExamList();
+		return mv.setViewNameAndData("takenQualiExam/exam_list", takenExamList);
+	}
+	
+	@GetMapping("taken_quali_exam/place_select_form")
+	public ModelAndView placeSelectForm() {
+		Map<String, Object> takenExamList = ts.getTakenExamList(); 
+		return mv.setViewNameAndData("takenQualiExam/place_insert_form", takenExamList);
+	}
+	
+
 
 	
 }

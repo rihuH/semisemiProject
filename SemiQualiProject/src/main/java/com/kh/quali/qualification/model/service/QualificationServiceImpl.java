@@ -219,12 +219,6 @@ public class QualificationServiceImpl implements QualificationService {
 	}
 
 	@Override
-	public TechnicalQualification findTechByName(String qualificationName) {
-		TechnicalQualification technicalQualification = mapper.findTechQualiByQualiName(qualificationName);
-		return technicalQualification;
-	}
-
-	@Override
 	public void updateTech(String updatedQualiName, String qualiName) {
 		TechnicalQualification originalTechnicalQualification = new TechnicalQualification().builder().qualificationName(qualiName).build();
 		TechnicalQualification updateTechnicalQualification = new TechnicalQualification().builder().qualificationName(updatedQualiName).build();
@@ -256,6 +250,18 @@ public class QualificationServiceImpl implements QualificationService {
 	public List<ProfesionalQualification> searchProName(String searched) {
 		List<ProfesionalQualification> proList = mapper.searchInProQualiName(searched);
 		return proList;
+	}
+
+	@Override
+	public ProfesionalQualification findProQualiByName(String qualificationName) {
+		ProfesionalQualification profesionalQualification = mapper.findProQualiByQualiName(qualificationName);
+		return profesionalQualification;
+	}
+
+	@Override
+	public TechnicalQualification findTechQualiByName(String qualificationName) {
+		TechnicalQualification technicalQualification = mapper.findTechQualiByQualiName(qualificationName); 
+		return technicalQualification;
 	}
 
 
