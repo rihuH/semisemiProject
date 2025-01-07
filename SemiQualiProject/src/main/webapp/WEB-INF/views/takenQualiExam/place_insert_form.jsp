@@ -22,6 +22,8 @@
 <body>
 	시험장소 등록
 	
+	<%--  --%>
+	
 	<table>
 	<thead>
 		<tr>
@@ -84,7 +86,7 @@
 		</table>
 	</div>
 	
-	<form>
+	<form action="/quali/taken_quali_exam/insert_place" method="post">
 	<div>
 		<input type="hidden" name="examNo" value="input"/>
 		<button type="submit">시험장소 등록</button>
@@ -126,7 +128,8 @@
 			},
 			success: function(map){
 				$('.addedClass').remove();
-				var inputValue = $('input[type=hidden]').val(map.data.takenQualiExam.examNo);
+				$('input[type=hidden]').val(`\${map.data.takenQualiExam.examNo}`);
+				var inputValue = $('input[type=hidden]').val();
 				console.log(inputValue);
 			    var i = 0;
 			    const placeTbody = $('#placeAdd'); // tbody로 직접 접근
@@ -162,7 +165,7 @@
 			            // 새로운 행을 동적으로 생성하여 추가
 			            var row = $('<tr class="addedClass">');
 			            row.append(`<td>\${i + 1}</td>`);
-			            row.append(`<td><input type="checkbox" name=""></td><label>`);
+			            row.append(`<td><input type="checkbox" name="insertPlaceNo" value="\${availablePlaces[i].locationNo}"></td><label>`);
 			            row.append(`<td>\${availablePlaces[i].district.cityName}</td>`);
 			            row.append(`<td>\${availablePlaces[i].district.district}</td>`);
 			            row.append(`<td>\${availablePlaces[i].locationName}</td>`);

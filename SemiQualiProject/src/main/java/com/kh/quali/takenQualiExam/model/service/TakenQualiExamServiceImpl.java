@@ -17,6 +17,7 @@ import com.kh.quali.qualification.model.vo.TechnicalQualification;
 import com.kh.quali.takenQualiExam.model.dao.TakenQualiExamMapper;
 import com.kh.quali.takenQualiExam.model.vo.ExamPlace;
 import com.kh.quali.takenQualiExam.model.vo.ProQualificationExam;
+import com.kh.quali.takenQualiExam.model.vo.Subject;
 import com.kh.quali.takenQualiExam.model.vo.TakenQualiExam;
 import com.kh.quali.takenQualiExam.model.vo.TechQualificationExam;
 
@@ -128,14 +129,20 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		map.put("techList", list);
 		return map;
 	}
-
-	private List<TakenQualiExam> takenExamRoundCheck(List<TakenQualiExam> list) {
+	@Override
+	public List<TakenQualiExam> takenExamRoundCheck(List<TakenQualiExam> list) {
 		int round = 0;
 		for(TakenQualiExam e : list) {
 			round = mapper.getRoundOfExam(e);
 			e.setRound(String.valueOf(round));
 		}
 		return list;
+	}
+	@Override
+	public TakenQualiExam takenExamRoundCheck(TakenQualiExam takenQualiExam) {
+		int round = mapper.getRoundOfExam(takenQualiExam);
+		takenQualiExam.setRound(String.valueOf(round));
+		return takenQualiExam;
 	}
 	
 	/** 원서접수 -- 특정 시험
@@ -206,6 +213,16 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		map.put("availablePlaces", availableTechPlaces);
 		map.put("takenQualiExam", takenQualiExam);
 		return map;
+	}
+	@Override
+	public void insertExamPlace(int[] insertPlaceNo, Long examNo) {
+		Map<String, Object> map = new HashMap();
+		for(int locationNo : insertPlaceNo) {
+			map.clear();
+			map.put("examNo", examNo);
+			map.put("locationNo", locationNo);
+			mapper.insertExamPlace(map);
+		}
 	}
 
 

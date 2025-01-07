@@ -20,11 +20,12 @@
 	
 	<a href="/quali/taken_quali_exam/exam_insert_select">시행시험 인서트</a>
 	시행시험 업데이트
-	시행시험 딜리트
+	시행시험 딜리트  -- 시간 남으면 조회에서 같이
 	<a href="/quali/taken_quali_exam/taken_quali_exam_list">시행시험 조회</a>
 	
 	<a href="/quali/taken_quali_exam/place_select_form">시험장소 등록</a> 
 	
+	<a href="/quali/provisional_answer/subject_list">가답안으로 만드는 보드보드
 	
 	
 </body>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.quali.provisionalAnswer.model.dao.ProvisionalAnswerMapper">
+
+	<resultMap id="proProvisionalAnswer" type="provisionalAnswer">
+		<id column="PROVISIONAL_ANSWER_NO" property="provisionalAnswerNo"/>
+		<result column="ORIGINAL_FILE_NAME" property="originalFileName"/>
+		<result column="CHANGED_FILE_NAME" property="changedFileName"/>
+		<result column="PROVISIONAL_ANSWER_FILE" property="filePath"/>
+		<collection property="subject" ofType="subject">
+			<id column="SUBJECT_NO" property="subjectNo"/>
+			<result column="SUBJECT_PERIOD" property="subjectPeriod"/>
+			<collection property="takenQualiExam" ofType="takenQualiExam">
+					<id column="EXAM_NO" property="examNo" />
+				    <result column="EXAM_START_DATE" property="examStartDate" />
+				    <result column="EXAM_FINAL_DATE" property="examFinalDate" />
+				    <result column="RECEPTION_START_DATE" property="receptionStartDate" />
+				    <result column="RECEPTION_END_DATE" property="receptionEndDate" />
+				    <result column="OPINION_START_DATE" property="opinionStartDate" />
+				    <result column="OPINION_END_DATE" property="opinionEndDate" />
+				    <collection property="qualificationExam" ofType="proQualificationExam">
+				    	<id column="EXAM_TYPE_NO" property="examTypeNo" />
+			    		<result column="QUALIFICATION_RANK" property="qualificationRank" />
+			    		<collection property="profesionalQualification" ofType="profesionalQualification">
+			    			<id column="QUALIFICATION_NO" property="qualificationNo"/>
+							<result column="QUALIFICATION_NAME" property="qualificationName"/>
+							<result column="STATUS" property="status"/>
+							<result column="REQUIRED_RANK" property="requiredRank"/>
+							<collection property="profesionalDept" ofType="profesionalDept">
+								<id column="CATEGORY_NO" property="categoryNo"/>
+								<result column="RELEVANT_DEPARTMENT" property="relevantDepartment"/>
+								<collection property="typeQualification" ofType="typeQualification">
+									<id column="QUALIFICATION_CODE" property="qualificationCode"/>
+									<result column="QUALIFICATION_TYPE" property="qualificationType"/>
+								</collection>
+							</collection>
+			    		</collection>
+				    </collection>
+				</collection>
+		</collection>
+	</resultMap> 
+	
+	<resultMap id="techProvisionalAnswer" type="provisionalAnswer">
+		<id column="PROVISIONAL_ANSWER_NO" property="provisionalAnswerNo"/>
+		<result column="ORIGINAL_FILE_NAME" property="originalFileName"/>
+		<result column="CHANGED_FILE_NAME" property="changedFileName"/>
+		<result column="PROVISIONAL_ANSWER_FILE" property="filePath"/>
+		<collection property="subject" ofType="subject">
+			<id column="SUBJECT_NO" property="subjectNo"/>
+			<result column="SUBJECT_PERIOD" property="subjectPeriod"/>
+			<collection property="takenQualiExam" ofType="takenQualiExam">
+					<id column="EXAM_NO" property="examNo" />
+				    <result column="EXAM_START_DATE" property="examStartDate" />
+				    <result column="EXAM_FINAL_DATE" property="examFinalDate" />
+				    <result column="RECEPTION_START_DATE" property="receptionStartDate" />
+				    <result column="RECEPTION_END_DATE" property="receptionEndDate" />
+				    <result column="OPINION_START_DATE" property="opinionStartDate" />
+				    <result column="OPINION_END_DATE" property="opinionEndDate" />
+				    <collection property="qualificationExam" ofType="techQualificationExam">
+				    	<id column="EXAM_TYPE_NO" property="examTypeNo" />
+			    		<result column="QUALIFICATION_RANK" property="qualificationRank" />
+			    		<collection property="technicalQualification" ofType="technicalQualification">
+			    			<id column="QUALIFICATION_NO" property="qualificationNo"/>
+							<result column="QUALIFICATION_NAME" property="qualificationName"/>
+							<result column="STATUS" property="status"/>
+							<result column="REQUIRED_RANK" property="requiredRank"/>
+							<collection property="techCategory" ofType="techCategory">
+								<id column="CATEGORY_NO" property="categoryNo"/>
+								<result column="CATEGORY_NAME" property="categoryName"/>
+								<collection property="technicalField" ofType="technicalField">
+									<id column="FIELD_NO" property="fieldNo"/>
+									<result column="FIELD_NAME" property="fieldName"/>
+									<collection property="typeQualification" ofType="typeQualification">
+										<id column="QUALIFICATION_CODE" property="qualificationCode"/>
+										<result column="QUALIFICATION_TYPE" property="qualificationType"/>
+									</collection>
+								</collection>
+							</collection>
+			    		</collection>
+				    </collection>
+				</collection>
+		</collection>
+	</resultMap>
+	
+	<resultMap id="subject" type="subject">
+			<id column="SUBJECT_NO" property="subjectNo"/>
+			<result column="SUBJECT_PERIOD" property="subjectPeriod"/>
+			<collection property="takenQualiExam" ofType="takenQualiExam">
+					<id column="EXAM_NO" property="examNo" />
+				    <result column="EXAM_START_DATE" property="examStartDate" />
+				    <result column="EXAM_FINAL_DATE" property="examFinalDate" />
+				    <result column="RECEPTION_START_DATE" property="receptionStartDate" />
+				    <result column="RECEPTION_END_DATE" property="receptionEndDate" />
+				    <result column="OPINION_START_DATE" property="opinionStartDate" />
+				    <result column="OPINION_END_DATE" property="opinionEndDate" />
+				    <collection property="qualificationExam" ofType="proQualificationExam">
+				    	<id column="EXAM_TYPE_NO" property="examTypeNo" />
+			    		<result column="QUALIFICATION_RANK" property="qualificationRank" />
+			    		<collection property="profesionalQualification" ofType="profesionalQualification">
+			    			<id column="QUALIFICATION_NO" property="qualificationNo"/>
+							<result column="QUALIFICATION_NAME" property="qualificationName"/>
+							<result column="STATUS" property="status"/>
+							<result column="REQUIRED_RANK" property="requiredRank"/>
+							<collection property="profesionalDept" ofType="profesionalDept">
+								<id column="CATEGORY_NO" property="categoryNo"/>
+								<result column="RELEVANT_DEPARTMENT" property="relevantDepartment"/>
+								<collection property="typeQualification" ofType="typeQualification">
+									<id column="QUALIFICATION_CODE" property="qualificationCode"/>
+									<result column="QUALIFICATION_TYPE" property="qualificationType"/>
+								</collection>
+							</collection>
+			    		</collection>
+				    </collection>
+				</collection>
+		</resultMap>
+	
+	<select id="findAllProSubject" resultMap="subject">
+	SELECT 
+	SUBJECT_NO,
+	SUBJECT_PERIOD,
+	TB_SUBJECT.EXAM_NO, 
+    TO_CHAR(EXAM_START_DATE, 'YYYY-MM-DD') AS EXAM_START_DATE,
+    TO_CHAR(EXAM_FINAL_DATE, 'YYYY-MM-DD') AS EXAM_FINAL_DATE,
+    TO_CHAR(RECEPTION_START_DATE, 'YYYY-MM-DD') AS RECEPTION_START_DATE,
+    TO_CHAR(RECEPTION_END_DATE, 'YYYY-MM-DD') AS RECEPTION_END_DATE,
+    TO_CHAR(OPINION_START_DATE, 'YYYY-MM-DD') AS OPINION_START_DATE,
+    TO_CHAR(OPINION_END_DATE, 'YYYY-MM-DD') AS OPINION_END_DATE,
+    TB_TAKEN_QUALI_EXAM.EXAM_TYPE_NO, 
+    TB_QUALIFICATION_EXAM.QUALIFICATION_RANK,
+    TB_QUALIFICATION_EXAM.QUALIFICATION_CODE,
+    TB_QUALIFICATION_EXAM.QUALIFICATION_NO, 
+    TB_PROFESIONAL_QUALIFICATION.QUALIFICATION_NAME,
+    TB_PROFESIONAL_QUALIFICATION.STATUS,
+    TB_PROFESIONAL_QUALIFICATION.REQUIRED_RANK,
+    TB_PROFESIONAL_QUALIFICATION.CATEGORY_NO, 
+    TB_QUALI_PROFESIONAL_DEPT.RELEVANT_DEPARTMENT,
+    TB_QUALI_PROFESIONAL_DEPT.QUALIFICATION_CODE,  
+    TB_TYPE_QUALIFICATION.QUALIFICATION_TYPE 
+    FROM TB_SUBJECT 
+    JOIN TB_TAKEN_QUALI_EXAM ON (TB_SUBJECT.EXAM_NO = TB_TAKEN_QUALI_EXAM.EXAM_NO) 
+    JOIN TB_QUALIFICATION_EXAM ON (TB_TAKEN_QUALI_EXAM.EXAM_TYPE_NO = TB_QUALIFICATION_EXAM.EXAM_TYPE_NO) 
+    JOIN TB_PROFESIONAL_QUALIFICATION ON (TB_PROFESIONAL_QUALIFICATION.QUALIFICATION_NO = TB_QUALIFICATION_EXAM.QUALIFICATION_NO) 
+    JOIN TB_QUALI_PROFESIONAL_DEPT ON (TB_QUALI_PROFESIONAL_DEPT.CATEGORY_NO = TB_PROFESIONAL_QUALIFICATION.CATEGORY_NO) 
+    JOIN TB_TYPE_QUALIFICATION ON (TB_TYPE_QUALIFICATION.QUALIFICATION_CODE = TB_QUALI_PROFESIONAL_DEPT.QUALIFICATION_CODE)
+    WHERE SYSDATE &gt;= EXAM_FINAL_DATE 
+    ORDER BY EXAM_FINAL_DATE DESC
+	</select>
+	
+	<select id="findAllTechSubject" resultMap="subject">
+	SELECT
+        SUBJECT_NO,
+   SUBJECT_PERIOD,
+	TB_SUBJECT.EXAM_NO,
+    TO_CHAR(EXAM_START_DATE, 'YYYY-MM-DD') AS EXAM_START_DATE,
+    TO_CHAR(EXAM_FINAL_DATE, 'YYYY-MM-DD') AS EXAM_FINAL_DATE,
+    TO_CHAR(RECEPTION_START_DATE, 'YYYY-MM-DD') AS RECEPTION_START_DATE,
+    TO_CHAR(RECEPTION_END_DATE, 'YYYY-MM-DD') AS RECEPTION_END_DATE,
+    TO_CHAR(OPINION_START_DATE, 'YYYY-MM-DD') AS OPINION_START_DATE,
+    TO_CHAR(OPINION_END_DATE, 'YYYY-MM-DD') AS OPINION_END_DATE,
+    TB_TAKEN_QUALI_EXAM.EXAM_TYPE_NO, 
+    QUALIFICATION_RANK,
+    TB_QUALIFICATION_EXAM.QUALIFICATION_NO, 
+    QUALIFICATION_NAME,
+    STATUS,
+    REQUIRED_RANK,
+    TB_TECHNICAL_QUALIFICATION.CATEGORY_NO, 
+    CATEGORY_NAME,
+    TB_QUALI_TECH_CATEGORY.FIELD_NO, 
+    FIELD_NAME, 
+	TB_QUALI_TECHNICAL_FIELD.QUALIFICATION_CODE, 
+    QUALIFICATION_TYPE
+    FROM TB_SUBJECT 
+    JOIN TB_TAKEN_QUALI_EXAM  ON (TB_SUBJECT.EXAM_NO = TB_TAKEN_QUALI_EXAM.EXAM_NO) 
+    JOIN TB_QUALIFICATION_EXAM ON (TB_QUALIFICATION_EXAM.EXAM_TYPE_NO = TB_TAKEN_QUALI_EXAM.EXAM_TYPE_NO) 
+    JOIN TB_TECHNICAL_QUALIFICATION ON (TB_QUALIFICATION_EXAM.QUALIFICATION_NO = TB_TECHNICAL_QUALIFICATION.QUALIFICATION_NO)
+    JOIN TB_QUALI_TECH_CATEGORY ON (TB_TECHNICAL_QUALIFICATION.CATEGORY_NO = TB_QUALI_TECH_CATEGORY.CATEGORY_NO)
+    JOIN TB_QUALI_TECHNICAL_FIELD ON (TB_QUALI_TECH_CATEGORY.FIELD_NO = TB_QUALI_TECHNICAL_FIELD.FIELD_NO) 
+    JOIN TB_TYPE_QUALIFICATION ON (TB_QUALI_TECHNICAL_FIELD.QUALIFICATION_CODE = TB_TYPE_QUALIFICATION.QUALIFICATION_CODE)
+    WHERE SYSDATE &gt;= EXAM_FINAL_DATE 
+    ORDER BY EXAM_FINAL_DATE DESC
+	</select>
+	
+	<select id="findSubject" resultMap="subject">
+	SELECT
+        SUBJECT_NO,
+   SUBJECT_PERIOD,
+	TB_SUBJECT.EXAM_NO 
+    FROM TB_SUBJECT 
+    WHERE TB_SUBJECT.EXAM_NO = #{examNo}
+	</select>
+	
+	
+	
+</mapper>

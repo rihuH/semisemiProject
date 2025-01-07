@@ -16,6 +16,7 @@ import com.kh.quali.qualification.model.service.QualificationService;
 import com.kh.quali.qualification.model.vo.ProfesionalQualification;
 import com.kh.quali.qualification.model.vo.TechnicalQualification;
 import com.kh.quali.takenQualiExam.model.service.TakenQualiExamService;
+import com.kh.quali.takenQualiExam.model.vo.Subject;
 import com.kh.quali.takenQualiExam.model.vo.TakenQualiExam;
 
 import lombok.RequiredArgsConstructor;
@@ -85,6 +86,14 @@ public class TakenQualiExamController {
 		Map<String, Object> takenExamList = ts.getTakenExamList(); 
 		return mv.setViewNameAndData("takenQualiExam/place_insert_form", takenExamList);
 	}
+	
+	@PostMapping("taken_quali_exam/insert_place")
+	public String insertPlace(int[] insertPlaceNo, Long examNo) {
+		ts.insertExamPlace(insertPlaceNo, examNo);
+		return "redirect:../eligibility-check.do";
+	}
+	
+
 	
 
 

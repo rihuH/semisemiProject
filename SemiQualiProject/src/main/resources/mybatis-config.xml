@@ -23,6 +23,7 @@
 		<typeAlias type="com.kh.quali.takenQualiExam.model.vo.ExamPlace" alias="examPlace"/>
 		<typeAlias type="com.kh.quali.place.model.vo.Place" alias="place"/>
 		<typeAlias type="com.kh.quali.place.model.vo.District" alias="district"/>
+		<typeAlias type="com.kh.quali.provisionalAnswer.model.vo.ProvisionalAnswer" alias="provisionalAnswer"/>
 		<typeAlias type="com.kh.quali.member.model.vo.Member" alias="member"/>
 		<typeAlias type="com.kh.quali.member.model.vo.EducationStatus" alias="educationStatus"/>
 		<typeAlias type="com.kh.quali.notice.model.vo.Notice" alias="notice"/>
@@ -37,6 +38,7 @@
 		<mapper resource="/mapper/notice-mapper.xml" />
 		<mapper resource="/mapper/answer-mapper.xml" />
 		<mapper resource="/mapper/comment-mapper.xml" />
+		<mapper resource="/mapper/provisionalAnswer-mapper.xml"/>
 	</mappers>
 
 
