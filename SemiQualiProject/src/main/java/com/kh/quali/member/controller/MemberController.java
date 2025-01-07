@@ -80,7 +80,7 @@ public class MemberController {
 		
 		memberService.signUp(member);
 		
-		session.setAttribute("alertMsg", "占쎌돳占쎌뜚揶쏉옙占쎌뿯 占쎄쉐�⑨옙");
+		session.setAttribute("alertMsg", "회원가입에 성공하셨습니다");
 		
 		return mv.setViewNameAndData("main", null);
 	}

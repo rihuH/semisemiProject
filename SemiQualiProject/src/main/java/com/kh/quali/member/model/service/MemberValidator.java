@@ -12,60 +12,38 @@ import lombok.RequiredArgsConstructor;
 
 
 @Component
-@RequiredArgsConstructor // fianlÅ°¿öµå¸¦ »ç¿ëÇÑ °´Ã¼¿¡ »ı¼ºÀÚ¸¦ ÁÖÀÔÇØÁÜ
+@RequiredArgsConstructor 
 public class MemberValidator {
 
-	// Member °ü·Ã °ËÁõ¿¡ ´ëÇÑ Å¬·¡½º
 	private final MemberMapper mapper;
 	
 	
-	// È¸¿ø°¡ÀÔ¿¡¼­ ¹ß»ıÇÒ ¼ö ÀÖ´Â ¿¹¿Ü»óÈ²
-	// 1. IDÁßº¹ (UNIQUE)
-	// 2. ID³ª PWD°ªÀÌ Á¤ÇØÁø °ªº¸´Ù Ä¿Áú°æ¿ì
-	
-	// 1. IDÁßº¹ÀÇ °æ¿ì
 	public void validateDuplicateMember(Member member) {
 		Member existingMember = mapper.login(member);
 		if(existingMember != null && member.getMemberId().equals(existingMember.getMemberId())) {
-			// existingMember != null == °ªÀÌ ÀÖÀ» ¶§
-			// member.getMemberId »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ °ª°ú DB¿¡ ÀÖ´Â °ªÀÌ ÀÏÄ¡ÇÏ¸é
-			// ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÌ¹Ç·Î ¹ß»ıÇÒ ¿¹¿Ü
-			throw new UserFoundException("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğ");
+			throw new UserFoundException("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
 		}
 	}
 	
-	// 2. °ªÀÌ Á¤ÇØµĞ Å©±âº¸´Ù Å¬ °æ¿ì
 	public void validateIdLength(Member member) {
 		if(member.getMemberId().length() > 30) {
-			throw new TooLargeValueException("¾ÆÀÌµğ°¡ ÀÔ·Â ÇÒ ¼ö ÀÖ´Â Å©±â¸¦ ³Ñ¾ú½À´Ï´Ù.");
+			throw new TooLargeValueException("ì•„ì´ë””ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 		}
 	}
 	
-	// È¸¿ø°¡ÀÔÀ» À§ÇÑ ÃÖÁ¾ ¸Ş¼Òµå
 	public void validateJoinMember(Member member) {
 		validateDuplicateMember(member);
 		validateIdLength(member);
 	}
 	
-	
-	
-	
-	// ·Î±×ÀÎ¿¡¼­ ¹ß»ı ÇÒ ¼ö ÀÖ´Â ¿¹¿Ü»óÈ²
-	// 1. È¸¿øÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é?
-	// 2. ¾ÆÀÌµğ, È¤Àº ºñ¹Ğ¹øÈ£°¡ Æ²·È´Ù¸é? 
-	// (ºñ¹Ğ¹øÈ£°¡ Æ²¸°°æ¿ì PasswordEncryptor ¿¡¼­ °Å¸£µµ·Ï ÇØ³ù±â¶§¹®¿¡ validator¿¡¼­´Â ÇÒ ÀÏÀÌ ¾ø´Ù.)
-	
 	public Member validateMemberExist(Member member) {
 
-		// Service¿¡¼­ ³Ñ±ä member °ªÀ» °®°í DBÀÇ MEMBERÅ×ÀÌºí°ú ºñ±³ Á¶È¸ ÈÄ °á°ú ´ã±â
 		Member existingMember = mapper.login(member);
 		
 		if(existingMember != null) {
 			return existingMember;
-		} // µ¹¾Æ¿Â°Ô ÀÖÀ»°æ¿ì µ¹·ÁÁØ´Ù.
-		
-		// µ¹¾Æ¿Â°Ô ¾ø´Ù¸é ¿¹¿Ü¹ß»ı½ÃÅ°±â.
-		throw new UserIdNotFoundException("¾ÆÀÌµğ¸¦ Àß¸øÀÔ·ÂÇÏ¼Ì½À´Ï´Ù");
+		} 
+		throw new UserIdNotFoundException("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
 	}
 	
 	

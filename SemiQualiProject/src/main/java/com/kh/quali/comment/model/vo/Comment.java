@@ -9,7 +9,7 @@ public class Comment {
 	private String commentContent;
 	private String commentCreatedAt;
 	private String commentUpdatedAt;
-	private String commnetStatus;
+	private String commentStatus;
 	private String memNo;
 	
 }

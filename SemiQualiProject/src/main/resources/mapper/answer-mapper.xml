@@ -51,6 +51,25 @@
 		  	ANSWER_NO = #{answerNo}
 	</select>
 	
+	<select id="findCommentById" resultType="com.kh.quali.comment.model.vo.Comment">
+		SELECT
+				COMMENT_NO AS commentNo,
+				ANSWER_NO AS answerNo,
+				COMMENT_CONTENT AS commentContent,
+				COMMENT_CREATED_AT AS commentCreatedAt,
+				COMMENT_UPDATED_AT AS commentUpdatedAt,
+				COMMENT_STATUS as commentStatus,
+			    MEMBER.MEMBER_ID AS memNo
+	      FROM
+			    BOARD_COMMENT
+		  JOIN
+		   		MEMBER ON MEM_NO = MEMBER_NO
+		 WHERE
+		 		ANSWER_NO = #{answerNo}
+		   AND
+		   		COMMENT_STATUS = 'N'
+	</select>
+	
 	<insert id="insertAsk" parameterType="answer">
 		INSERT
 		  INTO

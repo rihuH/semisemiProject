@@ -31,16 +31,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member loginMember(Member member) {
 		
-		// ¾ÆÀÌµğ °ËÁõÀ» validator¿¡°Ô ¸Ã±ä´Ù.
+		// ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ validatorï¿½ï¿½ï¿½ï¿½ ï¿½Ã±ï¿½ï¿½.
 		Member loginMember = validator.validateMemberExist(member);
 		
-		// ¸¸¾à loginUser°¡ µ¹¾Æ¿Ô´Ù¸é, ºñ¹Ğ¹øÈ£ °ËÁõÀº PasswordEncryptorÀ» ÀÌ¿ëÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ loginUserï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿Ô´Ù¸ï¿½, ï¿½ï¿½Ğ¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ PasswordEncryptorï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ñ´ï¿½.
 		if(!passwordEncoder.matches(member.getMemberPwd(), loginMember.getMemberPwd())) {
-			//ÀÏÄ¡ÇÏÁö ¾Ê´Â´Ù¸é ¿¹¿Ü ¹ß»ı, ExceptionHandling Å¬·¡½º·Î ³Ñ±ä´Ù.
-			throw new ComparePasswordException("ºñ¹Ğ¹øÈ£°¡ Æ²·È½À´Ï´Ù.");
+			//ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½, ExceptionHandling Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½.
+			throw new ComparePasswordException("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			
 		} else {
-			// ºñ¹Ğ¹øÈ£°¡ ¸Â´Â´Ù¸é MemberÀÇ Á¤º¸¸¦ µé°í Controller·Î µ¹¾Æ°£´Ù.
+			// ï¿½ï¿½Ğ¹ï¿½È£ï¿½ï¿½ ï¿½Â´Â´Ù¸ï¿½ Memberï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Controllerï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½.
 			return loginMember;
 		}
 	}
@@ -48,10 +48,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void signUp(Member member) {
 		
-		// validator Å¬·¡½º¸¦ ÀÌ¿ëÇØ¼­ ¾ÆÀÌµğÁßº¹, ¾ÆÀÌµğ±æÀÌ µî °ËÁõÀ» °ÅÄ¡°í µ¹¾Æ¿È
 		validator.validateJoinMember(member);
 		
-		// ¿¹¿Ü»çÇ×ÀÌ ¹ß»ıÇÏÁö¾Ê°í µ¹¾Æ¿Ô´Ù¸é ºñ¹Ğ¹øÈ£¸¦ ¾ÏÈ£È­ ÇØÁØ´Ù.
 		member.setMemberPwd(passwordEncoder.encode(member.getMemberPwd()));
 		
 		
@@ -62,7 +60,6 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public String checkId(String memberId) {
-		// ¾ÆÀÌµğ°¡ Áßº¹ÀÌ¶ó¸é "NNNNN", Áßº¹ÀÌ ¾Æ´Ï¶ó¸é "NNNNY"
 		return mapper.checkId(memberId) > 0 ? "NNNNN" : "NNNNY";
 	}
 
@@ -70,21 +67,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void updateMember(Member member, HttpSession session) {
 		
-		// sessionµµ °°ÀÌ ¹Ş¾Æ¿Â ÀÌÀ¯ : ¾Õ´Ü¿¡¼­ ³Ñ¾î¿Â memberId¿Í sessionÀÇ loginMemberÀÇ idÅ°°ªÀÌ µ¿ÀÏÇÑÁö È®ÀÎÇØ¾ßÇÏ±â¶§¹®
-		// -> »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ userId Å°°ªÀÌ DB¿¡ ÀÖ´ÂÁö È®ÀÎ
-		// »ç¿ëÀÚ°¡ ¾÷µ¥ÀÌÆ® ÇÏ°í½Í¾îÇÏ´Â ³»¿ëÀÌ DB¿¡ Á¸ÀçÇÏ´Â ÄÃ·³ÀÇ Å©±â¿¡ ³ÑÄ¡Áö ¾Ê´ÂÁö || Á¦¾àÁ¶°Ç¿¡ ºÎÇÕÇÏ´ÂÁö
-		// À§¿Í°°Àº °ËÁõÀÎ validator¿¡¼­ ÁøÇà
-		
 		validator.validateMemberExist(member);
-		log.info("{}", session.getAttribute("loginMember"));
-		log.info("{}", member);
 		
 		if(member.getMemberPwd().length() < 15) {
 			member.setMemberPwd(passwordEncoder.encode(member.getMemberPwd()));
 		}
 		
 		mapper.updateMember(member);
-		
 		
 		session.setAttribute("loginMember", mapper.login(member));
 		
@@ -104,26 +93,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void updateMemberEducation(EducationStatus educationStatus, HttpSession session) {
 		
-		// select¸¦ ¸ÕÀú ÇÏ°í ÀÖ´ÂÁö ¾ø´ÂÁö µ¹¾Æ¿À´Â °ªÀ» º¸°í È®ÀÎ
-		//EducationStatus edu = selectMemberEducation(memberNo);
-		// À§ °úÁ¤Àº ·Î±×ÀÎÇÒ¶§ ÁøÇàÇßÀ½
-		
-		//log.info("{}", educationStatus);
-		// ¿©±â´Â html¿¡¼­ °ªÀ» ´ã¾Æ¿ÓÀ¸´Ï nullÀÏ¼ö°¡ ¾øÀ½.
-		// selectMemberEducationÀ» ÇÑ¹ø ´õ ½ÇÇàÇØ¼­ nullÀÎÁö ¾Æ´ÑÁö ÆÇ´ÜÇØ¾ßÇÔ
-		
 		Member member = (Member) session.getAttribute("loginMember");
 		
-		// log.info("{}",selectMemberEducation(member.getMemberNo()));
 		EducationStatus edu = selectMemberEducation(member.getMemberNo());
-		// µÚÀÇ getMemNo()¸¦ Áö¿ì°í != nullÀ» ¾µ °æ¿ì nullÀÌ ÇÏ³ª¶óµµ ÀÖÀ¸¸é insert¹®À» ½ÇÇàÇØ¼­ ¾ÈµÊ.
-		// selectMemberEducation(member.getMemberNo()).getMemNo() ·Î ÁøÇàÇÏ¸é
-		// insert¹®ÀÌ ½ÇÇàµÇÁö ¾ÊÀ½ (NullpointException¹ß»ı)
 		if(edu != null) {
-			// µ¹¾Æ¿Â°ªÀÌ nullÀÌ¶ó¸é Á¤º¸ ¼öÁ¤
 			mapper.updateMemberEducation(educationStatus);
 		} else {
-			// µ¹¾Æ¿Â °ªÀÌ nullÀÌ ¾Æ´Ï¶ó¸é Ãß°¡
 			insertMemberEducation(educationStatus);
 		}
 		
@@ -134,14 +109,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void deleteMember(String memberPwd, HttpSession session) {
 		
-		// ÀÏ´Ü member¿¡ ·Î±×ÀÎµÇ¾îÀÖ´Â À¯ÀúÀÇ Á¤º¸¸¦ ´ã´Â´Ù.
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		loginMember.setMemberPwd(memberPwd);
 		Member memberInfo = validator.validateMemberExist(loginMember);
 		
-		// ºñ¹Ğ¹øÈ£´Â ¿©±â¼­ È®ÀÎÇÏ±â¶§¹®¿¡ SQL¹®À» ¾µ ¶§ È®ÀÎÇÏÁö ¾Ê¾Æµµ µÈ´Ù.
 		if(!(passwordEncoder.matches(loginMember.getMemberPwd(), memberInfo.getMemberPwd()))) {
-			throw new ComparePasswordException("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+			throw new ComparePasswordException("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		}
 		
 		mapper.deleteMember(memberInfo);
