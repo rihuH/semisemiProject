@@ -16,7 +16,10 @@ import lombok.ToString;
 @ToString
 @Builder
 public class ExamPlace {
-	private int examLocationNo; // Primary key
-    private int examNo;
-    private Place place;
+	/*
+	 * 시행되는 시험에 대한 장소
+	 */
+	private Long examLocationNo; // Primary key
+    private TakenQualiExam takenQualiExam; // 시행되는 시험을 객체필드로 가지고 있음.
+    private Place place; // 해당 장소클래스를 객체필드로 가지고 있음.
 }
