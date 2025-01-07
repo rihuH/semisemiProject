@@ -65,9 +65,9 @@
             width: 178px;
         }
 
-        #password-result{
+        .ckeckForm{
             display: flex;
-            float: inline-end;
+            float: right;
         }
 
         .btns{
@@ -149,7 +149,7 @@
                     </div><br>
                     <input type="password" class="input-detail" id="password" required>  <br>
                     <div class="input-title" style="width: 300px; font-weight: bold;">
-                        비밀번호 확인 <div id="password-result"></div>
+                        비밀번호 확인 <div id="password-result" class="ckeckForm"></div>
                     </div><br>
                     <input type="password" class="input-detail"  id="check-password" name="memberPwd" required> 
                     <button type="button" id="check-password-btn">확인</button><br>
@@ -178,10 +178,10 @@
                         <option value="nate.com">nate.com</option>
                         <option value="yahoo.com">yahoo.com</option>
                     </select> <br>
-                    <div class="input-title" style="font-weight: bold;">
-                        핸드폰번호
+                    <div class="input-title" style="width: 300px; font-weight: bold;">
+                        핸드폰번호 <div id="phone-result" class="ckeckForm"></div>
                     </div><br>
-                    <input type="text" class="input-detail" maxlength="13" placeholder="예시) 010-0000-0000" name="phone">
+                    <input type="text" id="phone" class="input-detail" maxlength="13" placeholder="예시) 010-0000-0000" name="phone" required>
 
 
                     <div class="btns">
@@ -202,14 +202,17 @@
             const checkpwd = $('#check-password').val().trim();
 
             if (pwd === checkpwd) {
-                $('#password-result').html("통과입니다.").css('color', 'green');
+                $('#password-result').html("일치합니다.").css('color', 'green');
+                $('#join-btn').prop('disabled', false);
+
             } else {
                 $('#password-result').html("다시한번 확인해주세요.").css('color', 'red');
+                $('#join-btn').prop('disabled', true);
+
             }
         });
 
         // 도메인 선택 후 입력 script
-        
         $(function() {
             $('#select_domain').on('change', function () {
                 const emailId = $('#email_id').val().trim();
@@ -252,12 +255,20 @@
                 e.preventDefault(); 
                 return;
             }
-
-            
-
         });
         
+        const regExp = /^\d{3}-\d{3,4}-\d{4}$/;
 
+        $('#phone').keyup(function(){
+            if (regExp.test($('#phone').val())) {
+                $('#phone-result').html("양식과 일치합니다.").css('color', 'green');
+                $('#join-btn').prop('disabled', false);
+            } else {
+                $('#phone-result').html("양식에 맞춰주세요.").css('color', 'red');
+                $('#join-btn').prop('disabled', true);
+            }
+        })
+        
 
     </script>
 

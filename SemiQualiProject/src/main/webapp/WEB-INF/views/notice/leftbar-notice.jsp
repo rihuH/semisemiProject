@@ -103,8 +103,8 @@
                 </div>
                 <div class="descript-menu" style="display: block;">
                     <li><a href="notices" class="descript-menu-a" data-main="descript-main1" style="color: skyblue;">공지사항</a></li>
-                    <li><a href="help/faq" class="descript-menu-a" data-main="descript-main1">자주하는질문</a></li>
                     <li><a href="help/ask" class="descript-menu-a" data-main="descript-main1">직접질문하기</a></li>
+                    <li><a href="help/faq" class="descript-menu-a" data-main="descript-main1">자주하는질문</a></li>
                 </div>
 
                 <div class="descript">

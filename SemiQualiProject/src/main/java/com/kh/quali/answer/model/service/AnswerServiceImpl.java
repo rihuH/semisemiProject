@@ -7,11 +7,11 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 
 import org.apache.ibatis.session.RowBounds;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.quali.answer.model.dao.AnswerMapper;
 import com.kh.quali.answer.model.vo.Answer;
+import com.kh.quali.comment.model.vo.Comment;
 import com.kh.quali.common.model.vo.PageInfo;
 import com.kh.quali.common.template.Pagination;
 import com.kh.quali.exception.BoardNoValueException;
@@ -131,8 +131,11 @@ public class AnswerServiceImpl implements AnswerService {
 		
 		Answer answer = findBoardById(answerNo);
 		
+		Comment comment = mapper.findCommentById(answerNo);
+		
 		Map<String, Object> responseData = new HashMap();
 		responseData.put("answer", answer);
+		responseData.put("comment", comment);
 		
 		return responseData;
 	}

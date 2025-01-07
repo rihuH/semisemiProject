@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import com.kh.quali.answer.model.vo.Answer;
-import com.kh.quali.member.model.vo.Member;
+import com.kh.quali.comment.model.vo.Comment;
 
 @Mapper
 public interface AnswerMapper {
@@ -23,5 +23,8 @@ public interface AnswerMapper {
 
 	int deleteBoard(int answerNo);
 
+
+	// 답변 불러오는 메소드
+	Comment findCommentById(int answerNo);
 
 }

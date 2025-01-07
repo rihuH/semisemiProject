@@ -46,14 +46,14 @@
             <form action="login.me" method="post">
                 <!-- Email input -->
                 <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="text" id="form2Example1" class="form-control" name="memberId"/>
                   <label class="form-label" for="form2Example1"">아이디</label>
+                  <input type="text" id="form2Example1" class="form-control" name="memberId"/>
                 </div>
               
                 <!-- Password input -->
                 <div data-mdb-input-init class="form-outline mb-4">
-                  <input type="password" id="form2Example2" class="form-control" name="memberPwd"/>
                   <label class="form-label" for="form2Example2">비밀번호</label>
+                  <input type="password" id="form2Example2" class="form-control" name="memberPwd"/>
                 </div>
               
 
