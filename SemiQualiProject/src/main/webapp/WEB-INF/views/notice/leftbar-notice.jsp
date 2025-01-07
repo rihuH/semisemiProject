@@ -96,41 +96,33 @@
     <div id="all">
         <div id="content">
             <div id="content-left">
-                <div id="leftbar-menuname">마이페이지</div>
+                <div id="leftbar-menuname">고객지원</div>
 
                 <div class="descript" style="color: white; background-color: rgb(137, 137, 137);">
-                    <div class="descript-main1" >원서접수관리</div>
+                    <div class="descript-main1" >게시판</div>
                 </div>
                 <div class="descript-menu" style="display: block;">
-                    <li><a href="application-history" class="descript-menu-a" data-main="descript-main1" style="color: skyblue;">원서접수내역</a></li>
-                    <li><a href="application-apply" class="descript-menu-a" data-main="descript-main1">원서접수신청</a></li>
-                    <li><a href="exam-results" class="descript-menu-a" data-main="descript-main1">시험결과보기</a></li>
-                    <li><a href="refund-request" class="descript-menu-a" data-main="descript-main1">사후환불신청</a></li>
+                    <li><a href="notices" class="descript-menu-a" data-main="descript-main1" style="color: skyblue;">공지사항</a></li>
+                    <li><a href="help/faq" class="descript-menu-a" data-main="descript-main1">자주하는질문</a></li>
+                    <li><a href="help/ask" class="descript-menu-a" data-main="descript-main1">직접질문하기</a></li>
                 </div>
 
                 <div class="descript">
-                    <div class="descript-main2">응시자격</div>
+                    <div class="descript-main2">수험자가이드</div>
                 </div>
                 <div class="descript-menu">
-                    <li><a href="eligibility-check" class="descript-menu-a" data-main="descript-main2">응시자격자가진단</a></li>
-                    <li><a href="available-exams" class="descript-menu-a" data-main="descript-main2">응시가능종목확인</a></li>
                 </div>
 
                 <div class="descript">
-                    <div class="descript-main3">자격증취득조회</div>
+                    <div class="descript-main3">환불안내</div>
                 </div>
                 <div class="descript-menu">
-                    <li><a href="certificate-verify" class="descript-menu-a" data-main="descript-main3">자격증 확인/발급</a></li>
-                    <li><a href="certificate-status" class="descript-menu-a" data-main="descript-main3">자격증 발급 현황</a></li>
                 </div>
 
                 <div class="descript">
-                    <div class="descript-main4">개인정보관리</div>
+                    <div class="descript-main4">부정신고센터</div>
                 </div>
                 <div class="descript-menu">
-                    <li><a href="mypage" class="descript-menu-a" data-main="descript-main4">개인정보/학력수정</a></li>
-                    <li><a href="account-deletee" class="descript-menu-a" data-main="descript-main4">회원탈퇴</a></li>
-                    <li><a href="favorite-certificates" class="descript-menu-a" data-main="descript-main4">관심자격증등록</a></li>
                 </div>
 
             </div>
