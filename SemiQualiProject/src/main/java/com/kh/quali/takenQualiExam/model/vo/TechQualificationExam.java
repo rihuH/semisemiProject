@@ -19,6 +19,6 @@ import lombok.ToString;
 public class TechQualificationExam {
 
 	private Long examTypeNo; // Primary key
-    private int qualificationRank;
-    private TechnicalQualification technicalQualification;
+    private int qualificationRank; // 1, 2의 숫자로 필기인지 실기인지를 나타낸다.
+    private TechnicalQualification technicalQualification; // 해당되는 자격증객체를 필드로 가짐.
 }

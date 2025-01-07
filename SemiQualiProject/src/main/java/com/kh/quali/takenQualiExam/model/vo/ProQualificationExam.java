@@ -20,6 +20,6 @@ import lombok.ToString;
 public class ProQualificationExam {
 	
 	private Long examTypeNo; // Primary key
-    private int qualificationRank; // Not null
-    private ProfesionalQualification profesionalQualification;
+    private int qualificationRank; // 1차,2차/ 필기, 실기를 나타냄/ 숫자 1, 2가 들어가있음
+    private ProfesionalQualification profesionalQualification; // 해당되는 자격증을 객체 필드로 가짐
 }

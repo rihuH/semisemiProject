@@ -14,7 +14,7 @@ import lombok.ToString;
 public class TechCategory {
 	
 	private Long categoryNo;
-	private String categoryName;
-	private TechnicalField technicalField;
+	private String categoryName; // 분류명
+	private TechnicalField technicalField; // 시행분야에 해당하는 객체를 필드로 가지고 있음
 
 }

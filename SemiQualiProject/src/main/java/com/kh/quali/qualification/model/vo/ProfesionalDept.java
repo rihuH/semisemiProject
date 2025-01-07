@@ -17,7 +17,7 @@ import lombok.ToString;
 public class ProfesionalDept {
 
 	private Long categoryNo;
-	private String relevantDepartment;
-	private TypeQualification typeQualification;
+	private String relevantDepartment; // 관련부처명
+	private TypeQualification typeQualification; // 전문, 기술자격증인지 타입객체를 필드로 가짐
 	
 }
