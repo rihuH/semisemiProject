@@ -17,11 +17,15 @@ public interface TakenQualiExamService {
 
 	Map<String, Object> findAllExamPlacesByExam(String exam, String receptionDate, String type);
 
+
 	void insertExamPlace(int[] insertPlaceNo, Long examNo);
 
 	List<TakenQualiExam> takenExamRoundCheck(List<TakenQualiExam> list);
 
 	TakenQualiExam takenExamRoundCheck(TakenQualiExam takenQualiExam);
+
+
+	void applicationInsert(String exam, String receptionDate, String type);
 
 
 }

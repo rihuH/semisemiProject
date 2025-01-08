@@ -32,9 +32,7 @@ public class AnswerServiceImpl implements AnswerService {
 	// 게시글의 총 개수 확인 메소드
 	private int getTotalCount() {
 		int totalCount = mapper.selectTotalCount();
-		if(totalCount == 0) {
-			throw new BoardNotFoundException("게시글이 없습니다.");
-		}
+		
 		return totalCount;
 	}
 	
@@ -48,6 +46,14 @@ public class AnswerServiceImpl implements AnswerService {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 
 		return mapper.selectBoardList(rowBounds);
+	}
+	
+	private List<Comment> getCommentList(PageInfo pi){
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return mapper.getCommentList(rowBounds);
 	}
 	
 	// 게시글 형식 검사 메소드
@@ -109,11 +115,11 @@ public class AnswerServiceImpl implements AnswerService {
 		
 		PageInfo pi = getPageInfo(totalCount, currentPage);
 		
-		List<Answer> answer = getBoardList(pi);
+		List<Answer> answerList = getBoardList(pi);
 		
 		Map<String, Object> map = new HashMap();
 		
-		map.put("answer", answer);
+		map.put("answer", answerList);
 		map.put("pageInfo", pi);
 		
 		return map;

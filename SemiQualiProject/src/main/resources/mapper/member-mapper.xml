@@ -6,14 +6,14 @@
 
 	<select id="login" parameterType="member">
 		SELECT
-				MEMBER_NO memberNo,
-				MEMBER_ID memberId,
-				MEMBER_PWD memberPwd,
-				MEMBER_NAME memberName,
-				MEMBER_RRN memberRrn,
+				MEMBER_NO AS memberNo,
+				MEMBER_ID AS memberId,
+				MEMBER_PWD AS memberPwd,
+				MEMBER_NAME AS memberName,
+				MEMBER_RRN AS memberRrn,
 				PHONE,
 				EMAIL,
-				CREATE_DATE createDate,
+				CREATE_DATE AS createDate,
 				STATUS
 		  FROM
 		  		MEMBER
@@ -21,7 +21,6 @@
 				MEMBER_ID = #{memberId}
 		   AND 
 		   		(STATUS = 'N' OR STATUS = 'A')
-		   		
 		<!-- 비밀번호의 경우 암호화 과정을 거쳤기에 여기서 판단 불가능 -->
 	</select>
 

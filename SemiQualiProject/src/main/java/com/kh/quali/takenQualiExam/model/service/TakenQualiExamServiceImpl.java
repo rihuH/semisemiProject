@@ -214,6 +214,8 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		map.put("takenQualiExam", takenQualiExam);
 		return map;
 	}
+  
+  
 	@Override
 	public void insertExamPlace(int[] insertPlaceNo, Long examNo) {
 		Map<String, Object> map = new HashMap();
@@ -225,6 +227,14 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		}
 	}
 
+	
+	
+	@Override
+	public void applicationInsert(String exam, String receptionDate, String type) {
+		findAllExamPlacesByExam(exam, receptionDate, type);
+		
+		
+	}
 
 	
 

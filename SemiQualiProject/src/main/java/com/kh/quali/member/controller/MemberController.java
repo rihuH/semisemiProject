@@ -78,6 +78,8 @@ public class MemberController {
 	@PostMapping("sign-up.me")
 	public ModelAndView signUp(Member member, HttpSession session) {
 		
+		log.info("{}", member);
+		
 		memberService.signUp(member);
 		
 		session.setAttribute("alertMsg", "회원가입에 성공하셨습니다");
@@ -137,6 +139,8 @@ public class MemberController {
 
 		return mv.setViewNameAndData("main", null);
 	}
+	
+	// 회원사진받기
 
 	
 }

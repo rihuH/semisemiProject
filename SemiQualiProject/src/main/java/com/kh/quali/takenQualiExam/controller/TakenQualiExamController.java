@@ -86,6 +86,7 @@ public class TakenQualiExamController {
 		Map<String, Object> takenExamList = ts.getTakenExamList(); 
 		return mv.setViewNameAndData("takenQualiExam/place_insert_form", takenExamList);
 	}
+
 	
 	@PostMapping("taken_quali_exam/insert_place")
 	public String insertPlace(int[] insertPlaceNo, Long examNo) {
@@ -94,7 +95,16 @@ public class TakenQualiExamController {
 	}
 	
 
-	
+
+
+	@PostMapping("taken_quali_exam/application_insert")
+	public ModelAndView applicationInsert() {
+		
+		ts.applicationInsert();
+		
+		return mv.setViewNameAndData(null, null);
+	}
+
 
 
 	

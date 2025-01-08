@@ -148,7 +148,7 @@
             
             
            	<div id="commentAreaIn">
-	            <form action="" method="post" id="postForm">
+	            <form action="faq/comment-insert" method="post" id="postForm">
 	            	<input type="hidden" name="answerNo" value="${ answer.answerNo }"/>
 	            	<input type="hidden" name="memNo" value="${ answer.memNo }" />
 		        	<input type="text" name="commentContent" style="width: 600px; height: 70px;" required>
@@ -174,7 +174,11 @@
         	
 			function commentSubmit(num){
 				if(num == 1){
-					$('#postForm').attr('action', '/quali/faq/comment-update').submit();
+					if(${ comment.commentStatus == 'N' }){
+						$('#postForm').attr('action', '/quali/faq/comment-update').submit();
+					} else {
+						confirm("작성된 답변이 없습니다.");	
+					}
 				} else{
 					if(confirm("답변을 삭제 하시겠습니까?")){
 						$('#postForm').attr('action', '/quali/comment/delete').submit();
