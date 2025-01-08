@@ -6,6 +6,9 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.quali.common.ModelAndViewUtil;
@@ -34,6 +37,11 @@ public class ProvisionalAnswerController {
 		map.put("title", title);
 		map.put("period", period);
 		return mv.setViewNameAndData("provisional_answer/subject_detail", map);
+	}
+	
+	@PostMapping("provisional_answer/answer_enroll")
+	public void answerEnroll(@RequestParam("upfile1") MultipartFile upfile1, @RequestParam("upfile2") MultipartFile upfile2) {
+		log.info("{}, {}", upfile1, upfile2);
 	}
 	
 }
