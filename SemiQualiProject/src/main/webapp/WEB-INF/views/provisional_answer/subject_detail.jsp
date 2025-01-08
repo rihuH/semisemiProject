@@ -73,7 +73,7 @@
 		
 		function test(){
 				let file1_text = $("#file1").val();
-				console.log(file1_text);
+				console.log(file1_text.substring);
 				$('.file1_text').html(file1_text);
 		}
 	</script>
