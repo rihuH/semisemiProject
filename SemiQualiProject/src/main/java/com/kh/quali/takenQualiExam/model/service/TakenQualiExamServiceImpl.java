@@ -129,8 +129,6 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		list = takenExamRoundCheck(list);
 		map.put("techList", list);
 		
-		log.info("테스트 {}",getTakenExamByNo(Long.parseLong("1")));
-		
 		return map;
 	}
 	@Override
@@ -342,7 +340,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 				//qualificationNo를 가지고 전문분야인지 기술분야인지 먼저 구분하기
 				//examNo로 takenQualiExam객체 받아옴
 				TakenQualiExam takenQualiExam = mapper.findTakenQualiExamByExamNo(examNo);
-				if(qualificationNo.toString().charAt(0) == 1) { // 기술자격증
+				if(qualificationNo.toString().charAt(0) == '1') { // 기술자격증
 					qualificationType = "국가기술자격";
 					// examTypeNo 로 TechQualificationExam 객체 반환
 					TechQualificationExam techQualificationExam = mapper.findTechQualiExamByExamTypeNo(examTypeNo);
