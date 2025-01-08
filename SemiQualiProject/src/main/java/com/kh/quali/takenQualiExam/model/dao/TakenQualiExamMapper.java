@@ -81,9 +81,9 @@ public interface TakenQualiExamMapper {
 	//examNo로 takenQualiExam객체 받아옴
 	TakenQualiExam findTakenQualiExamByExamNo(Long examNo);
 	// locationNo로 Place객체 반환
-	Place findAllPlaceByLocationNo(Long locationNo);
+	Place findAllPlaceByLocationNo2(Long locationNo);
 	
-	List<ExamPlace> findAllExamPlaceByExamNo2(Long examNo);
+	List<ExamPlace> findAllExamPlaceByExamNo(Long examNo);
  
 
 

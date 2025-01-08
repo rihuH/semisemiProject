@@ -63,6 +63,8 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		// INSERT ALL 하려 했지만 SEQ를 TECH와 같이 사용하도록 설정해놔서 INCREMENT BY 도 쓸 수 없고 결국 2번 갔다와야함
 		mapper.insertProSubject(1);
 		mapper.insertProSubject(2);
+		
+		
 	}
 	/*
 	CREATE TABLE TB_SUBJECT (
@@ -126,6 +128,9 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		//테크도 라운드 세서 대입
 		list = takenExamRoundCheck(list);
 		map.put("techList", list);
+		
+		log.info("테스트 {}",getTakenExamByNo(Long.parseLong("1")));
+		
 		return map;
 	}
 	@Override
@@ -272,7 +277,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		takenQualiExam = takenExamRoundCheck(takenQualiExam);
 		
 		// locationNo로 Place객체 반환
-		Place place = mapper.findAllPlaceByLocationNo(locationNo);
+		Place place = mapper.findAllPlaceByLocationNo2(locationNo);
 		
 		// ExamPlace 꽉 채우기
 		ExamPlace examPlace = new ExamPlace().builder().examLocationNo(examLocationNo).takenQualiExam(takenQualiExam).place(place).build();
@@ -313,6 +318,8 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		
 		return map;
 	}
+	
+	
 	
 	/**
 	 * examNo로 관련 location 맵을 반환해줌
@@ -359,7 +366,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 				
 				// 이 시험에 등록된 시험장소 목록
 				// examNo로 examPlace 객체 리스트 받아오기
-				List<ExamPlace> examPlaceList = mapper.findAllExamPlaceByExamNo2(examNo);
+				List<ExamPlace> examPlaceList = mapper.findAllExamPlaceByExamNo(examNo);
 				
 				
 				// map에 객체 담기

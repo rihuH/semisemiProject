@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.quali.provisionalAnswer.model.dao.ProvisionalAnswerMapper;
 import com.kh.quali.takenQualiExam.model.dao.TakenQualiExamMapper;
@@ -59,6 +60,12 @@ public class ProvisionalAnswerServiceImpl implements ProvisionalAnswerService {
 			fullList.addAll(list);
 		}
 		return fullList;
+	}
+
+	@Override
+	public void updateAnswerFile(MultipartFile upfile1, MultipartFile upfile2, String titleAnd) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

@@ -33,9 +33,11 @@ public class ProvisionalAnswerController {
 		return mv.setViewNameAndData("provisional_answer/subject_list", map);
 	}
 	
-	@GetMapping("provisional_answer/subject_detail/{title}/{period}")
-	public ModelAndView subjectDetail(@PathVariable(name="title") String title, @PathVariable(name="period") String period) {
+	@GetMapping("provisional_answer/subject_detail/{title}/{period}/{no}")
+	public ModelAndView subjectDetail(@PathVariable(name="title") String title, @PathVariable(name="period") String period,
+			@PathVariable(name="no") Long subjectNo) {
 		Map<String, Object> map = new HashMap();
+		log.info("{}",subjectNo);
 		map.put("title", title);
 		map.put("period", period);
 		return mv.setViewNameAndData("provisional_answer/subject_detail", map);
