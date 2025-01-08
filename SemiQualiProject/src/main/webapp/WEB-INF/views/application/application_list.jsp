@@ -115,7 +115,7 @@
             background-color: rgb(253, 253, 253);
         }
 
-        button{
+        .btn{
             width: 100px;
             height: 40px;
             border-radius: 7px;
@@ -169,7 +169,12 @@
 		                                </c:choose>
 		                            </td>
 		                            <td>${ c.receptionStartDate } 10:00 ~ ${ c.receptionEndDate } 18:00</td>
-		                            <td><button onclick="selectExam(this, 'pro');">접수하기</button></td>
+		                            <td>
+	                                    <form action="#" method="post">
+	    	                                <input type="hidden" id="examNo" name="examNo" value="${ c.examNo }" />
+		                                    <a class="btn">접수하기</a>
+	                                    </form> 
+                                    </td>
 		                        </tr>
 		                    </c:forEach>
 		                </tbody>
@@ -202,7 +207,12 @@
 										</c:choose>
 									</td>
 									<td>${ c.receptionStartDate } 10:00 ~ ${ c.receptionEndDate } 18:00</td>
-                                    <td><button onclick="selectExam(this);">접수하기</button></td>
+                                    <td>
+	                                    <form action="#" method="post">
+	    	                                <input type="hidden" id="examNo" name="examNo" value="${ c.examNo }" />
+		                                    <a class="btn" onclick="examNo('${c.examNo}')">접수하기</a>
+	                                    </form> 
+                                    </td>
 								</tr>
 							</c:forEach>
 		                </tbody>
@@ -216,38 +226,9 @@
         
         
 	<script>
-		function selectExam(button) {
-		    const row = button.closest('tr');
-		    
-		    const cells = row.querySelectorAll('td');
-		    const values = Array.from(cells).map(cell => cell.innerText.trim());
-		    
-		    console.log(values); 
-		    
-		    // 동적으로 form 생성
-		    const form = document.createElement('form');
-		    form.method = 'POST';
-		    form.action = '/quali/taken_quali_exam/application_exam_place';
-		    
-		    // values 배열의 값을 hidden input으로 추가
-		    const input1 = document.createElement('input');
-		    input1.type = 'hidden';
-		    input1.name = 'examStartDate';
-		    input1.value = values[0]; // 첫 번째 td 값 (예: 시험 시작일)
-		    
-		    const input2 = document.createElement('input');
-		    input2.type = 'hidden';
-		    input2.name = 'receptionDate';
-		    input2.value = values[1]; // 두 번째 td 값 (예: 접수일)
-		    
-		    // input을 form에 추가
-		    form.appendChild(input1);
-		    form.appendChild(input2);
-		    
-		    // form을 body에 추가하고 submit
-		    document.body.appendChild(form);
-		    form.submit();
-		}
+
+	
+	
 	</script>	
 
 

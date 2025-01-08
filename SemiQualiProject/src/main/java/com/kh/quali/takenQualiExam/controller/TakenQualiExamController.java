@@ -97,12 +97,21 @@ public class TakenQualiExamController {
 
 
 	@GetMapping("taken_quali_exam/application_list")
-	public ModelAndView selsectApplicationList() {
+	public ModelAndView selectApplicationList() {
 		
 		// 현재 접수 가능한 시험목록 가져옴
 		Map<String, Object> takenExamList = ts.getTakenExamList();
 		
-		log.info("{}", takenExamList);
+		// application_list.jsp로 접수가능한 시험목록을 보내서 보내서 선택하게함
+		return mv.setViewNameAndData("application/application_list", takenExamList);
+	}
+	
+	@PostMapping("taken_quali_exam/application/{examNo}")
+	public ModelAndView selectApplicationExamNo(@PathVariable(name="examNo") Long examNo) {
+		
+		// 현재 접수 가능한 시험목록 가져옴
+		Map<String, Object> takenExamList = ts.getTakenExamList();
+		
 		
 		// application_list.jsp로 접수가능한 시험목록을 보내서 보내서 선택하게함
 		return mv.setViewNameAndData("application/application_list", takenExamList);
