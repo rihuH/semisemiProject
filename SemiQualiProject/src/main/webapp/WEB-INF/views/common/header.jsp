@@ -362,9 +362,8 @@
         <div id="hide-div4">
             <h3>마이페이지</h3>
             <ul>
-                <li><a href="edit-profile.me">개인정보수정</a></li>
-                <li><a href="edit-education.me">학력/경력수정</a></li>
-                <li><a href="account-delete.me">회원탈퇴</a></li>
+                <li><a href="edit-profile">개인정보, 학력/경력수정</a></li>
+                <li><a href="edit-profile">회원탈퇴</a></li>
                 <li><a href="favorite-certificates.me">관심자격증등록</a></li>
             </ul>
         </div>

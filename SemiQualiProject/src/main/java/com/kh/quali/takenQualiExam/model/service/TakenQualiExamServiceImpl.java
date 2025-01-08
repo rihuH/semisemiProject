@@ -207,7 +207,14 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		map.put("takenQualiExam", takenQualiExam);
 		return map;
 	}
-
+	
+	
+	@Override
+	public void applicationInsert(String exam, String receptionDate, String type) {
+		findAllExamPlacesByExam(exam, receptionDate, type);
+		
+		
+	}
 
 	
 

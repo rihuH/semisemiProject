@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.quali.exception.BoardNotFoundException;
 import com.kh.quali.exception.ComparePasswordException;
 import com.kh.quali.exception.UserIdNotFoundException;
 
@@ -35,6 +36,13 @@ public class ExceptionHandlingController {
 		// ��й�ȣ�� ���ϴ� �޼ҵ�, ��й�ȣ�� Ʋ���� ��� ���� �߻�
 		return createErrorResponse("비밀번호가 잘못됐습니다.", e);
 	}
+	
+	@ExceptionHandler(BoardNotFoundException.class)
+	protected ModelAndView BoardNotFoundException(BoardNotFoundException e) {
+		// ��й�ȣ�� ���ϴ� �޼ҵ�, ��й�ȣ�� Ʋ���� ��� ���� �߻�
+		return createErrorResponse("게시글을 찾지 못했습니다.", e);
+	}
+	
 	
 	
 }

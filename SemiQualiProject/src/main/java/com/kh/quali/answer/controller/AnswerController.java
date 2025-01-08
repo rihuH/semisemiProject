@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.quali.answer.model.service.AnswerService;
 import com.kh.quali.answer.model.vo.Answer;
+import com.kh.quali.comment.model.vo.Comment;
 import com.kh.quali.common.ModelAndViewUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class AnswerController {
 	
 	
 	@GetMapping("help/ask")
-	public ModelAndView selectFaqList(@RequestParam(value="page", defaultValue="1") int page) {
+	public ModelAndView selectFaqList(@RequestParam(value="page", defaultValue="1") int page, Answer answer, Comment comment) {
 		
 		Map<String, Object> map = answerService.selectAnswerList(page);
 		

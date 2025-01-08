@@ -11,6 +11,7 @@ public class Answer {
 	private String answerCreatedAt;
 	private String answerUpdatedAt;
 	private String answerStatus;
+	private String hasComment;
 	private String memNo;
 	
 }

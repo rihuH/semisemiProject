@@ -85,7 +85,14 @@ public class TakenQualiExamController {
 		Map<String, Object> takenExamList = ts.getTakenExamList(); 
 		return mv.setViewNameAndData("takenQualiExam/place_insert_form", takenExamList);
 	}
-	
+
+	@PostMapping("taken_quali_exam/application_insert")
+	public ModelAndView applicationInsert() {
+		
+		ts.applicationInsert();
+		
+		return mv.setViewNameAndData(null, null);
+	}
 
 
 	

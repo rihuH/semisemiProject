@@ -40,15 +40,12 @@
 	</update>
 
 	<update id="deleteComment" parameterType="comment">
-		UPDATE
-				BOARD_COMMENT
-		   SET
-		   		COMMENT_STATUS = 'Y',
-		   		COMMENT_UPDATED_AT = SYSDATE
-		 WHERE
-		 		COMMENT_STATUS = 'N'
-		   AND
-		   		ANSWER_NO = #{answerNo}
+	    UPDATE BOARD_COMMENT
+	    SET COMMENT_STATUS = 'Y',
+	        COMMENT_UPDATED_AT = SYSDATE
+	    WHERE COMMENT_STATUS = 'N'
+	    AND ANSWER_NO = #{answerNo}
 	</update>
-
+	
+	
 </mapper>
