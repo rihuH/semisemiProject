@@ -21,3 +21,4 @@ public class Subject {
     private int subjectPeriod;
     private TakenQualiExam takenQualiExam;
 }
+     
