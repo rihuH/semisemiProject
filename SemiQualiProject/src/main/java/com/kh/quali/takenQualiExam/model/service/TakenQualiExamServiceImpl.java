@@ -17,7 +17,6 @@ import com.kh.quali.qualification.model.vo.TechnicalQualification;
 import com.kh.quali.takenQualiExam.model.dao.TakenQualiExamMapper;
 import com.kh.quali.takenQualiExam.model.vo.ExamPlace;
 import com.kh.quali.takenQualiExam.model.vo.ProQualificationExam;
-import com.kh.quali.takenQualiExam.model.vo.Subject;
 import com.kh.quali.takenQualiExam.model.vo.TakenQualiExam;
 import com.kh.quali.takenQualiExam.model.vo.TechQualificationExam;
 
@@ -138,6 +137,11 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		}
 		return list;
 	}
+	
+	
+	/**
+	 *takenQualiExam에 round값을 채워줌
+	 */
 	@Override
 	public TakenQualiExam takenExamRoundCheck(TakenQualiExam takenQualiExam) {
 		int round = mapper.getRoundOfExam(takenQualiExam);
@@ -145,22 +149,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		return takenQualiExam;
 	}
 	
-	/** 원서접수 -- 특정 시험
-	 * String exam : 2025년 공인노무사 1회 1차 || 2025년 방수산업기사 1회 필기
-	* String receptionDate 2024-12-27 10:00 ~ 2025-01-10 18:00
-	* String type : pro || tech < -전문/ 기술
-	* String exam과 String receptionDate 넘기는 건 takenQualiExam폴더에 place_insert_form 아래쪽 ajax 함수 참고.
-	* String type : pro/tech는 검색을 빨리 하기 위한 것으로 따로 보내주어야함.
-	* 
-	* 참고 : 원서접수에 필요한 class 참조 => TakenQualiExam, ExamPlace, Place
-	* 
-	* 위 값을 넘기면
-	* 
-	* 시행되는 그 시험에 대한 장소가 담긴 placesOfExam,
-	* 시행되는 시험의 정보 takenQualiExam,
-	* 그 외 원서접수와 무관한 데이터 1개를 담은 map을 반환한다.
-	* 
-	 */
+	
 	@Override
 	public Map<String, Object> findAllExamPlacesByExam(String exam, String receptionDate, String type) {
 		//원서접수
@@ -234,6 +223,166 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		findAllExamPlacesByExam(exam, receptionDate, type);
 		
 		
+	}
+	/**
+	 * locaionNo로 ExamPlace, TakenQualiExam, 그
+	 */
+	@Override
+	public Map<String, Object> getTakenExamByNo(Long examLocationNo) {
+		String qualificationType = null;
+		String relevantDepartment = null;
+		int qualificationRank = 0;
+		String categoryName = null;
+		String fieldName = null;
+		String qualificationName = null;
+
+		//examLocationNo로 examNo 반환
+		Long examNo = mapper.findExamNoByExamLocationNo(examLocationNo);
+		//examLocationNo로 locationNo반환 
+		Long locationNo = mapper.findLocationNoByExamLocationNo(examLocationNo);
+		
+		//examNo로 EXAM_TYPE_NO 반환받기
+		Long examTypeNo = mapper.findExamTypeNoByExamNo(examNo);
+		
+		// EXAM_TYPE_NO로 해당되는 자격증시험 객체 반환받기 위해서
+		//QUALIFICATION_NO 를 먼저 반환받기
+		Long qualificationNo = mapper.findQualiNoByExamTypeNo(examTypeNo);
+		//qualificationNo를 가지고 전문분야인지 기술분야인지 먼저 구분하기
+		//examNo로 takenQualiExam객체 받아옴
+		TakenQualiExam takenQualiExam = mapper.findTakenQualiExamByExamNo(examNo);
+		if(qualificationNo.toString().charAt(0) == 1) { // 기술자격증
+			qualificationType = "국가기술자격";
+			// examTypeNo 로 TechQualificationExam 객체 반환
+			TechQualificationExam techQualificationExam = mapper.findTechQualiExamByExamTypeNo(examTypeNo);
+			takenQualiExam.setQualificationExam(techQualificationExam);
+			qualificationRank = techQualificationExam.getQualificationRank();
+			categoryName = techQualificationExam.getTechnicalQualification().getTechCategory().getCategoryName();
+			fieldName =  techQualificationExam.getTechnicalQualification().getTechCategory().getTechnicalField().getFieldName();
+			qualificationName = techQualificationExam.getTechnicalQualification().getQualificationName();
+		} else { // 전문자격증
+			qualificationType = "국가전문자격";
+			// examTypeNo 로 ProQualificationExam 객체 반환
+			ProQualificationExam proQualificationExam = mapper.findProQualiExamByExamTypeNo(examTypeNo);
+			relevantDepartment = proQualificationExam.getProfesionalQualification().getProfesionalDept().getRelevantDepartment();
+			takenQualiExam.setQualificationExam(proQualificationExam);
+			qualificationRank = proQualificationExam.getQualificationRank();
+			qualificationName = proQualificationExam.getProfesionalQualification().getQualificationName();
+		}
+		takenQualiExam = takenExamRoundCheck(takenQualiExam);
+		
+		// locationNo로 Place객체 반환
+		Place place = mapper.findAllPlaceByLocationNo(locationNo);
+		
+		// ExamPlace 꽉 채우기
+		ExamPlace examPlace = new ExamPlace().builder().examLocationNo(examLocationNo).takenQualiExam(takenQualiExam).place(place).build();
+		
+		// map에 객체 담기
+		Map<String, Object> map = new HashMap();
+		// 시행되는 시험 객체
+		map.put("takenQualiExam", takenQualiExam);
+		// 장소 객체
+		map.put("place", place);
+		// 시험장소 객체
+		map.put("examPlace", examPlace);
+		// 국가기술자격, 국가전문자격 스트링
+		map.put("qualificationType", qualificationType);
+		// 국가전문자격의 경우 관련부처
+		map.put("relevantDepartment", relevantDepartment);
+		// 국가기술자격의 경우 직무분야명, 
+		map.put("categoryName", categoryName);
+		// 국가기술자격의 경우 분류명, 
+		map.put("fieldName", fieldName);
+		// 자격증이름, 국가기술자격의 경우 시행종목, 국가전문자격의 경우 분류
+		// 자격증 이름 스트링
+		map.put("qualificationName", qualificationName);
+		// 1차, 2차인지, 필기 실기인지 여부를 나타내는 rank
+		map.put("qualificationRank",qualificationRank);
+		// 51회차 등 몇 회차 시험인지를 나타내는 round
+		map.put("round", takenQualiExam.getRound());
+		// 시험 시작 일자
+		map.put("examStartDate", takenQualiExam.getExamStartDate());
+		// 시험 종료 일자
+		map.put("examFinalDate", takenQualiExam.getExamFinalDate());
+		// 시험장소 서울특별시, 경기도 여부
+		map.put("cityName", place.getDistrict().getCityName());
+		// 시험장소 영등포구 등 여부
+		map.put("district", place.getDistrict().getDistrict());
+		// 시험장소의 최종 이름 영등포중학교
+		map.put("locationName", place.getLocationName());		
+		
+		return map;
+	}
+	
+	/**
+	 * examNo로 관련 location 맵을 반환해줌
+	 */
+	@Override
+	public Map<String, Object> findAllExamPlacesByExamNo(Long examNo) {
+		String qualificationType = null;
+		String relevantDepartment = null;
+		int qualificationRank = 0;
+		String categoryName = null;
+		String fieldName = null;
+		String qualificationName = null;
+		
+		//examNo로 EXAM_TYPE_NO 반환받기
+				Long examTypeNo = mapper.findExamTypeNoByExamNo(examNo);
+				
+				// EXAM_TYPE_NO로 해당되는 자격증시험 객체 반환받기 위해서
+				//QUALIFICATION_NO 를 먼저 반환받기
+				Long qualificationNo = mapper.findQualiNoByExamTypeNo(examTypeNo);
+				//qualificationNo를 가지고 전문분야인지 기술분야인지 먼저 구분하기
+				//examNo로 takenQualiExam객체 받아옴
+				TakenQualiExam takenQualiExam = mapper.findTakenQualiExamByExamNo(examNo);
+				if(qualificationNo.toString().charAt(0) == 1) { // 기술자격증
+					qualificationType = "국가기술자격";
+					// examTypeNo 로 TechQualificationExam 객체 반환
+					TechQualificationExam techQualificationExam = mapper.findTechQualiExamByExamTypeNo(examTypeNo);
+					takenQualiExam.setQualificationExam(techQualificationExam);
+					qualificationRank = techQualificationExam.getQualificationRank();
+					categoryName = techQualificationExam.getTechnicalQualification().getTechCategory().getCategoryName();
+					fieldName =  techQualificationExam.getTechnicalQualification().getTechCategory().getTechnicalField().getFieldName();
+					qualificationName = techQualificationExam.getTechnicalQualification().getQualificationName();
+				} else { // 전문자격증
+					qualificationType = "국가전문자격";
+					// examTypeNo 로 ProQualificationExam 객체 반환
+					ProQualificationExam proQualificationExam = mapper.findProQualiExamByExamTypeNo(examTypeNo);
+					relevantDepartment = proQualificationExam.getProfesionalQualification().getProfesionalDept().getRelevantDepartment();
+					takenQualiExam.setQualificationExam(proQualificationExam);
+					qualificationRank = proQualificationExam.getQualificationRank();
+					qualificationName = proQualificationExam.getProfesionalQualification().getQualificationName();
+				}
+				takenQualiExam = takenExamRoundCheck(takenQualiExam);
+				
+				
+				
+				// 이 시험에 등록된 시험장소 목록
+				// examNo로 examPlace 객체 리스트 받아오기
+				List<ExamPlace> examPlaceList = mapper.findAllExamPlaceByExamNo2(examNo);
+				
+				
+				// map에 객체 담기
+				Map<String, Object> map = new HashMap();
+				// 시행되는 시험 객체
+				map.put("takenQualiExam", takenQualiExam);
+				// 국가기술자격, 국가전문자격 스트링
+				map.put("qualificationType", qualificationType);
+				// 국가전문자격의 경우 관련부처
+				map.put("relevantDepartment", relevantDepartment);
+				// 국가기술자격의 경우 직무분야명, 
+				map.put("categoryName", categoryName);
+				// 국가기술자격의 경우 분류명, 
+				map.put("fieldName", fieldName);
+				// 자격증이름, 국가기술자격의 경우 시행종목, 국가전문자격의 경우 분류
+				// 자격증 이름 스트링
+				map.put("qualificationName", qualificationName);
+				// 1차, 2차인지, 필기 실기인지 여부를 나타내는 rank
+				map.put("qualificationRank",qualificationRank);
+				// 51회차 등 몇 회차 시험인지를 나타내는 round
+				map.put("round", takenQualiExam.getRound());
+				
+				
+				return map;
 	}
 
 	

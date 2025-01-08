@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.kh.quali.place.model.vo.Place;
+import com.kh.quali.qualification.model.vo.TechnicalQualification;
 import com.kh.quali.takenQualiExam.model.vo.ExamPlace;
 import com.kh.quali.takenQualiExam.model.vo.ProQualificationExam;
 import com.kh.quali.takenQualiExam.model.vo.TakenQualiExam;
@@ -61,6 +62,28 @@ public interface TakenQualiExamMapper {
 	List<TakenQualiExam> takenProQualiExamListForSubject();
 	// 현재 접수가능한 기술자격시험 리스트를 받아옴
 	List<TakenQualiExam> takenTechQualiExamListForSubject();
+	
+	//examNo로 examTypeNo를 받아오는 메소드
+	Long findExamTypeNoByExamNo(Long examNo);
+	
+	//examTypeNo로 qualificationNo를 받아오는 메소드
+	Long findQualiNoByExamTypeNo(Long examTypeNo);
+	//examLocationNo로 examNo 반환
+	Long findExamNoByExamLocationNo(Long examLocationNo);
+	//examLocationNo로 locationNo반환 
+	Long findLocationNoByExamLocationNo(Long examLocationNo);
+	// qualificationNo로 TechnicalQualification 반환받는 메소드
+	TechnicalQualification findTechQualiByQualiNo(Long qualificationNo);
+	// examTypeNo 로 TechQualificationExam 객체 반환
+	TechQualificationExam findTechQualiExamByExamTypeNo(Long examTypeNo);
+	// examTypeNo 로 ProQualificationExam 객체 반환
+	ProQualificationExam findProQualiExamByExamTypeNo(Long examTypeNo);
+	//examNo로 takenQualiExam객체 받아옴
+	TakenQualiExam findTakenQualiExamByExamNo(Long examNo);
+	// locationNo로 Place객체 반환
+	Place findAllPlaceByLocationNo(Long locationNo);
+	
+	List<ExamPlace> findAllExamPlaceByExamNo2(Long examNo);
  
 
 

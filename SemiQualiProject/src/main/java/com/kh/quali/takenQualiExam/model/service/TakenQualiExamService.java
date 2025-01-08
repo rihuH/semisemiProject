@@ -27,5 +27,12 @@ public interface TakenQualiExamService {
 
 	void applicationInsert(String exam, String receptionDate, String type);
 
+	//examLocationNo를 가지고 시험장소 시행되는 시험 및 여러가지 객체 반환해주는 메소드
+	Map<String, Object> getTakenExamByNo(Long examLocationNo);
 
+	/**
+	 * examNo로 관련 location 맵을 반환해줌
+	 */
+	Map<String, Object> findAllExamPlacesByExamNo(Long examNo);
+	
 }

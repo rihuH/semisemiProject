@@ -106,6 +106,16 @@
 			</collection>
    		</collection>
     </resultMap>
+    
+    <resultMap id="takenQualiExam" type="takenQualiExam">
+		<id column="EXAM_NO" property="examNo" />
+	    <result column="EXAM_START_DATE" property="examStartDate" />
+	    <result column="EXAM_FINAL_DATE" property="examFinalDate" />
+	    <result column="RECEPTION_START_DATE" property="receptionStartDate" />
+	    <result column="RECEPTION_END_DATE" property="receptionEndDate" />
+	    <result column="OPINION_START_DATE" property="opinionStartDate" />
+	    <result column="OPINION_END_DATE" property="opinionEndDate" />
+	</resultMap>
 	
 	
 	<select id="findTechExamNoByNameAndRank" parameterType="techQualificationExam" resultMap="techQualificationExam">
@@ -471,6 +481,23 @@ WHERE RECEPTION_START_DATE = TO_DATE(#{receptionStartDate}, 'YYYY-MM-DD')
 		</collection>
 	</resultMap>
 	
+	
+	<resultMap id="examPlace" type="examPlace">
+		<id column="EXAM_LOCATION_NO" property="examLocationNo"/>
+		<collection property="place" ofType="place">
+			<id column="LOCATION_NO" property="locationNo"/>
+			<result column="LOCATION_NAME" property="locationName"/>
+			<result column="MAXIMUM_OCCUPANCY" property="maximumOccupancy"/>
+			<collection property="district" ofType="district">
+				<id column="DISTRICT_NO" property="districtNo"/>
+				<result column="DISTRICT" property="district"/>
+				<result column="CITY_NAME" property="cityName"/>
+			</collection>
+		</collection>
+	
+	</resultMap>
+	
+		
 	<select id="findAllPlaceOfProExam" resultMap="proExamPlace">
 	SELECT 
     EXAM_LOCATION_NO,
@@ -591,5 +618,103 @@ WHERE RECEPTION_START_DATE = TO_DATE(#{receptionStartDate}, 'YYYY-MM-DD')
 	LOCATION_NO) 
 	VALUES (SEQ_EXAM_PLACE_NO.NEXTVAL, #{examNo}, #{locationNo})	
 	</insert>
+	
+	<select id="findExamTypeNoByExamNo" parameterType="long" resultType="long">
+	SELECT EXAM_TYPE_NO FROM TB_TAKEN_QUALI_EXAM WHERE EXAM_NO = #{examNo}
+	</select>
+	
+	<select id="findQualiNoByExamTypeNo" resultType="long">
+	SELECT QUALIFICATION_NO FROM TB_QUALIFICATION_EXAM WHERE EXAM_TYPE_NO = #{examTypeNo}
+	</select>
+	
+	<select id="findExamNoByExamLocationNo" resultType="long">
+	SELECT EXAM_NO FROM TB_EXAM_PLACE WHERE EXAM_LOCATION_NO = #{examLocationNo}
+	</select>
+	
+	<select id="findLocationNoByExamLocationNo" resultType="long">
+	SELECT LOCATION_NO FROM TB_EXAM_PLACE WHERE EXAM_LOCATION_NO = #{examLocationNo}
+	</select>
+	
+	<select id="findTechQualiExamByExamTypeNo" resultMap="techQualificationExam">
+	SELECT
+    EXAM_TYPE_NO, 
+    QUALIFICATION_RANK,
+    TB_QUALIFICATION_EXAM.QUALIFICATION_NO, 
+    QUALIFICATION_NAME,
+    STATUS,
+    REQUIRED_RANK,
+    TB_TECHNICAL_QUALIFICATION.CATEGORY_NO, 
+    CATEGORY_NAME,
+    TB_QUALI_TECH_CATEGORY.FIELD_NO, 
+    FIELD_NAME, 
+	TB_QUALI_TECHNICAL_FIELD.QUALIFICATION_CODE, 
+    QUALIFICATION_TYPE
+    FROM
+    TB_QUALIFICATION_EXAM 
+    JOIN TB_TECHNICAL_QUALIFICATION ON (TB_QUALIFICATION_EXAM.QUALIFICATION_NO = TB_TECHNICAL_QUALIFICATION.QUALIFICATION_NO)
+    JOIN TB_QUALI_TECH_CATEGORY ON (TB_TECHNICAL_QUALIFICATION.CATEGORY_NO = TB_QUALI_TECH_CATEGORY.CATEGORY_NO)
+    JOIN TB_QUALI_TECHNICAL_FIELD ON (TB_QUALI_TECH_CATEGORY.FIELD_NO = TB_QUALI_TECHNICAL_FIELD.FIELD_NO) 
+    JOIN TB_TYPE_QUALIFICATION ON (TB_QUALI_TECHNICAL_FIELD.QUALIFICATION_CODE = TB_TYPE_QUALIFICATION.QUALIFICATION_CODE) 
+    WHERE EXAM_TYPE_NO = #{examTypeNo}
+	</select>
+	
+	<select id="findProQualiExamByExamTypeNo" resultMap="proQualificationExam">
+	SELECT 
+    EXAM_TYPE_NO, 
+    TB_QUALIFICATION_EXAM.QUALIFICATION_RANK,
+    TB_QUALIFICATION_EXAM.QUALIFICATION_CODE,
+    TB_QUALIFICATION_EXAM.QUALIFICATION_NO, 
+    TB_PROFESIONAL_QUALIFICATION.QUALIFICATION_NAME,
+    TB_PROFESIONAL_QUALIFICATION.STATUS,
+    TB_PROFESIONAL_QUALIFICATION.REQUIRED_RANK,
+    TB_PROFESIONAL_QUALIFICATION.CATEGORY_NO, 
+    TB_QUALI_PROFESIONAL_DEPT.RELEVANT_DEPARTMENT,
+    TB_QUALI_PROFESIONAL_DEPT.QUALIFICATION_CODE,  
+    TB_TYPE_QUALIFICATION.QUALIFICATION_TYPE 
+    FROM TB_QUALIFICATION_EXAM 
+    JOIN TB_PROFESIONAL_QUALIFICATION ON (TB_PROFESIONAL_QUALIFICATION.QUALIFICATION_NO = TB_QUALIFICATION_EXAM.QUALIFICATION_NO) 
+    JOIN TB_QUALI_PROFESIONAL_DEPT ON (TB_QUALI_PROFESIONAL_DEPT.CATEGORY_NO = TB_PROFESIONAL_QUALIFICATION.CATEGORY_NO) 
+    JOIN TB_TYPE_QUALIFICATION ON (TB_TYPE_QUALIFICATION.QUALIFICATION_CODE = TB_QUALI_PROFESIONAL_DEPT.QUALIFICATION_CODE)
+    WHERE EXAM_TYPE_NO = #{examTypeNo}
+	</select>
+	
+	<select id="findTakenQualiExamByExamNo" resultMap="takenQualiExam">
+	SELECT 
+	EXAM_NO,
+	EXAM_START_DATE,
+	EXAM_FINAL_DATE,
+	RECEPTION_START_DATE,
+	RECEPTION_END_DATE,
+	OPINION_START_DATE,
+	OPINION_END_DATE 
+    FROM TB_TAKEN_QUALI_EXAM 
+    WHERE EXAM_NO = #{examNo}
+	</select>
+	
+	<select id="findAllPlaceByLocationNo2" resultMap="place">
+	SELECT 
+	LOCATION_NO,
+	LOCATION_NAME,
+	MAXIMUM_OCCUPANCY,
+	DISTRICT_NO 
+    FROM TB_PLACE 
+    WHERE LOCATION_NO = #{locationNo}
+	</select>
+	
+	<select id="findAllExamPlaceByExamNo" resultMap="examPlace">
+	SELECT
+    EXAM_LOCATION_NO,
+	EXAM_NO,
+    TB_EXAM_PLACE.LOCATION_NO,
+	LOCATION_NAME,
+	MAXIMUM_OCCUPANCY,
+	TB_PLACE.DISTRICT_NO,
+    DISTRICT,
+	CITY_NAME
+    FROM TB_EXAM_PLACE 
+    JOIN TB_PLACE ON (TB_PLACE.LOCATION_NO = TB_EXAM_PLACE.LOCATION_NO) 
+    JOIN TB_DISTRICT ON (TB_DISTRICT.DISTRICT_NO = TB_PLACE.DISTRICT_NO) 
+    WHERE EXAM_NO = #{examNo}
+	</select>
 	
 </mapper>

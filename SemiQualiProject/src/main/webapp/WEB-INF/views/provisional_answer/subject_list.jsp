@@ -78,7 +78,7 @@
  			console.log(e);
  			let firstTd = $(e).children().eq(1)[0].innerText;
  			let secondTd = $(e).children().eq(2)[0].innerText;
- 			location.href=`/quali/provisional_answer/subject_detail/\${firstTd}\${secondTd}`;
+ 			location.href=`/quali/provisional_answer/subject_detail/\${firstTd}/\${secondTd}`;
  		}
  	</script>
 </body>
