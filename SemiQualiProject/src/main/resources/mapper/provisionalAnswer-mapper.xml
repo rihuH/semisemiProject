@@ -191,6 +191,15 @@
     WHERE TB_SUBJECT.EXAM_NO = #{examNo}
 	</select>
 	
+	<insert id="insertProvisionalAnswerFile" parameterType="provisionalAnswer">
+		INSERT INTO TB_PROVISIONAL_ANSWER (
+    PROVISIONAL_ANSWER_NO,
+	SUBJECT_NO,
+    ORIGINAL_FILE_NAME,
+    CHANGED_FILE_NAME,
+    FILE_PATH) 
+    VALUES (SEQ_PRO_ANSWER_NO.NEXTVAL, #{subject.subjectNo}, #{originalFileName}, #{changedFileName}, #{filePath})
+	</insert>
 	
 	
 </mapper>

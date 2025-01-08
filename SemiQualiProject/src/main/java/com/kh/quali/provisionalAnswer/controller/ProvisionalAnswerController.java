@@ -37,22 +37,21 @@ public class ProvisionalAnswerController {
 	public ModelAndView subjectDetail(@PathVariable(name="title") String title, @PathVariable(name="period") String period,
 			@PathVariable(name="no") Long subjectNo) {
 		Map<String, Object> map = new HashMap();
-		log.info("{}",subjectNo);
 		map.put("title", title);
 		map.put("period", period);
+		map.put("subjectNo", subjectNo);
 		return mv.setViewNameAndData("provisional_answer/subject_detail", map);
 	}
 	
 	@PostMapping("provisional_answer/answer_enroll")
-	public void answerEnroll(@RequestParam("upfile1") MultipartFile upfile1, @RequestParam("upfile2") MultipartFile upfile2, @RequestParam("mapAsJson") String mapAsJson) {
-			log.info("{} {}", upfile1, upfile2);
-			log.info("{}", mapAsJson);
+	public ModelAndView answerEnroll(@RequestParam("upfiles") MultipartFile[] upfiles, @RequestParam("subjectNo") Long subjectNo) {
+			log.info("{} {}", upfiles);
+			log.info("{}, {}",subjectNo);
 	        /*ObjectMapper objectMapper = new ObjectMapper();
 	        Map<String, Object> map = objectMapper.readValue(mapAsJson, Map.class); // JSON -> Map*/
 			
-			ps.updateAnswerFile(upfile1, upfile2, mapAsJson);
-			
-	        
+			ps.updateAnswerFile(upfiles, subjectNo);
+			return mv.setViewNameAndData("provisional_answer/subject_list", null);
 	        
 	}
 	

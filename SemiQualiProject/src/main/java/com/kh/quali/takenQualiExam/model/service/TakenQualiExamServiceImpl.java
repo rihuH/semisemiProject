@@ -129,7 +129,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		list = takenExamRoundCheck(list);
 		map.put("techList", list);
 		
-		log.info("테스트 {}",getTakenExamByNo(Long.parseLong("1")));
+		log.info("테스트 {}",findAllExamPlacesByExamNo(Long.parseLong("4")));
 		
 		return map;
 	}
@@ -342,7 +342,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 				//qualificationNo를 가지고 전문분야인지 기술분야인지 먼저 구분하기
 				//examNo로 takenQualiExam객체 받아옴
 				TakenQualiExam takenQualiExam = mapper.findTakenQualiExamByExamNo(examNo);
-				if(qualificationNo.toString().charAt(0) == 1) { // 기술자격증
+				if(qualificationNo.toString().charAt(0) == '1') { // 기술자격증
 					qualificationType = "국가기술자격";
 					// examTypeNo 로 TechQualificationExam 객체 반환
 					TechQualificationExam techQualificationExam = mapper.findTechQualiExamByExamTypeNo(examTypeNo);
@@ -367,7 +367,11 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 				// 이 시험에 등록된 시험장소 목록
 				// examNo로 examPlace 객체 리스트 받아오기
 				List<ExamPlace> examPlaceList = mapper.findAllExamPlaceByExamNo(examNo);
-				
+				// examPlace 리스트를 주면 takenQualiExam객체를 담아주는 메소드
+				for(int i = 0; i < examPlaceList.size(); i++) {
+					ExamPlace e = insertTakenQualiExamToExamPlace(examPlaceList.get(i), takenQualiExam);
+					examPlaceList.set(i, e);
+				}
 				
 				// map에 객체 담기
 				Map<String, Object> map = new HashMap();
@@ -394,6 +398,11 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 				
 				return map;
 	}
+	private ExamPlace insertTakenQualiExamToExamPlace(ExamPlace examPlace, TakenQualiExam takenQualiExam) {
+		examPlace.setTakenQualiExam(takenQualiExam);
+		return examPlace;
+	}
+	
 
 	
 

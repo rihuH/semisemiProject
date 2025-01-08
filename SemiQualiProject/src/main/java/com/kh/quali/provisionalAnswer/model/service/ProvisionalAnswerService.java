@@ -14,6 +14,7 @@ public interface ProvisionalAnswerService {
 
 	List<Subject> getSubjectListForExam(List<TakenQualiExam> takenExams);
 
-	void updateAnswerFile(MultipartFile upfile1, MultipartFile upfile2, String titleAnd);
+
+	void updateAnswerFile(MultipartFile[] upfile, Long subjectNo);
 
 }

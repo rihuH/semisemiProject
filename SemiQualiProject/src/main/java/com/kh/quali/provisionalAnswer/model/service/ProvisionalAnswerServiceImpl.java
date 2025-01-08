@@ -1,14 +1,21 @@
 package com.kh.quali.provisionalAnswer.model.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.quali.provisionalAnswer.model.dao.ProvisionalAnswerMapper;
+import com.kh.quali.provisionalAnswer.model.vo.ProvisionalAnswer;
 import com.kh.quali.takenQualiExam.model.dao.TakenQualiExamMapper;
 import com.kh.quali.takenQualiExam.model.service.TakenQualiExamService;
 import com.kh.quali.takenQualiExam.model.vo.Subject;
@@ -25,6 +32,7 @@ public class ProvisionalAnswerServiceImpl implements ProvisionalAnswerService {
 	private final ProvisionalAnswerMapper mapper;
 	private final TakenQualiExamMapper tmapper;
 	private final TakenQualiExamService ts;
+	private final ServletContext context;
 	
 	@Override
 	public Map<String, Object> findAllSubject() {
@@ -62,11 +70,54 @@ public class ProvisionalAnswerServiceImpl implements ProvisionalAnswerService {
 		return fullList;
 	}
 
+
 	@Override
-	public void updateAnswerFile(MultipartFile upfile1, MultipartFile upfile2, String titleAnd) {
-		// TODO Auto-generated method stub
+	public void updateAnswerFile(MultipartFile[] upfiles, Long subjectNo) {
+		// 파일 있으면 이름 가공하고
+		Subject subject = new Subject().builder().subjectNo(subjectNo).build();
+		String originalFileName = null;
+		String savePath = context.getRealPath("/resources/upload_files/provisional_answer_files/");
+		for(MultipartFile upfile : upfiles) {
+			
+			originalFileName = upfile.getOriginalFilename();
+			
+			if(!!!"".equals(originalFileName)) {
+				// 메소드에 넘겨주기
+				uploadFile(upfile, originalFileName, subject, savePath);
+			}
+		}
+	}
+
+	private void uploadFile(MultipartFile upfile, String originalFileName, Subject subject, String savePath) {
+		String changedFileName = null;
+		String filePath = null;
+		
+		// 이름 수정해서 String을 돌려줌
+		changedFileName = changeFileName(originalFileName, subject.getSubjectNo());
+		filePath = "/quali/resources/upload_files/provisional_answer_files/" + changedFileName;
+		ProvisionalAnswer provisionalAnswer = new ProvisionalAnswer().builder().subject(subject).originalFileName(originalFileName).changedFileName(changedFileName).filePath(filePath).build();
+		mapper.insertProvisionalAnswerFile(provisionalAnswer);
+		
+		try {
+			upfile.transferTo(new File(savePath + changedFileName));
+		} catch (IllegalStateException | IOException e) {
+			
+		}
 		
 	}
+
+	private String changeFileName(String originalFileName, Long subjectNo) {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+		String localdate = LocalDateTime.now().format(formatter);
+		String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+		
+		
+		return localdate + (Math.random()*90000) + "subjectNo&" + subjectNo + ext;
+	}
+
+
+
 	
 
 	

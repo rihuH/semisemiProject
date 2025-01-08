@@ -21,4 +21,5 @@ public class ProvisionalAnswer {
 	 private String originalFileName;
 	 private String changedFileName;
 	 private String filePath;
+	 private String status;
 }
