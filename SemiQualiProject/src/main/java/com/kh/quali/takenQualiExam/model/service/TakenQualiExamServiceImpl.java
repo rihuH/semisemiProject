@@ -381,6 +381,8 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 				map.put("qualificationRank",qualificationRank);
 				// 51회차 등 몇 회차 시험인지를 나타내는 round
 				map.put("round", takenQualiExam.getRound());
+				// 시행되는 시험 장소 리스트 담기
+				map.put("examPlaceList", examPlaceList);
 				
 				
 				return map;
