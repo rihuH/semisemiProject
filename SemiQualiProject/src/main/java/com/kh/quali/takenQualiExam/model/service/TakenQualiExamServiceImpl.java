@@ -171,7 +171,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		String qualificationName = exam.substring(6 , exam.length() - 6);
 		String receptionStartDate = receptionDate.substring(0 , 10);
 		String round = exam.substring(exam.length() - 5, exam.length()-4);
-		log.info(round+ qualificationRank + qualificationName + receptionStartDate);
+		//log.info(round+ qualificationRank + qualificationName + receptionStartDate);
 		Map<String, Object> map = new HashMap();
 		switch(qualificationRank) {
 		case "필" : qualificationRank = "1"; break;
@@ -231,6 +231,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 	
 	@Override
 	public void applicationInsert(String exam, String receptionDate, String type) {
+		
 		findAllExamPlacesByExam(exam, receptionDate, type);
 		
 		

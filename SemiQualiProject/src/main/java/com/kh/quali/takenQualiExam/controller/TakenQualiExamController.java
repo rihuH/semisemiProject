@@ -16,7 +16,6 @@ import com.kh.quali.qualification.model.service.QualificationService;
 import com.kh.quali.qualification.model.vo.ProfesionalQualification;
 import com.kh.quali.qualification.model.vo.TechnicalQualification;
 import com.kh.quali.takenQualiExam.model.service.TakenQualiExamService;
-import com.kh.quali.takenQualiExam.model.vo.Subject;
 import com.kh.quali.takenQualiExam.model.vo.TakenQualiExam;
 
 import lombok.RequiredArgsConstructor;
@@ -97,14 +96,26 @@ public class TakenQualiExamController {
 
 
 
-	@PostMapping("taken_quali_exam/application_insert")
-	public ModelAndView applicationInsert() {
+	@GetMapping("taken_quali_exam/application_list")
+	public ModelAndView selsectApplicationList() {
 		
-		ts.applicationInsert();
+		// 현재 접수 가능한 시험목록 가져옴
+		Map<String, Object> takenExamList = ts.getTakenExamList();
 		
-		return mv.setViewNameAndData(null, null);
+		log.info("{}", takenExamList);
+		
+		// application_list.jsp로 접수가능한 시험목록을 보내서 보내서 선택하게함
+		return mv.setViewNameAndData("application/application_list", takenExamList);
 	}
 
+	@PostMapping("taken_quali_exam/application_exam_place")
+	public ModelAndView selectExamPlace(String examStartDate, String receptionDate, String Type) {
+		
+		Map<String, Object> takenExamList = ts.findAllExamPlacesByExam(examStartDate, receptionDate, Type);
+		
+		
+		return mv.setViewNameAndData("application/application_place", takenExamList);
+	}
 
 
 	

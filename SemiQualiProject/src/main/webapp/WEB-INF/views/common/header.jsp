@@ -259,7 +259,7 @@
         <div id="menubar-center">
             <ul id="menubar-category">
                 <li>
-                    <a href="national-exam.do">
+                    <a href="taken_quali_exam/application_list">
                         국가자격시험
                     </a>
                 </li>
