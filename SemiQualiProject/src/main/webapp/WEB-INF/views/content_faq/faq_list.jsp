@@ -75,16 +75,14 @@
 							<td>${ answer.answerTitle }</td>
 							<td>${ answer.memNo }</td>
 							<td>${ answer.answerCreatedAt.substring(0, 10) }</td>
-							<c:if test="">
-								<c:choose>
-									<c:when test="">
-										<td>⭕</td>
-									</c:when>
-									<c:otherwise>
-										<td>❌</td>
-									</c:otherwise>
-								</c:choose>
-							</c:if>
+							<c:choose>
+								<c:when test="${ answer.hasComment == 'Y' }">
+									<td>⭕</td>
+								</c:when>
+								<c:otherwise>
+									<td>❌</td>
+								</c:otherwise>
+							</c:choose>
 						</tr>
 					</c:forEach>
                 </tbody>

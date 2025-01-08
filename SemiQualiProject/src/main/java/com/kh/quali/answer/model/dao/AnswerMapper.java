@@ -27,4 +27,6 @@ public interface AnswerMapper {
 	// 답변 불러오는 메소드
 	Comment findCommentById(int answerNo);
 
+	List<Comment> getCommentList(RowBounds rowBounds);
+
 }

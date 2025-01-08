@@ -16,4 +16,6 @@ public interface TakenQualiExamService {
 
 	Map<String, Object> findAllExamPlacesByExam(String exam, String receptionDate, String type);
 
+	void applicationInsert(String exam, String receptionDate, String type);
+
 }
