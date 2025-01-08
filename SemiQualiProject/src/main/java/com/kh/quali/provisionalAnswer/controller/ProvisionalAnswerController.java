@@ -49,10 +49,9 @@ public class ProvisionalAnswerController {
 			log.info("{}, {}",subjectNo);
 	        /*ObjectMapper objectMapper = new ObjectMapper();
 	        Map<String, Object> map = objectMapper.readValue(mapAsJson, Map.class); // JSON -> Map*/
-			
 			ps.updateAnswerFile(upfiles, subjectNo);
-			return mv.setViewNameAndData("provisional_answer/subject_list", null);
-	        
+			Map<String, Object> map = ps.findAllSubject();
+			return mv.setViewNameAndData("provisional_answer/subject_list", map);
 	}
 	
 	

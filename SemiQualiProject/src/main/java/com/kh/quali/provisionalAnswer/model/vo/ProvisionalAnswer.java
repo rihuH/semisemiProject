@@ -17,7 +17,7 @@ import lombok.ToString;
 @Builder
 public class ProvisionalAnswer {
 	 private Long provisionalAnswerNo;
-	 private Subject subject;
+	 private Long subjectNo;
 	 private String originalFileName;
 	 private String changedFileName;
 	 private String filePath;

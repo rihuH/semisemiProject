@@ -1,7 +1,9 @@
 package com.kh.quali.takenQualiExam.model.vo;
 
-import com.kh.quali.qualification.model.vo.TechCategory;
-import com.kh.quali.qualification.model.vo.TechnicalQualification;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.kh.quali.provisionalAnswer.model.vo.ProvisionalAnswer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,5 +22,7 @@ public class Subject {
 	private Long subjectNo; // Primary key
     private int subjectPeriod;
     private TakenQualiExam takenQualiExam;
+    private List<ProvisionalAnswer> provisionalAnswers;
+
 }
      

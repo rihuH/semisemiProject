@@ -21,7 +21,8 @@
  				<th>게시글번호</th>
  				<th>시험명</th>
  				<th>교시</th>
- 				<th>첨부파일</th>
+ 				<th>답안A</th>
+ 				<th>답안B</th>
  			</tr>
  		</thead>
  		<tbody id="proBody">
@@ -38,14 +39,25 @@
  							</c:otherwise> 
  						</c:choose>
  					</td>
- 					<td>${c.subjectPeriod }</td>
- 					<td>첨부파일 있으면 표시해주기</td>
+ 					<td>${c.subjectPeriod }교시</td>
+ 					<c:forEach begin="0" end="1" var="i">
+ 						<td>
+	 						<c:choose>	
+		 						<c:when test="${ not empty c.provisionalAnswers[i] }">
+		 							📧
+		 						</c:when>
+		 						<c:otherwise>
+		 							💤 						
+		 						</c:otherwise>
+	 						</c:choose>
+ 						</td>
+ 					</c:forEach>
  				</tr>
  			</c:forEach>
  		</tbody>
- 		<tbody id="techBody" disabled>
+ 		<tbody id="techBody" style="display:none;">
  			<c:forEach items="${ techSubjectList }" var="c" varStatus="s">
- 				<tr onclick="detail('\${c.subjectNo}', '\${c.takenQualiExam.round }', this);">
+ 				<tr onclick="detail('${c.subjectNo}', '${c.takenQualiExam.round }', this);">
  					<td>${s.count }</td>
  					<td>${c.takenQualiExam.round }회 ${c.takenQualiExam.qualificationExam.technicalQualification.qualificationName } 
  						<c:choose>
@@ -57,14 +69,27 @@
  							</c:otherwise> 
  						</c:choose>
  					</td>
- 					<td>${c.subjectPeriod }</td>
- 					<td>첨부파일 있으면 표시해주기</td>
+ 					<td>${c.subjectPeriod }교시</td>
+ 					<c:forEach begin="0" end="1" var="i">
+ 						<td>
+	 						<c:choose>	
+		 						<c:when test="${ not empty c.provisionalAnswers[i] }">
+		 							📧
+		 						</c:when>
+		 						<c:otherwise>
+		 							💤 						
+		 						</c:otherwise>
+	 						</c:choose>
+ 						</td>
+ 					</c:forEach>
  				</tr>
  			</c:forEach>
  		</tbody>
  	</table>
  	
  	<script>
+ 		
+ 	
  		function propro(){
  			$('#proBody').show();
  			$('#techBody').hide();

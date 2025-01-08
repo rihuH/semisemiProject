@@ -18,6 +18,8 @@ public interface ProvisionalAnswerMapper {
 	List<Subject> findSubject(TakenQualiExam takenQualiExam);
 
 	void insertProvisionalAnswerFile(ProvisionalAnswer provisionalAnswer);
+
+	List<ProvisionalAnswer> findProvisionalAnswerBySubject(Subject subject);
 	
 
 }

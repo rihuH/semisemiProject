@@ -129,7 +129,6 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		list = takenExamRoundCheck(list);
 		map.put("techList", list);
 		
-		log.info("테스트 {}",findAllExamPlacesByExamNo(Long.parseLong("4")));
 		
 		return map;
 	}

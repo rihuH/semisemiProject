@@ -17,6 +17,12 @@
 	border-collapse: collapse;
 		border:1px solid black;
 	}
+	
+	#availPlaceDiv {
+		overflow : scroll;
+		width: 800px;       /* 가로 길이 설정 */
+   		height: 600px;
+	}
 </style>
 </head>
 <body>
@@ -85,11 +91,13 @@
 			</tbody>
 		</table>
 	</div>
+
 	
 	<form action="/quali/taken_quali_exam/insert_place" method="post">
+		<button type="submit">시험장소 등록</button>
+	<div id="availPlaceDiv">
 	<div>
 		<input type="hidden" name="examNo" value="input"/>
-		<button type="submit">시험장소 등록</button>
 		<div> 등록 가능한 시험장소</div>
 		<table>
 			<thead>
@@ -105,6 +113,7 @@
 			<tbody id="availPlaceAdd">
 			</tbody>
 		</table>
+	</div>
 	</div>
 	</form>
 
