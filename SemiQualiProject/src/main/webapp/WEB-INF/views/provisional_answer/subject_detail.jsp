@@ -21,7 +21,8 @@
 		
 		<div class="upload1">
 			파일1 <br>
-			<img width="300" id="1_img" height="180" alt="1_img"> <p class="file1_text">파일첨부</p>
+			<img width="300" id="1_img" height="180" alt="1_img" scr="${subject.provisionalAnswers.get(0).filePath}"> 
+			<p class="file1_text">파일첨부</p>
 			
 		</div>
 		<div class="upload2">
@@ -41,10 +42,7 @@
 	
 	<script>
 	
-		window.onload = ()=>{
-			const val = $('input[type=hidden]')[0].val();
-			console.log(val);
-		}
+		
 		$(function(){
 			
 			$('.upload1').click(function(){

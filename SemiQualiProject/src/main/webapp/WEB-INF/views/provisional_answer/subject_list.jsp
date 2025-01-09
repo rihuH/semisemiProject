@@ -27,9 +27,9 @@
  		</thead>
  		<tbody id="proBody">
  			<c:forEach items="${ proSubjectList }" var="c" varStatus="s">
- 				<tr onclick="detail('${c.subjectNo}', '${c.takenQualiExam.round }', this);">
+ 				<tr>
  					<td>${s.count }</td>
- 					<td>제${c.takenQualiExam.round }회 ${c.takenQualiExam.qualificationExam.profesionalQualification.qualificationName } 
+ 					<td onclick="detail('${c.subjectNo}', '${c.subjectPeriod }', this);">제${c.takenQualiExam.round }회 ${c.takenQualiExam.qualificationExam.profesionalQualification.qualificationName } 
  						<c:choose>
  							<c:when test="${c.takenQualiExam.qualificationExam.qualificationRank eq 1}">
  								1차
@@ -44,7 +44,7 @@
  						<td>
 	 						<c:choose>	
 		 						<c:when test="${ not empty c.provisionalAnswers[i] }">
-		 							📧
+		 							<a href="${ c.provisionalAnswers[i].filePath }" download="${c.provisionalAnswers[i].originalFileName }">📧</a>
 		 						</c:when>
 		 						<c:otherwise>
 		 							💤 						
@@ -57,9 +57,9 @@
  		</tbody>
  		<tbody id="techBody" style="display:none;">
  			<c:forEach items="${ techSubjectList }" var="c" varStatus="s">
- 				<tr onclick="detail('${c.subjectNo}', '${c.takenQualiExam.round }', this);">
+ 				<tr>
  					<td>${s.count }</td>
- 					<td>${c.takenQualiExam.round }회 ${c.takenQualiExam.qualificationExam.technicalQualification.qualificationName } 
+ 					<td onclick="detail('${c.subjectNo}', '${c.subjectPeriod }', this);">${c.takenQualiExam.round }회 ${c.takenQualiExam.qualificationExam.technicalQualification.qualificationName } 
  						<c:choose>
  							<c:when test="${c.takenQualiExam.qualificationExam.qualificationRank eq 1}">
  								필기
@@ -74,7 +74,7 @@
  						<td>
 	 						<c:choose>	
 		 						<c:when test="${ not empty c.provisionalAnswers[i] }">
-		 							📧
+		 							<a href="${ c.provisionalAnswers[i].filePath }" download="${c.provisionalAnswers[i].originalFileName }">📧</a>
 		 						</c:when>
 		 						<c:otherwise>
 		 							💤 						
@@ -99,11 +99,11 @@
  			$('#techBody').show();
  		}
  		
- 		function detail(no, round, e){
- 			console.log(e);
- 			let firstTd = $(e).children().eq(1)[0].innerText;
- 			let secondTd = $(e).children().eq(2)[0].innerText;
- 			location.href=`/quali/provisional_answer/subject_detail/\${firstTd}/\${secondTd}/\${no}`;
+ 		function detail(no, period, e){
+ 			let firstTd = $(e).text().replace(/\s+/g, " ").trim();
+ 			console.log(firstTd);
+ 			let secondTd = $(e).next().text().replace(/\s+/g, " ").trim();
+ 			location.href=`/quali/provisional_answer/subject_detail/\${firstTd}/\${period}/\${no}`;
  		}
  	</script>
 </body>

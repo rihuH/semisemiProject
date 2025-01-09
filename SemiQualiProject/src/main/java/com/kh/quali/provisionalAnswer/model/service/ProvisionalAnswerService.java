@@ -19,4 +19,6 @@ public interface ProvisionalAnswerService {
 	
 	void updateAnswerFile(MultipartFile[] upfile, Long subjectNo);
 
+	Subject findSubjectByNo(Long subjectNo);
+
 }

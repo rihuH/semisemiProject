@@ -20,6 +20,8 @@ public interface ProvisionalAnswerMapper {
 	void insertProvisionalAnswerFile(ProvisionalAnswer provisionalAnswer);
 
 	List<ProvisionalAnswer> findProvisionalAnswerBySubject(Subject subject);
+
+	Subject findSubjectByNo(Long subjectNo);
 	
 
 }

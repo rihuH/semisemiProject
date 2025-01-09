@@ -224,5 +224,14 @@
     FROM TB_PROVISIONAL_ANSWER WHERE SUBJECT_NO = #{subjectNo}
 	</select>
 	
+	<select id="findSubjectByNo" parameterType="long" resultMap="subject">
+	SELECT
+        SUBJECT_NO,
+   SUBJECT_PERIOD,
+	TB_SUBJECT.EXAM_NO 
+    FROM TB_SUBJECT 
+    WHERE SUBJECT_NO = #{subjectNo}
+	</select>
+	
 	
 </mapper>
