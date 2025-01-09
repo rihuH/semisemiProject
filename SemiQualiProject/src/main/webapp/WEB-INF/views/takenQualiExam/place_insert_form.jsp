@@ -7,6 +7,20 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <title>Insert title here</title>
+<style>
+#leftbar{
+width : 30%;
+height : 100%; 
+float : left;
+}
+#mainbar{
+width : 50%;
+height : 100%; 
+float : left;
+align : center;
+margin-top : 100px;
+}
+</style>
 
 <style>
 	table {
@@ -26,10 +40,14 @@
 </style>
 </head>
 <body>
+<jsp:include page="../common/header.jsp"></jsp:include>
 	시험장소 등록
 	
-	<%--  --%>
-	
+<div>
+	<div id="leftbar">
+		<jsp:include page="leftbar.jsp"></jsp:include>
+	</div>
+	<div id="mainbar">	
 	<table>
 	<thead>
 		<tr>
@@ -211,9 +229,34 @@
 								searched : searched,
 								examno : examno
 							},
-							success : function(response){
+							success : function(map){
 								//$('.addedClass').remove();
 								console.log('성공');
+								
+								$('.addedClass').remove();
+								 var i = 0;
+								    const placeTbody2 = $('#availPlaceAdd'); // tbody로 직접 접근
+								    const searchedPlaces = map.data.searchedPlaces; // map.data 안에 placesOfExam이 있으므로 올바르게 접근
+
+								    if (Array.isArray(searchedPlaces) && searchedPlaces.length > 0) {
+								        while (searchedPlaces[i]) {
+								            // 새로운 행을 동적으로 생성하여 추가
+								            var row = $('<tr class="addedClass">');
+								            row.append(`<td>\${i + 1}</td>`);
+								            row.append(`<td><input type="checkbox" name="insertPlaceNo" value="\${searchedPlaces[i].locationNo}"></td><label>`);
+								            row.append(`<td>\${searchedPlaces[i].district.cityName}</td>`);
+								            row.append(`<td>\${searchedPlaces[i].district.district}</td>`);
+								            row.append(`<td>\${searchedPlaces[i].locationName}</td>`);
+								            row.append(`<td>\${searchedPlaces[i].maximumOccupancy}</td>`);
+								            row.append(`</tr></label>`);
+
+								            // 테이블에 행 추가
+								            placeTbody2.append(row);
+								            i = i + 1;
+								        }
+								    } 
+								
+								
 								
 								
 				            }
@@ -233,7 +276,8 @@
 		
 	
 </script>
-
+</div>
+</div>
 
 </body>
 </html>

@@ -10,6 +10,7 @@ import javax.servlet.ServletContext;
 import org.springframework.stereotype.Service;
 
 import com.kh.quali.confirmation.model.vo.Confirmation;
+import com.kh.quali.exception.QualificationDuplicateException;
 import com.kh.quali.qualification.model.dao.QualificationMapper;
 import com.kh.quali.qualification.model.vo.ProfesionalDept;
 import com.kh.quali.qualification.model.vo.ProfesionalQualification;
@@ -43,15 +44,19 @@ public class QualificationServiceImpl implements QualificationService {
 
 	@Override
 	public List selectQualiType(String qualiType) {
-		log.info("서비스 {}", qualiType);
 		TypeQualification type = mapper.findQualiType(qualiType);
+		// type에 맞는 fieldList 반환해주는 메소드
+		List fieldList = getFieldListOfType(type);
+		fieldList = makeFieldVo(type, fieldList);
+		return fieldList;
+	}
+	private List getFieldListOfType(TypeQualification type) {
 		List fieldList = new ArrayList();
 		if(type.getQualificationCode().equals("A")) {
 			fieldList = mapper.findAllProfesionalDeft();
 		} else {
 			fieldList = mapper.findAllTechnicalField();
 		}
-		fieldList = makeFieldVo(type, fieldList);
 		return fieldList;
 	}
 	private List makeFieldVo(TypeQualification type, List fieldList) {
@@ -69,35 +74,37 @@ public class QualificationServiceImpl implements QualificationService {
 
 	@Override
 	public List<TechCategory> selectFieldType(String fieldSelect) {
-		TypeQualification type = mapper.findQualiType("국가기술자격");
-		TechnicalField field = mapper.findTechFieldByName(fieldSelect);
-		field.setTypeQualification(type);
+		TechnicalField technicalField = getTechnicalFieldByFieldName(fieldSelect);
 		List<TechCategory> techCategoryList = mapper.findTechCategoryByField(fieldSelect);
-		techCategoryList = makeFieldCategory(techCategoryList, field);
+		techCategoryList = makeFieldCategory(techCategoryList, technicalField);
 		return techCategoryList;
 	}
-	private List<TechCategory> makeFieldCategory(List<TechCategory> techCategoryList, TechnicalField field){
+	private TechnicalField getTechnicalFieldByFieldName(String fieldSelect) {
+		TypeQualification type = mapper.findQualiType("국가기술자격");
+		TechnicalField technicalField = mapper.findTechFieldByName(fieldSelect);
+		technicalField.setTypeQualification(type); // 여기까지 해주는 메소드
+		return technicalField;
+	}
+	private List<TechCategory> makeFieldCategory(List<TechCategory> techCategoryList, TechnicalField technicalField){
 		for(int i = 0; i < techCategoryList.size(); i++) {
-			techCategoryList.get(i).setTechnicalField(field);
+			techCategoryList.get(i).setTechnicalField(technicalField);
 		}
 		return techCategoryList;
 	}
 
 	@Override
 	public List<Object> findQualiByCategory(String categorySelect, String typeStr) {
-		typeStr = ("pro").equals(typeStr) ? "국가전문자격" : "국가기술자격";
-		TypeQualification type = mapper.findQualiType(typeStr);
 		List<Object> qualiList = new ArrayList();
-		//국가전문자격
-		if("국가전문자격".equals(typeStr)) {
-			qualiList = findAllProQualiByCategory(type, categorySelect);
+		if("pro".equals(typeStr)) {
+			qualiList = findAllProQualiByCategory(categorySelect);
 		} else {
-			qualiList = findAllTechQualiByCategory(type, categorySelect);
+			qualiList = findAllTechQualiByCategory(categorySelect);
 		}
 		return qualiList;
 	}
 
-	private List<Object> findAllTechQualiByCategory(TypeQualification type, String categorySelect) {
+	private List<Object> findAllTechQualiByCategory(String categorySelect) {
+		TypeQualification type = mapper.findQualiType("국가기술자격");
 		Long fieldNo = mapper.findTechFieldNoInCate(categorySelect);
 		TechnicalField technicalField = mapper.findTechFieldByNo(fieldNo);
 		technicalField.setTypeQualification(type);
@@ -112,7 +119,8 @@ public class QualificationServiceImpl implements QualificationService {
 		return qualiList;
 	}
 
-	private List<Object> findAllProQualiByCategory(TypeQualification type, String categorySelect) {
+	private List<Object> findAllProQualiByCategory(String categorySelect) {
+		TypeQualification type = mapper.findQualiType("국가전문자격");
 		ProfesionalDept profesionalDept = mapper.findByProDeptName(categorySelect);
 		profesionalDept.setTypeQualification(type);
 		Long categoryNo = profesionalDept.getCategoryNo();
@@ -128,12 +136,15 @@ public class QualificationServiceImpl implements QualificationService {
 	public void insertPro(String qualificationName, String relevantDepartment) {
 		TypeQualification typeQualification = mapper.findQualiType("국가전문자격");
 		// 입력한 관련부처가 있는지 검사
+		if(typeQualification == null) {
+			return;
+		}
 		ProfesionalDept profesionalDept = mapper.findByProDeptName(relevantDepartment);
 		// 자격증이름으로 있는지 검색하는 메소드
 		int isQuali = isQualiName(qualificationName);
 		ProfesionalQualification profesionalQualification = mapper.findProQualiByQualiName(qualificationName);
 		if(isQuali > 0) {
-			log.info("동일한 이름의 자격증 등록불가");
+			throw new QualificationDuplicateException("이미 등록된 자격증입니다");
 		} else if(profesionalDept != null) {
 			// 관련부처 있으면 타입 대입
 			profesionalDept.setTypeQualification(typeQualification);

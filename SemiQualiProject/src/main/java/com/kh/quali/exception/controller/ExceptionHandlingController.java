@@ -6,6 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.quali.exception.BoardNotFoundException;
 import com.kh.quali.exception.ComparePasswordException;
+import com.kh.quali.exception.QualificationDuplicateException;
 import com.kh.quali.exception.UserIdNotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +42,11 @@ public class ExceptionHandlingController {
 	protected ModelAndView BoardNotFoundException(BoardNotFoundException e) {
 		// ��й�ȣ�� ���ϴ� �޼ҵ�, ��й�ȣ�� Ʋ���� ��� ���� �߻�
 		return createErrorResponse("게시글을 찾지 못했습니다.", e);
+	}
+	
+	@ExceptionHandler(QualificationDuplicateException.class)
+	protected ModelAndView qualificationDuplicateException(BoardNotFoundException e) {
+		return createErrorResponse("이미 등록된 자격증입니다.", e);
 	}
 	
 	

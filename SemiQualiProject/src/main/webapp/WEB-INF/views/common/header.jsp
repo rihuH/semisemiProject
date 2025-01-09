@@ -264,13 +264,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="certification-info.do">
-                        자격정보
+                    <a href="eligibility-check.do">
+                        자격증
                     </a>
                 </li>                
                 <li>
-                    <a href="certificates.do">
-                        자격증, 확인서
+                    <a href="/quali/taken_quali_exam/taken_quali_exam_list">
+                        시행중인 시험
                     </a>
                 </li>                
                 <li>
@@ -346,17 +346,20 @@
             </ul>
         </div>
         <div id="hide-div2">
-            <h3>자격정보</h3>
+            <h3>자격증</h3>
             <ul>
-                <li><a href="eligibility-check.do">응시자격자가진단</a></li> 
-                <li><a href="available-exams.do">응시가능종목확인</a></li>
+                <li><a href="/quali/qualification/insert_form">자격증 등록하기</a></li>
+                <li><a href="/quali/qualification/qualiList">자격증 정보 수정</a></li> 
+                <li><a href="/quali/qualification/select">자격증 상세정보</a></li> 
             </ul>
         </div>
         <div id="hide-div3">
-            <h3>자격증, 확인서</h3>
+            <h3>시행중인 시험</h3>
             <ul>
-                <li><a href="certificate-verify.do">자격증 확인/발급</a></li>
-                <li><a href="certificate-status.do">자격증발급현황</a></li> 
+                <li><a href="/quali/taken_quali_exam/taken_quali_exam_list">시행되는 시험 조회</a></li> 
+                <li><a href="/quali/taken_quali_exam/exam_insert_select">시행되는 시험 등록</a></li>
+                <li><a href="/quali/taken_quali_exam/place_select_form">시행되는 시험 장소 등록</a></li> 
+                <li><a href="/quali/provisional_answer/subject_list">가답안 등록/조회</a></li> 
             </ul>
         </div>
         <div id="hide-div4">

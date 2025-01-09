@@ -33,7 +33,7 @@ public class ConfirmationController {
 	// 인터셉트 필요
 	@GetMapping("certificate-status.do")
 	public ModelAndView confirmHistory(HttpSession session) {
-		List<QualiApplicationIssue>
+		//List<QualiApplicationIssue>
 		return mv.setViewNameAndData("confirmation/history", null);
 	}
 }

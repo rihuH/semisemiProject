@@ -25,6 +25,7 @@ public class QualificationApiController {
 
 	private final QualificationService qs;
 	
+	
 	@GetMapping("qualification/search")
 	public ResponseEntity<ResponseData> searchQuali(String searched){
 		

@@ -106,15 +106,17 @@ public class QualificationController {
 	}
 	
 	@PostMapping("qualification/insert_pro")
-	public void proQualificationInsert(String qualificationName, String relevantDepartment) {
+	public String proQualificationInsert(String qualificationName, String relevantDepartment) {
 		log.info("컨트롤러 넘겨온값 {}, {}", qualificationName, relevantDepartment);
 		qs.insertPro(qualificationName, relevantDepartment);
+		return "qualification/qualification_insert";
 	}
 
 	@PostMapping("qualification/insert_tech")
-	public void techQualificationInsert(String fieldName, String categoryName, String qualificationName) {
+	public String techQualificationInsert(String fieldName, String categoryName, String qualificationName) {
 		log.info("기술도착");
 		qs.insertTech(fieldName, categoryName, qualificationName);
+		return "qualification/qualification_insert";
 	}
 	
 	@GetMapping("qualification/qualiList")

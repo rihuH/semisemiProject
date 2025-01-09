@@ -29,8 +29,11 @@ public class TakenQualiExamApiController {
 	}
 	
 	@GetMapping("taken_quali_exam/placeSearch")
-	public void placeSearch(String searched, String examno) {
-		ts.searchedAvailPlaceByNo(searched, examno);
+	public ResponseEntity<ResponseData> placeSearch(String searched, String examno) {
+		Map<String, Object> examPlaces = ts.searchedAvailPlaceByNo(searched, examno);
+ResponseData responseData = ResponseData.builder().data(examPlaces).status(HttpStatus.OK.toString()).message("등록된 장소와 가능한 장소 리스트").build();
+		
+		return new ResponseEntity<>(responseData, HttpStatus.OK);
 	}
 	
 	

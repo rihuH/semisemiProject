@@ -8,9 +8,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#leftbar{
+width : 30%;
+height : 100%; 
+float : left;
+}
+#mainbar{
+width : 50%;
+height : 100%; 
+float : left;
+align : center;
+margin-top : 100px;
+}
+</style>
 </head>
 <body>
-
+<jsp:include page="../common/header.jsp"></jsp:include>
+<div>
+	<div id="leftbar">
+		<jsp:include page="leftbar.jsp"></jsp:include>
+	</div>
+	<div id="mainbar">
 현재 날짜 기준 시행되는 시험 조회 리스트
 
 <table>
@@ -58,6 +77,7 @@
 		</c:forEach>
 	</tbody>
 </table>
-
+</div>
+</div>
 </body>
 </html>

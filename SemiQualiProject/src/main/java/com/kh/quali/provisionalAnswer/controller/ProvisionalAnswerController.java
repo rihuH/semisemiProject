@@ -59,6 +59,13 @@ public class ProvisionalAnswerController {
 			return mv.setViewNameAndData("provisional_answer/subject_list", map);
 	}
 	
+	@GetMapping("provisional_answer/sorrysorry")
+	public String answerEnroll() {
+		
+			
+			return "common/sorry_page";
+	}
+	
 	
 	
 }

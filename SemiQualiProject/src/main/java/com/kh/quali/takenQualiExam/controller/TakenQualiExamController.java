@@ -92,7 +92,7 @@ public class TakenQualiExamController {
 		ts.insertExamPlace(insertPlaceNo, examNo);
 		return "redirect:../eligibility-check.do";
 	}
-
+/*
 	@GetMapping("taken_quali_exam/application_list")
 	public ModelAndView selectApplicationList() {
 		
@@ -102,6 +102,7 @@ public class TakenQualiExamController {
 		// application_list.jsp로 접수가능한 시험목록을 보내서 보내서 선택하게함
 		return mv.setViewNameAndData("application/application_list", takenExamList);
 	}
+	*/
 	
 	@PostMapping("taken_quali_exam/application/{examNo}")
 	public ModelAndView selectApplicationExamNo(@PathVariable(name="examNo") Long examNo) {
