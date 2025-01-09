@@ -436,10 +436,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 				}
 				List<Place> availableTechPlaces = mapper.findAllPlaceByLocationNo(locationNos);
 				
-				map.clear();
-				map.put("placesOfExam", placesOfExam);
-				map.put("availablePlaces", availableTechPlaces);
-				map.put("takenQualiExam", takenQualiExam);
+				
 	}
 	
 
