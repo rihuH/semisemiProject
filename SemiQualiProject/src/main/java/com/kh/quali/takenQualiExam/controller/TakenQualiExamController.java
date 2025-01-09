@@ -94,8 +94,6 @@ public class TakenQualiExamController {
 	}
 	
 
-
-
 	@GetMapping("taken_quali_exam/application_list")
 	public ModelAndView selectApplicationList() {
 		
@@ -126,6 +124,8 @@ public class TakenQualiExamController {
 		return mv.setViewNameAndData("application/application_place", takenExamList);
 	}
 
+	
+	
 
 	
 }

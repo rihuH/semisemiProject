@@ -255,7 +255,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		//qualificationNo를 가지고 전문분야인지 기술분야인지 먼저 구분하기
 		//examNo로 takenQualiExam객체 받아옴
 		TakenQualiExam takenQualiExam = mapper.findTakenQualiExamByExamNo(examNo);
-		if(qualificationNo.toString().charAt(0) == 1) { // 기술자격증
+		if(qualificationNo.toString().charAt(0) == '1') { // 기술자격증
 			qualificationType = "국가기술자격";
 			// examTypeNo 로 TechQualificationExam 객체 반환
 			TechQualificationExam techQualificationExam = mapper.findTechQualiExamByExamTypeNo(examTypeNo);
@@ -400,6 +400,46 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 	private ExamPlace insertTakenQualiExamToExamPlace(ExamPlace examPlace, TakenQualiExam takenQualiExam) {
 		examPlace.setTakenQualiExam(takenQualiExam);
 		return examPlace;
+	}
+	@Override
+	public void searchedAvailPlaceByNo(String searched, String examno) {
+		// 
+		
+		
+		
+		
+		
+				TakenQualiExam takenQualiExam = null;
+				// 가져가야할 등록된 시험장소목록
+				List<ExamPlace> placesOfExam = null;
+				if("pro".equals(type)) {
+					takenQualiExam = mapper.findTakenProExamByNameAndDate(map);
+					placesOfExam = mapper.findAllPlaceOfProExam(takenQualiExam.getExamNo()); 
+				} else {
+					takenQualiExam = mapper.findTakenTechExamByNameAndDate(map);
+					placesOfExam = mapper.findAllPlaceOfTechExam(takenQualiExam.getExamNo()); 
+				}
+				takenQualiExam.setRound(round);
+				
+				// 이 시험에 등록된 시험장소 목록
+				
+				// 겹치는 시험장소 목록 조회
+				List<ExamPlace> unavailableTechPlaces = mapper.findAllTechPlaceByDate(takenQualiExam);
+				// 혹시 시험일정을 자세히 넣을까봐 따로 만들어놨는데 안 써서 메소드가 똑같음
+				//List<ExamPlace> unavailableProPlaces = mapper.findAllProPlaceByDate(takenQualiExam);
+				// 전체 장소 중 위의 것이 아닌 장소리스트 출력
+				
+				// LOCATION_NO리스트 만들기
+				List locationNos = new ArrayList();
+				for(ExamPlace e : unavailableTechPlaces) {
+					locationNos.add(e.getPlace().getLocationNo());
+				}
+				List<Place> availableTechPlaces = mapper.findAllPlaceByLocationNo(locationNos);
+				
+				map.clear();
+				map.put("placesOfExam", placesOfExam);
+				map.put("availablePlaces", availableTechPlaces);
+				map.put("takenQualiExam", takenQualiExam);
 	}
 	
 

@@ -1,6 +1,7 @@
 package com.kh.quali.provisionalAnswer.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,6 +23,8 @@ public interface ProvisionalAnswerMapper {
 	List<ProvisionalAnswer> findProvisionalAnswerBySubject(Subject subject);
 
 	Subject findSubjectByNo(Long subjectNo);
+
+	void deleteProvisionalAnswerByOrderNo(Map<String, Object> map);
 	
 
 }

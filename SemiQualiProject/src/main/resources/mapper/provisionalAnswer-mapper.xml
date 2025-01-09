@@ -77,7 +77,7 @@
 		<id column="PROVISIONAL_ANSWER_NO" property="provisionalAnswerNo"/>
 		<result column="ORIGINAL_FILE_NAME" property="originalFileName"/>
 		<result column="CHANGED_FILE_NAME" property="changedFileName"/>
-		<result column="PROVISIONAL_ANSWER_FILE" property="filePath"/>
+		<result column="FILE_PATH" property="filePath"/>
 		<result column="Subject_No" property="subjectNo"/>
 	</resultMap> 
 	
@@ -85,7 +85,7 @@
 		<id column="PROVISIONAL_ANSWER_NO" property="provisionalAnswerNo"/>
 		<result column="ORIGINAL_FILE_NAME" property="originalFileName"/>
 		<result column="CHANGED_FILE_NAME" property="changedFileName"/>
-		<result column="PROVISIONAL_ANSWER_FILE" property="filePath"/>
+		<result column="FILE_PATH" property="filePath"/>
 		<result column="Subject_No" property="subjectNo"/>
 	</resultMap>
 	
@@ -125,7 +125,7 @@
 			<id column="PROVISIONAL_ANSWER_NO" property="provisionalAnswerNo"/>
 			<result column="ORIGINAL_FILE_NAME" property="originalFileName"/>
 			<result column="CHANGED_FILE_NAME" property="changedFileName"/>
-			<result column="PROVISIONAL_ANSWER_FILE" property="filePath"/>
+			<result column="FILE_PATH" property="filePath"/>
 			<result column="Subject_No" property="subjectNo"/>
 			<result column="Status" property="status"/>
 		</resultMap> 
@@ -221,7 +221,10 @@
     CHANGED_FILE_NAME,
     FILE_PATH,
     STATUS 
-    FROM TB_PROVISIONAL_ANSWER WHERE SUBJECT_NO = #{subjectNo}
+    FROM TB_PROVISIONAL_ANSWER 
+    WHERE SUBJECT_NO = #{subjectNo} 
+    AND STATUS = 'Y' 
+    ORDER BY SUBSTR(CHANGED_FILE_NAME, INSTR(CHANGED_FILE_NAME, '.', -1) -1, INSTR(CHANGED_FILE_NAME, '.', -1) -1) ASC
 	</select>
 	
 	<select id="findSubjectByNo" parameterType="long" resultMap="subject">
@@ -232,6 +235,13 @@
     FROM TB_SUBJECT 
     WHERE SUBJECT_NO = #{subjectNo}
 	</select>
+	
+	<update id="deleteProvisionalAnswerByOrderNo">
+	UPDATE TB_PROVISIONAL_ANSWER 
+	SET STATUS = 'N' 
+	WHERE SUBJECT_NO = #{subjectNo} 
+	AND CHANGED_FILE_NAME LIKE '%' || #{find} || '%'
+	</update>
 	
 	
 </mapper>

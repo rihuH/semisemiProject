@@ -34,5 +34,7 @@ public interface TakenQualiExamService {
 	 * examNo로 관련 location 맵을 반환해줌
 	 */
 	Map<String, Object> findAllExamPlacesByExamNo(Long examNo);
+
+	void searchedAvailPlaceByNo(String searched, String examno);
 	
 }
