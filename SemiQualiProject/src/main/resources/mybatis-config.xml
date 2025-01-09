@@ -29,6 +29,7 @@
 		<typeAlias type="com.kh.quali.notice.model.vo.Notice" alias="notice"/>
 		<typeAlias type="com.kh.quali.answer.model.vo.Answer" alias="answer"/>
 		<typeAlias type="com.kh.quali.comment.model.vo.Comment" alias="comment"/>
+		<typeAlias type="com.kh.quali.application.model.vo.Application" alias="application"/>
 	</typeAliases>
 
 	<mappers>
@@ -39,6 +40,7 @@
 		<mapper resource="/mapper/answer-mapper.xml" />
 		<mapper resource="/mapper/comment-mapper.xml" />
 		<mapper resource="/mapper/provisionalAnswer-mapper.xml"/>
+		<mapper resource="/mapper/application-mapper.xml"/>
 	</mappers>
 
 

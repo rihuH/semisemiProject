@@ -62,7 +62,7 @@
             height: auto;
             margin: auto;
             padding-bottom: 30px;
-            background-color: lightgray;
+            background-color: rgb(239, 239, 239);
         }
         #application-submit-inner{
         	width: 850px;

@@ -62,7 +62,7 @@
             height: auto;
             margin: auto;
             padding-bottom: 30px;
-            background-color: lightgray;
+            background-color: rgb(239, 239, 239);
         }
         #application-submit-inner{
         	width: 850px;
@@ -134,6 +134,7 @@
             height: 100%;
             
             background-color: none;
+            background-color: rgba(0, 0, 0, 0.5);
             
         }
         
@@ -149,7 +150,6 @@
             height: 700px;
             
             border-radius: 10px;
-            box-shadow: 10px 10px 20px lightgray;
             text-align: center;
         }
 
@@ -204,10 +204,15 @@
                                             ${p.place.district.cityName } ${ p.place.district.district } ${ p.place.locationName }
                                         </td>
                                         <td>
-                                            <form action="" method="post">
-                                                <input type="hidden" id="examNo" name="examNo" value="${ p }" />
-                                            </form>	
-                                            <button type="button" class="btn" data-toggle="modal" data-target="">접수하기</button>
+							               <button 
+							                    type="button" 
+							                    class="btn" 
+							                    id="open-modal"
+							            		data-examLocationNo="${p.examLocationNo }"
+							                    data-toggle="modal" 
+							                    data-target="#modal-out">
+							                    접수하기
+							                </button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -222,7 +227,7 @@
         </div>
 
 
-        <div class="modal">
+        <div class="modal" id="modal-out">
             <div class="modal-body">
                 <div class="modal-header">
                     약관에 동의하셔야 접수가 가능합니다.
@@ -235,7 +240,13 @@
                     <label><input type="checkbox" class="agree-checkbox"> 약관내용 5</label>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn" id="agree-btn" disabled>완료</button>
+                	<form action="/quali/application_record/${ sessionScope.loginMember.memberId }" method="post">
+               			<input type="hidden" name="examNo" value="${ takenQualiExam.examNo }">
+               			<input type="hidden" name="examLocationNo" value="">
+               			<input type="hidden" name="memNo" value="${ sessionScope.loginMember.memberNo }">
+               			<input type="hidden" name="memberId" value="${ sessionScope.loginMember.memberId }">
+	                    <button class="btn" id="agree-btn" disabled>완료</button>
+                	</form>
                 </div>
             </div>
         </div>
@@ -244,18 +255,47 @@
         
         
 	<script>
-	    $('.btn').on('click', function(){
-	        $('.modal').css('display', 'flex');
-	    })
+
+		$(document).ready(function () {
+		    // 모달 열기 버튼 클릭 이벤트
+		    $(document).on("click", "#open-modal", function () {
+		        // 버튼의 data-* 속성 값 가져오기
+		        var cityName = $(this).data("cityname");
+		        var district = $(this).data("district");
+		        var location = $(this).data("location");
 	
-	    $(document).ready(function () {
-	        $('.agree-checkbox').on('change', function () {
-	            const allChecked = $('.agree-checkbox').length === $('.agree-checkbox:checked').length;
-		
-	            $('#agree-btn').prop('disabled', !allChecked);
-	        });
-	    });
+		        // hidden input에 값 설정
+		        $("#data-cityName").val(cityName);
+		        $("#data-district").val(district);
+		        $("#data-location").val(location);
 	
+		        // 모달 표시 (display를 flex로 변경)
+		        $("#modal-out").css("display", "flex");
+		    });
+	
+		    // 약관 체크박스 상태 변경 이벤트
+		    $(document).on("change", ".agree-checkbox", function () {
+		        // 모든 체크박스가 선택되었는지 확인
+		        var allChecked = $(".agree-checkbox").length === $(".agree-checkbox:checked").length;
+		        // 완료 버튼 활성화 또는 비활성화
+		        $("#agree-btn").prop("disabled", !allChecked);
+		    });
+		    
+           // 버튼 클릭 이벤트
+           $(document).on('click', '#open-modal', function () {
+               // 버튼의 data-examLocationNo 값을 가져옴
+               const examLocationNo = $(this).data('examlocationno');
+
+               // Modal 내 input에 값 설정
+               $('#modal-out input[name="examLocationNo"]').val(examLocationNo);
+           });
+           
+           
+		});
+
+        
+
+        
 	</script>	
 
 

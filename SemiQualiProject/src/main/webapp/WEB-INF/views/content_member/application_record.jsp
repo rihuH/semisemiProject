@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,19 +79,7 @@
             float: left;
         }
 
-        .content-0{
-            width: 900px;
-            height: auto;
-            margin-top: 10px;
-            margin-left: 25px;
 
-            background-color: rgb(245, 245, 245);
-
-            display: flex;
-
-            justify-content: center;
-            align-items: center;
-        }
 
         .content-1{
             width: 900px;
@@ -116,21 +106,6 @@
 
         }
 
-        #content-1-1{
-            width: 150px;
-            border-right: 1px solid rgb(230, 230, 230);
-            padding-top: 10px;
-        }
-        #content-1-2{
-            width: 650px;
-            padding-top: 10px;
-        }
-        #content-1-3{
-            width: 100px;
-            border-left: 1px solid rgb(230, 230, 230);
-            padding-top: 10px;
-
-        }
 
         .content-2{
             width: 900px;
@@ -170,6 +145,35 @@
             border-radius: 5px;
             
             border: 1px solid rgb(202, 202, 202);
+        }
+        
+
+
+		
+		table {
+			border-collapse: collapse;
+			border:1px solid black;
+		}
+		
+		table th,td{
+            height: 60px;
+			border-collapse: collapse;
+			border:1px solid black;
+		}
+		
+		table th{
+			background-color: rgb(227, 227, 227);
+		}
+		
+		table td{
+            background-color: rgb(253, 253, 253);
+        }
+
+        .btn{
+            width: 100px;
+            height: 40px;
+            border-radius: 7px;
+            border: 1px solid lightgray;
         }
 
 
@@ -237,62 +241,40 @@
                 <div style="border-bottom: 2px solid gray; margin-top: 15px; margin-left: 25px; width: 900px; display: flex;"></div>
             </div>
             
-            <div class="content-0">
-                <div id="content-1">
-                    <div id="content-1-1">응시시험</div>
-                    <div id="content-1-2">접수상태</div>
-                    <div id="content-1-3">선택</div>
-                </div>
-    
-            </div>
+
             <!-- 여기는 반복문으로 해결할 것-->
-            <div class="content-1">
-                <div>
-                    <div class="content-2">
-                    <div class="content-2-1">원서접수타이틀</div>
-                    <div class="content-2-2">
-                        <div>24년 12월 2일 오전 12:34 접수신청됨</div>
-                        <div>현재 접수 진행중</div>
-                        </div>
-                        <div class="content-2-3">
-                            <div class="selectbtn" onclick="location.href='#'" >접수취소</div>
-                            <div class="selectbtn" onclick="location.href='#'">상태보기</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
+            	<table>
+	                <thead>
+	                    <tr>
+	                        <th style="width: 300px">시험명</th>
+	                        <th style="width: 90px">수험번호</th>
+	                        <th style="width: 300px">시험장소</th>
+	                        <th style="width: 130px">선택</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    	<!-- 전문자격증 반복-->
+		                        <tr>
+		                            <td>${ examFullName }</td>
+		                            <td> 신청 시간 </td>
+		                            <td>${ examPlaceFullName }</td>
+		                            <td>
+	                                    <form action="/quali/taken_quali_exam/application_list/${c.examNo}" method="post">
+	    	                                <input type="hidden" name="examNo" value="${ c.examNo }" />
+			                                <button class="btn">취소하기</button>
+                                	    </form>	
+                                    </td>
+		                        </tr>
 
-            <div class="content-1">
-                <div>
-                    <div class="content-2">
-                    <div class="content-2-1">2025년 제 1회레고조립기술자 1급</div>
-                    <div class="content-2-2">
-                        <div>24년 12월 2일 오전 12:34 접수신청됨</div>
-                        <div>현재 접수 진행중</div>
-                        </div>
-                        <div class="content-2-3">
-                            <div class="selectbtn" onclick="location.href='#'" >접수취소</div>
-                            <div class="selectbtn" onclick="location.href='#'">상태보기</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+		                    
+	                </tbody>
+		    	</table>
+            
 
-            <div class="content-1">
-                <div>
-                    <div class="content-2">
-                    <div class="content-2-1">2025년 제 1회레고조립기술자 1급</div>
-                    <div class="content-2-2">
-                        <div>24년 12월 2일 오전 12:34 접수신청됨</div>
-                        <div>현재 접수 진행중</div>
-                        </div>
-                        <div class="content-2-3">
-                            <div class="selectbtn" onclick="location.href='#'" >접수취소</div>
-                            <div class="selectbtn" onclick="location.href='#'">상태보기</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+
             
     </div>
     <!--

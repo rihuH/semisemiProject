@@ -3,8 +3,8 @@ package com.kh.quali.takenQualiExam.model.service;
 import java.util.List;
 import java.util.Map;
 
-import com.kh.quali.takenQualiExam.model.vo.ExamPlace;
-import com.kh.quali.takenQualiExam.model.vo.Subject;
+import org.apache.ibatis.annotations.Param;
+
 import com.kh.quali.takenQualiExam.model.vo.TakenQualiExam;
 
 public interface TakenQualiExamService {
@@ -34,5 +34,5 @@ public interface TakenQualiExamService {
 	 * examNo로 관련 location 맵을 반환해줌
 	 */
 	Map<String, Object> findAllExamPlacesByExamNo(Long examNo);
-	
+
 }
