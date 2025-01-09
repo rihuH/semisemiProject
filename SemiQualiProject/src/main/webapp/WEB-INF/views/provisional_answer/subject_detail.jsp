@@ -12,28 +12,44 @@
 <body>
 	<form action="/quali/provisional_answer/answer_enroll" method="post" enctype="multipart/form-data">
 		<div>${title } ${period }교시</div>
-		<input type="hidden" name="mapAsJson" value="${title }&${period }"/>
-		<input type="hidden" name="subjectNo" value="${subjectNo}"/>
+		<input type="hidden" id="file1del" name="file1del" value=""/>
+		<input type="hidden" id="file2del" name="file2del" value=""/>
+		<input type="hidden" id="subjectNo" name="subjectNo" value="${subject.subjectNo }"/>
 
 		가답안 등록하기
 		가답안 있으면 보여주기
 		
-		
+		${File1}
+		${File2}
 		<div class="upload1">
-			파일1 <br>
-			<img width="300" id="1_img" height="180" alt="1_img" scr="${subject.provisionalAnswers.get(0).filePath}"> 
+			파일A <br>
+			<c:choose>
+				<c:when test="${ not empty File0}">
+					<img width="300" id="1_img" height="180" alt="1_img" src="${File0}"> 
+				</c:when>
+				<c:otherwise>
+					<img width="300" id="1_img" height="180" alt="1_img">
+				</c:otherwise>
+			</c:choose>
 			<p class="file1_text">파일첨부</p>
-			
 		</div>
+					<button type="button" onclick="deleteFile('1');">등록된 파일 삭제</button>
 		<div class="upload2">
-			파일2 <br>
-			<img width="300" id="2_img" height="180" alt="2_img"><p class="file2_text">파일첨부</p>
-			
+			파일B <br>
+			<c:choose>
+				<c:when test="${ not empty File1}">
+					<img width="300" id="2_img" height="180" alt="2_img" src="${File1}"> 
+				</c:when>
+				<c:otherwise>
+					<img width="300" id="2_img" height="180" alt="2_img">
+				</c:otherwise>
+			</c:choose>
+			<p class="file2_text">파일첨부</p>
 		</div>
-		
+		<button type="button" onclick="deleteFile('2');">등록된 파일 삭제</button>
 		<div id="file_area" style="display:none;">
-			<input type="file" id="file1" name="upfiles" onchange="changeText1(this);">
-			<input type="file" id="file2" name="upfiles" onchange="changeText2(this)">
+			<input type="file" id="file1" name="upfiles" onchange="changeText1(this);" multiple>
+			<input type="file" id="file2" name="upfiles" onchange="changeText2(this);" multiple>
 		</div>
 		
 		<button type="submit">답안 등록</button>
@@ -41,7 +57,6 @@
 	</form>
 	
 	<script>
-	
 		
 		$(function(){
 			
@@ -91,10 +106,21 @@
 				$('#2_img').attr('src', url);
 			}
 		}
+		
+		function deleteFile(e){
+			
+			if(e === '1'){
+				$('#file1del')[0].defaultValue = 'delete';
+				$('#1_img').attr('src', '');
+			} else{
+				$('#file2del')[0].defaultValue = 'delete';
+				$('#2_img').attr('src', '');
+			}
+			
+		}
 	</script>
 		
 		
 		
-	</form>
 </body>
 </html>

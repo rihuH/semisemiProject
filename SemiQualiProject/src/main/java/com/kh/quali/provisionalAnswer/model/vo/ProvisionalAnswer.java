@@ -1,7 +1,5 @@
 package com.kh.quali.provisionalAnswer.model.vo;
 
-import com.kh.quali.takenQualiExam.model.vo.Subject;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,4 +20,5 @@ public class ProvisionalAnswer {
 	 private String changedFileName;
 	 private String filePath;
 	 private String status;
+	 private String changedFileNo;
 }

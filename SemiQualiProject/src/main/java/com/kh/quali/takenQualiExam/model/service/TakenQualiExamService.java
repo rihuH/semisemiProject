@@ -35,4 +35,6 @@ public interface TakenQualiExamService {
 	 */
 	Map<String, Object> findAllExamPlacesByExamNo(Long examNo);
 
+	void searchedAvailPlaceByNo(String searched, String examno);
+  
 }

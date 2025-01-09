@@ -41,7 +41,7 @@
 	<%-- 원서접수 : 검색해야해서, selectExam과 같이 'pro' 문자를 같이 보내줄 것. 
 		tr 안에 있는 구성이 2025년 xxx x회 x차 같은 형식--%>
 		<c:forEach items="${ proList }" var="c">
-			<tr onclick="selectExam(this, 'pro');">
+			<tr data-examno="${c.examNo }" onclick="selectExam(this, 'pro');">
 				<td>${c.examStartDate.substring(0, c.examStartDate.indexOf('-'))}년 ${ c.qualificationExam.profesionalQualification.qualificationName } 
 				${ c.round }회  
 					<c:choose>
@@ -57,7 +57,7 @@
 			</tr>
 		</c:forEach>
 		<c:forEach items="${ techList }" var="c">
-			<tr onclick="selectExam(this, 'tech');">
+			<tr data-examno="${c.examNo }" onclick="selectExam(this, 'tech');">
 				<td>${c.examStartDate.substring(0,c.examStartDate.indexOf('-'))}년 ${ c.qualificationExam.technicalQualification.qualificationName }
 				${ c.round }회
 					<c:choose>
@@ -93,11 +93,20 @@
 	</div>
 
 	
+	<div>
+		<input id="searchInput" data-examno="none" placeholder="검색으로 찾기">
+		<button type="reset">x</button>
+		<button id="searchBtn" type="submit">검색</button>
+	</div>
+	
 	<form action="/quali/taken_quali_exam/insert_place" method="post">
 		<button type="submit">시험장소 등록</button>
 	<div id="availPlaceDiv">
+	
 	<div>
 		<input type="hidden" name="examNo" value="input"/>
+		
+		
 		<div> 등록 가능한 시험장소</div>
 		<table>
 			<thead>
@@ -117,16 +126,14 @@
 	</div>
 	</form>
 
-<%-- 원서접수
-	this로 받아온 tr요소의 각 td에 있는 텍스트가 String exam과 String receptionDate에 해당함, 
-	firstTd, secondTd값과 pro인지 tech인지 총 3개의 문자를 보내주어야 시험장소를 출력할 수 있다. --%>
 <script>
 	function selectExam(e, s){
 		console.log(e);
 		//var firstTd = $('e  td');
 		var firstTd = $(e).children().eq(0)[0].innerText; // \$('e')로 선택하면 선택이 안됨
 		var secondTd = $(e).children().eq(1)[0].innerText;
-		console.log(s);
+		var examno = e.dataset.examno; // 'data-examNo' 값 가져오기
+		$('#searchInput').get(0).dataset.examno = examno;
 		$.ajax({
 			url : "/quali/taken_quali_exam/selectPlace",
 			type : "get",
@@ -139,7 +146,6 @@
 				$('.addedClass').remove();
 				$('input[type=hidden]').val(`\${map.data.takenQualiExam.examNo}`);
 				var inputValue = $('input[type=hidden]').val();
-				console.log(inputValue);
 			    var i = 0;
 			    const placeTbody = $('#placeAdd'); // tbody로 직접 접근
 			    const placesOfExam = map.data.placesOfExam; // map.data 안에 placesOfExam이 있으므로 올바르게 접근
@@ -189,8 +195,43 @@
 			}
 
 		});
-		
 	}
+		
+		$(function(){
+		    $('#searchBtn').click(function(){
+				let searched = $('#searchInput').val();
+				let examno = $('#searchInput').get(0).dataset.examno;
+				console.log(examno);
+				if(examno != 'none'){
+					if( searched){
+						$.ajax({
+							url : "/quali/taken_quali_exam/placeSearch",
+							type : "get",
+							data : {
+								searched : searched,
+								examno : examno
+							},
+							success : function(response){
+								//$('.addedClass').remove();
+								console.log('성공');
+								
+								
+				            }
+				        });
+						
+					} else{
+						$('.addedProTr').remove();
+						$('.addedTechTr').remove();
+					}
+			    };
+						
+				})
+		});
+		
+		
+		
+		
+	
 </script>
 
 

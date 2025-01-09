@@ -17,8 +17,9 @@ public interface ProvisionalAnswerService {
 
 	List<Subject> getAnswersBySubject(List<Subject> subjects);
 	
-	void updateAnswerFile(MultipartFile[] upfile, Long subjectNo);
 
-	Subject findSubjectByNo(Long subjectNo);
+	Map<String, Object> findSubjectByNo(Long subjectNo);
+
+	void updateAnswerFile(MultipartFile[] upfiles, Long subjectNo, String file1_del, String file2_del);
 
 }

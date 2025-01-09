@@ -28,6 +28,11 @@ public class TakenQualiExamApiController {
 		return new ResponseEntity<>(responseData, HttpStatus.OK);
 	}
 	
+	@GetMapping("taken_quali_exam/placeSearch")
+	public void placeSearch(String searched, String examno) {
+		ts.searchedAvailPlaceByNo(searched, examno);
+	}
+	
 	
 	
 }

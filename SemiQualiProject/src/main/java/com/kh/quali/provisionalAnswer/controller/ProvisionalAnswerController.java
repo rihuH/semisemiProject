@@ -39,21 +39,26 @@ public class ProvisionalAnswerController {
 		map.put("title", title);
 		map.put("period", period);
 		map.put("subjectNo", subjectNo);
-		Subject subject = ps.findSubjectByNo(subjectNo);
-		map.put("subject", subject);
+		Map<String, Object> map2 = new HashMap();
+		map2 = ps.findSubjectByNo(subjectNo);
+		map.putAll(map2);
+		log.info("{}", map);
 		return mv.setViewNameAndData("provisional_answer/subject_detail", map);
 	}
 	
 	@PostMapping("provisional_answer/answer_enroll")
-	public ModelAndView answerEnroll(@RequestParam("upfiles") MultipartFile[] upfiles, @RequestParam("subjectNo") Long subjectNo) {
-			log.info("{} {}", upfiles);
-			log.info("{}, {}",subjectNo);
+	public ModelAndView answerEnroll(@RequestParam("upfiles") MultipartFile[] upfiles, @RequestParam("subjectNo") Long subjectNo,
+			@RequestParam("file1del") String file1del, @RequestParam("file2del") String file2del) {
+		
+			log.info("컨트롤러 스트링{} {}",file1del, file2del);
+			log.info("컨트롤러{} {}",subjectNo, upfiles);
 	        /*ObjectMapper objectMapper = new ObjectMapper();
 	        Map<String, Object> map = objectMapper.readValue(mapAsJson, Map.class); // JSON -> Map*/
-			ps.updateAnswerFile(upfiles, subjectNo);
+			ps.updateAnswerFile(upfiles, subjectNo, file1del, file2del);
 			Map<String, Object> map = ps.findAllSubject();
 			return mv.setViewNameAndData("provisional_answer/subject_list", map);
 	}
+	
 	
 	
 }
