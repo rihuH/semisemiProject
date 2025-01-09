@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.quali.application.model.dao.ApplicationMapper">
+
+
+	<select id="selectApplication" resultType="application">
+		SELECT
+				APPLICATION_NO,
+		        APPLICATION_TYPE,
+		        EXAM_ENTRY_NO,
+		        EXAM_NO,
+		        EXAM_LOCATION_NO,
+		        MEM_NO,
+		        APPLICATION_DATE
+	      FROM
+	      		APPLICATION_RECORD
+	     WHERE
+	     		MEM_NO = #{memNo}
+	</select>
+
+	<insert id="insertApplication" parameterType="application">
+	    INSERT INTO APPLICATION_RECORD (
+	        APPLICATION_NO,
+	        APPLICATION_TYPE,
+	        EXAM_ENTRY_NO,
+	        EXAM_NO,
+	        EXAM_LOCATION_NO,
+	        MEM_NO,
+	        APPLICATION_DATE
+	    )
+	    VALUES (
+	        SEQ_APPLI_RECORD_NO.NEXTVAL,
+	        DEFAULT,
+	        #{examEntryNo},
+	        #{examNo},
+	        #{examLocationNo},
+	        #{memNo},
+	        DEFAULT
+	    )
+	</insert>
+
+
+</mapper>

@@ -93,44 +93,5 @@ public class TakenQualiExamController {
 		return "redirect:../eligibility-check.do";
 	}
 	
-
-
-
-	@GetMapping("taken_quali_exam/application_list")
-	public ModelAndView selectApplicationList() {
-		
-		Map<String, Object> takenExamList = ts.getTakenExamList();
-		
-		log.info("{}", takenExamList);
-		
-		return mv.setViewNameAndData("application/application_list", takenExamList);
-	}
-	
-	
-	
-	@PostMapping("taken_quali_exam/application_list/{examNo}")
-	public ModelAndView selectApplicationExamNo(@PathVariable(name="examNo") Long examNo) {
-		
-		Map<String, Object> takenExamList = ts.findAllExamPlacesByExamNo(examNo);
-		
-		
-		return mv.setViewNameAndData("application/application_insert", takenExamList);
-	}
-	
-	
-	
-
-	@PostMapping("taken_quali_exam/application_exam_place")
-	public ModelAndView selectExamPlace(String examStartDate, String receptionDate, String Type) {
-		
-		
-		
-		Map<String, Object> takenExamList = ts.findAllExamPlacesByExam(examStartDate, receptionDate, Type);
-		
-		
-		return mv.setViewNameAndData("application/application_place", takenExamList);
-	}
-
-
 	
 }

@@ -276,7 +276,7 @@
                 <li>
                 	<c:choose>
                 		<c:when test="${ not empty sessionScope.loginMember }">
-		                    <a href="mypage.me">
+		                    <a href="application_record/${ sessionScope.loginMember.memberId}">
 		                        마이페이지
 		                    </a>
                 		</c:when>
@@ -318,7 +318,7 @@
 		            <div id="menubar-right-2">
 		                <ul>
 		                    <li>
-		                        <a href="application.me">
+		                        <a href="application_record/${ sessionScope.loginMember.memberId}">
 		                            MyPage
 		                        </a>
 		                    </li>

@@ -84,7 +84,7 @@ public interface TakenQualiExamMapper {
 	Place findAllPlaceByLocationNo2(Long locationNo);
 	
 	List<ExamPlace> findAllExamPlaceByExamNo(Long examNo);
- 
+	
 
 
 }

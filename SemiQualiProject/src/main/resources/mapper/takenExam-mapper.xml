@@ -717,4 +717,5 @@ WHERE RECEPTION_START_DATE = TO_DATE(#{receptionStartDate}, 'YYYY-MM-DD')
     WHERE EXAM_NO = #{examNo}
 	</select>
 	
+	
 </mapper>
