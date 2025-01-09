@@ -429,26 +429,35 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 	}
 
   @Override
-	public void searchedAvailPlaceByNo(String searched, String examno) {
+	public Map<String, Object> searchedAvailPlaceByNo(String searched, String examno) {
 		// 
+		Map<String, Object> map = new HashMap();
+		Long examNo = Long.parseLong(examno);
+	//examNo로 EXAM_TYPE_NO 반환받기
+		Long examTypeNo = mapper.findExamTypeNoByExamNo(examNo);
+		
+		// EXAM_TYPE_NO로 해당되는 자격증시험 객체 반환받기 위해서
+		//QUALIFICATION_NO 를 먼저 반환받기
+		Long qualificationNo = mapper.findQualiNoByExamTypeNo(examTypeNo);
+		//qualificationNo를 가지고 전문분야인지 기술분야인지 먼저 구분하기
+		//examNo로 takenQualiExam객체 받아옴
+		TakenQualiExam takenQualiExam = mapper.findTakenQualiExamByExamNo(examNo);
+		if(qualificationNo.toString().charAt(0) == '1') { // 기술자격증
+			// examTypeNo 로 TechQualificationExam 객체 반환
+			TechQualificationExam techQualificationExam = mapper.findTechQualiExamByExamTypeNo(examTypeNo);
+			takenQualiExam.setQualificationExam(techQualificationExam);
+		} else { // 전문자격증
+			// examTypeNo 로 ProQualificationExam 객체 반환
+			ProQualificationExam proQualificationExam = mapper.findProQualiExamByExamTypeNo(examTypeNo);
+			takenQualiExam.setQualificationExam(proQualificationExam);
+		}
+		takenQualiExam = takenExamRoundCheck(takenQualiExam);
 		
 		
 		
-		
-		
-				TakenQualiExam takenQualiExam = null;
-				// 가져가야할 등록된 시험장소목록
-				List<ExamPlace> placesOfExam = null;
-				if("pro".equals(type)) {
-					takenQualiExam = mapper.findTakenProExamByNameAndDate(map);
-					placesOfExam = mapper.findAllPlaceOfProExam(takenQualiExam.getExamNo()); 
-				} else {
-					takenQualiExam = mapper.findTakenTechExamByNameAndDate(map);
-					placesOfExam = mapper.findAllPlaceOfTechExam(takenQualiExam.getExamNo()); 
-				}
-				takenQualiExam.setRound(round);
-				
-				// 이 시험에 등록된 시험장소 목록
+		// 이 시험에 등록된 시험장소 목록
+		// examNo로 examPlace 객체 리스트 받아오기
+		List<ExamPlace> examPlaceList = mapper.findAllExamPlaceByExamNo(examNo);
 				
 				// 겹치는 시험장소 목록 조회
 				List<ExamPlace> unavailableTechPlaces = mapper.findAllTechPlaceByDate(takenQualiExam);
@@ -463,6 +472,25 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 				}
 				List<Place> availableTechPlaces = mapper.findAllPlaceByLocationNo(locationNos);
 				
+				String locationName = null;
+				String district = null;
+				String cityName = null;
+				List<Place> searchedPlaces = new ArrayList();
+				// 검색어가 포함된 객체만 담음
+				for(Place p : availableTechPlaces) {
+					locationName = p.getLocationName();
+					district = p.getDistrict().getDistrict();
+					cityName = p.getDistrict().getCityName();
+					if(locationName.contains(searched) || district.contains(searched) || cityName.contains(searched)) {
+						searchedPlaces.add(p);
+					}
+				}
+				
+				map.put("examPlaceList", examPlaceList);
+				map.put("availablePlaces", availableTechPlaces);
+				map.put("takenQualiExam", takenQualiExam);
+				map.put("searchedPlaces", searchedPlaces);
+				return map;
 				
 	}
 	

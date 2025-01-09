@@ -211,9 +211,34 @@
 								searched : searched,
 								examno : examno
 							},
-							success : function(response){
+							success : function(map){
 								//$('.addedClass').remove();
 								console.log('성공');
+								
+								$('.addedClass').remove();
+								 var i = 0;
+								    const placeTbody2 = $('#availPlaceAdd'); // tbody로 직접 접근
+								    const searchedPlaces = map.data.searchedPlaces; // map.data 안에 placesOfExam이 있으므로 올바르게 접근
+
+								    if (Array.isArray(searchedPlaces) && searchedPlaces.length > 0) {
+								        while (searchedPlaces[i]) {
+								            // 새로운 행을 동적으로 생성하여 추가
+								            var row = $('<tr class="addedClass">');
+								            row.append(`<td>\${i + 1}</td>`);
+								            row.append(`<td><input type="checkbox" name="insertPlaceNo" value="\${searchedPlaces[i].locationNo}"></td><label>`);
+								            row.append(`<td>\${searchedPlaces[i].district.cityName}</td>`);
+								            row.append(`<td>\${searchedPlaces[i].district.district}</td>`);
+								            row.append(`<td>\${searchedPlaces[i].locationName}</td>`);
+								            row.append(`<td>\${searchedPlaces[i].maximumOccupancy}</td>`);
+								            row.append(`</tr></label>`);
+
+								            // 테이블에 행 추가
+								            placeTbody2.append(row);
+								            i = i + 1;
+								        }
+								    } 
+								
+								
 								
 								
 				            }
