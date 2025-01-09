@@ -4,48 +4,131 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kh.quali.qualification.model.dao.QualificationMapper">
 
+	<resultMap id="technicalQualification" type="technicalQualification">
+		<id column="QUALIFICATION_NO" property="qualificationNo"/>
+		<result column="QUALIFICATION_NAME" property="qualificationName"/>
+		<result column="STATUS" property="status"/>
+		<result column="REQUIRED_RANK" property="requiredRank"/>
+		<collection property="techCategory" ofType="techCategory">
+			<id column="CATEGORY_NO" property="categoryNo"/>
+			<result column="CATEGORY_NAME" property="categoryName"/>
+			<collection property="technicalField" ofType="technicalField">
+				<id column="FIELD_NO" property="fieldNo"/>
+				<result column="FIELD_NAME" property="fieldName"/>
+				<collection property="typeQualification" ofType="typeQualification">
+					<id column="QUALIFICATION_CODE" property="qualificationCode"/>
+					<result column="QUALIFICATION_TYPE" property="qualificationType"/>
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+	
+	<resultMap id="profesionalQualification" type="profesionalQualification">
+		<id column="QUALIFICATION_NO" property="qualificationNo"/>
+		<result column="QUALIFICATION_NAME" property="qualificationName"/>
+		<result column="STATUS" property="status"/>
+		<result column="REQUIRED_RANK" property="requiredRank"/>
+		<collection property="profesionalDept" ofType="profesionalDept">
+			<id column="CATEGORY_NO" property="categoryNo"/>
+			<result column="RELEVANT_DEPARTMENT" property="relevantDepartment"/>
+			<collection property="typeQualification" ofType="typeQualification">
+				<id column="QUALIFICATION_CODE" property="qualificationCode"/>
+				<result column="QUALIFICATION_TYPE" property="qualificationType"/>
+			</collection>
+		</collection>
+	</resultMap>
+	
+	<resultMap id="technicalField" type="technicalField">
+		<id column="FIELD_NO" property="fieldNo"/>
+		<result column="FIELD_NAME" property="fieldName"/>
+		<collection property="typeQualification" ofType="typeQualification">
+			<id column="QUALIFICATION_CODE" property="qualificationCode"/>
+			<result column="QUALIFICATION_TYPE" property="qualificationType"/>
+		</collection>
+	</resultMap>
+	
+	<resultMap id="typeQualification" type="typeQualification">
+		<id column="QUALIFICATION_CODE" property="qualificationCode"/>
+		<result column="QUALIFICATION_TYPE" property="qualificationType"/>
+	</resultMap>
+	
+	<resultMap id="profesionalDept" type="profesionalDept">
+		<id column="CATEGORY_NO" property="categoryNo"/>
+		<result column="RELEVANT_DEPARTMENT" property="relevantDepartment"/>
+		<collection property="typeQualification" ofType="typeQualification">
+			<id column="QUALIFICATION_CODE" property="qualificationCode"/>
+			<result column="QUALIFICATION_TYPE" property="qualificationType"/>
+		</collection>
+	</resultMap>
+	
 	<select id="findAllConfirmation" resultType="confirmation">
-		SELECT CONFIRMATION_NO confirmationNo, CONFIRMATION_NAME confirmationName 
-		FROM TB_QUALI_CONFIRMATION
+		SELECT 
+			   CONFIRMATION_NO confirmationNo, 
+			   CONFIRMATION_NAME confirmationName 
+		  FROM 
+		  	   TB_QUALI_CONFIRMATION
 	</select>
 	
 	<select id="findAllProQualificationName" resultType="String">
-	SELECT QUALIFICATION_NAME 
-	FROM TB_PROFESIONAL_QUALIFICATION 
-	ORDER BY QUALIFICATION_NAME
+	SELECT 
+		   QUALIFICATION_NAME 
+	  FROM 
+	  	   TB_PROFESIONAL_QUALIFICATION 
+	 ORDER 
+	 	BY 
+	 	   QUALIFICATION_NAME
 	</select>
 	
-	<select id="findQualiType" parameterType="String" resultType="com.kh.quali.qualification.model.vo.TypeQualification">
-	SELECT QUALIFICATION_CODE qualificationCode, QUALIFICATION_TYPE qualificationType 
-	FROM TB_TYPE_QUALIFICATION 
-	WHERE QUALIFICATION_TYPE = #{qualiType}
+	<select id="findQualiType" parameterType="String" resultMap="typeQualification">
+	SELECT 
+		   QUALIFICATION_CODE, 
+		   QUALIFICATION_TYPE 
+	  FROM 
+	  	   TB_TYPE_QUALIFICATION 
+	 WHERE 
+	 	   QUALIFICATION_TYPE = #{qualiType}
 	</select>
 	
 	<sql id="technicalFieldSql">
-	SELECT FIELD_NO fieldNo, FIELD_NAME fieldName  
-	FROM TB_QUALI_TECHNICAL_FIELD
+		SELECT 
+			   FIELD_NO, 
+			   FIELD_NAME   
+		  FROM 
+		  	   TB_QUALI_TECHNICAL_FIELD
 	</sql>
 	
-	<select id="findAllTechnicalField" resultType="com.kh.quali.qualification.model.vo.TechnicalField">
-	<include refid="technicalFieldSql"/> 
-	ORDER BY fieldName
+	<select id="findAllTechnicalField" resultMap="technicalField">
+		<include refid="technicalFieldSql"/> 
+		ORDER 
+		   BY 
+			  FIELD_NAME
 	</select>
 	
-	<select id="findTechFieldByName" resultType="com.kh.quali.qualification.model.vo.TechnicalField">
-	<include refid="technicalFieldSql"/>
-	WHERE FIELD_NAME = #{fieldSelect}
+	<select id="findTechFieldByName" resultMap="technicalField">
+		<include refid="technicalFieldSql"/>
+		WHERE 
+			  FIELD_NAME = #{fieldSelect}
 	</select>
 	
-	<select id="findAllProfesionalDeft" resultType="com.kh.quali.qualification.model.vo.ProfesionalDept">
-	SELECT CATEGORY_NO categoryNo, RELEVANT_DEPARTMENT relevantDepartment  
-	FROM TB_QUALI_PROFESIONAL_DEPT
-	ORDER BY relevantDepartment
+	<sql id="profesionalDeptSql">
+		SELECT 
+		   CATEGORY_NO, 
+		   RELEVANT_DEPARTMENT 
+	  FROM 
+	  	   TB_QUALI_PROFESIONAL_DEPT
+	</sql>
+	
+	<select id="findAllProfesionalDeft" resultMap="profesionalDept">
+	<include refid="profesionalDeptSql"/>  
+	 ORDER 
+	   BY 
+	      RELEVANT_DEPARTMENT
 	</select>
 
-	<select id="findByProDeptName" resultType="com.kh.quali.qualification.model.vo.ProfesionalDept">
-	SELECT CATEGORY_NO categoryNo, RELEVANT_DEPARTMENT relevantDepartment  
-	FROM TB_QUALI_PROFESIONAL_DEPT 
-	WHERE RELEVANT_DEPARTMENT = #{categorySelect} 
+	<select id="findByProDeptName" resultMap="profesionalDept">
+	<include refid="profesionalDeptSql"/>  
+	 WHERE 
+		  RELEVANT_DEPARTMENT = #{categorySelect} 
 	</select>
 
 	<select id="findTechCategoryByField" parameterType="String" resultType="com.kh.quali.qualification.model.vo.TechCategory">
@@ -55,14 +138,19 @@
 	ORDER BY categoryName
 	</select>
 	
-	<select id="findAllProQualiByCategoryNo" resultType="com.kh.quali.qualification.model.vo.ProfesionalQualification">
-	SELECT QUALIFICATION_NO qualificationNo,
-	QUALIFICATION_NAME qualificationName,
-	STATUS,
-	REQUIRED_RANK requiredRank 
-    FROM TB_PROFESIONAL_QUALIFICATION 
-    WHERE CATEGORY_NO = #{categoryNo}
-    ORDER BY qualificationName
+	<select id="findAllProQualiByCategoryNo" resultMap="profesionalQualification">
+		SELECT 
+			   QUALIFICATION_NO,
+			   QUALIFICATION_NAME,
+			   STATUS,
+			   REQUIRED_RANK 
+	      FROM 
+	      	   TB_PROFESIONAL_QUALIFICATION 
+	     WHERE 
+	     	   CATEGORY_NO = #{categoryNo}
+	     ORDER 
+	     	BY 
+	     	   QUALIFICATION_NAME
 	</select>
 	
 	<select id="findByTechCategoryName" resultType="com.kh.quali.qualification.model.vo.TechCategory">
@@ -77,9 +165,8 @@
 	WHERE CATEGORY_NAME = #{categorySelect}
 	</select>
 	
-	<select id="findTechFieldByNo" resultType="com.kh.quali.qualification.model.vo.TechnicalField">
-	SELECT FIELD_NO fieldNo, FIELD_NAME fieldName 
-	FROM TB_QUALI_TECHNICAL_FIELD 
+	<select id="findTechFieldByNo" resultMap="technicalField">
+	<include refid="technicalFieldSql"/> 
 	WHERE FIELD_NO = #{fieldNo}
 	</select>
 	
@@ -94,18 +181,21 @@
 	</select>
 	
 	<select id="findProQualiByQualiName" resultMap="profesionalQualification">
-	SELECT 
-	QUALIFICATION_NO, 
-	QUALIFICATION_NAME, 
-	STATUS, 
-	REQUIRED_RANK, 
-	TB_PROFESIONAL_QUALIFICATION.CATEGORY_NO, 
-	RELEVANT_DEPARTMENT, 
-    TB_QUALI_PROFESIONAL_DEPT.QUALIFICATION_CODE, 
-    QUALIFICATION_TYPE 
-    FROM TB_PROFESIONAL_QUALIFICATION JOIN TB_QUALI_PROFESIONAL_DEPT ON(TB_PROFESIONAL_QUALIFICATION.CATEGORY_NO = TB_QUALI_PROFESIONAL_DEPT.CATEGORY_NO) 
-    JOIN TB_TYPE_QUALIFICATION ON (TB_TYPE_QUALIFICATION.QUALIFICATION_CODE = TB_QUALI_PROFESIONAL_DEPT.QUALIFICATION_CODE) 
-    WHERE QUALIFICATION_NAME = #{qualificationName} 
+		SELECT 
+			   QUALIFICATION_NO, 
+			   QUALIFICATION_NAME, 
+			   STATUS, 
+			   REQUIRED_RANK, 
+			   TB_PROFESIONAL_QUALIFICATION.CATEGORY_NO, 
+			   RELEVANT_DEPARTMENT, 
+		       TB_QUALI_PROFESIONAL_DEPT.QUALIFICATION_CODE, 
+		       QUALIFICATION_TYPE 
+		  FROM 
+		  	   TB_PROFESIONAL_QUALIFICATION JOIN TB_QUALI_PROFESIONAL_DEPT ON (TB_PROFESIONAL_QUALIFICATION.CATEGORY_NO = TB_QUALI_PROFESIONAL_DEPT.CATEGORY_NO) 
+	      JOIN 
+	      	   TB_TYPE_QUALIFICATION ON (TB_TYPE_QUALIFICATION.QUALIFICATION_CODE = TB_QUALI_PROFESIONAL_DEPT.QUALIFICATION_CODE) 
+	     WHERE 
+	     	   QUALIFICATION_NAME = #{qualificationName} 
 	</select>
 	
 	<insert id="insertPro" parameterType="com.kh.quali.qualification.model.vo.ProfesionalQualification">
@@ -171,24 +261,7 @@
 	VALUES (SEQ_QTF_NO.NEXTVAL, #{fieldName}, #{typeQualification.qualificationCode})
 	</insert>
 	
-	<resultMap id="technicalQualification" type="com.kh.quali.qualification.model.vo.TechnicalQualification">
-		<id column="QUALIFICATION_NO" property="qualificationNo"/>
-		<result column="QUALIFICATION_NAME" property="qualificationName"/>
-		<result column="STATUS" property="status"/>
-		<result column="REQUIRED_RANK" property="requiredRank"/>
-		<collection property="techCategory" ofType="com.kh.quali.qualification.model.vo.TechCategory">
-			<id column="CATEGORY_NO" property="categoryNo"/>
-			<result column="CATEGORY_NAME" property="categoryName"/>
-			<collection property="technicalField" ofType="com.kh.quali.qualification.model.vo.TechnicalField">
-				<id column="FIELD_NO" property="fieldNo"/>
-				<result column="FIELD_NAME" property="fieldName"/>
-				<collection property="typeQualification" ofType="com.kh.quali.qualification.model.vo.TypeQualification">
-					<id column="QUALIFICATION_CODE" property="qualificationCode"/>
-					<result column="QUALIFICATION_TYPE" property="qualificationType"/>
-				</collection>
-			</collection>
-		</collection>
-	</resultMap>
+
 	
 	<select id="findAllTech" resultMap="technicalQualification">
 	SELECT QUALIFICATION_NO, 
@@ -206,20 +279,7 @@
     JOIN TB_TYPE_QUALIFICATION ON (TB_TYPE_QUALIFICATION.QUALIFICATION_CODE = TB_QUALI_TECHNICAL_FIELD.QUALIFICATION_CODE)
 	</select>
 	
-	<resultMap id="profesionalQualification" type="com.kh.quali.qualification.model.vo.ProfesionalQualification">
-		<id column="QUALIFICATION_NO" property="qualificationNo"/>
-		<result column="QUALIFICATION_NAME" property="qualificationName"/>
-		<result column="STATUS" property="status"/>
-		<result column="REQUIRED_RANK" property="requiredRank"/>
-		<collection property="profesionalDept" ofType="com.kh.quali.qualification.model.vo.ProfesionalDept">
-			<id column="CATEGORY_NO" property="categoryNo"/>
-			<result column="RELEVANT_DEPARTMENT" property="relevantDepartment"/>
-			<collection property="typeQualification" ofType="com.kh.quali.qualification.model.vo.TypeQualification">
-				<id column="QUALIFICATION_CODE" property="qualificationCode"/>
-				<result column="QUALIFICATION_TYPE" property="qualificationType"/>
-			</collection>
-		</collection>
-	</resultMap>
+	
 	
 	<select id="findAllPro" resultMap="profesionalQualification">
 	SELECT 

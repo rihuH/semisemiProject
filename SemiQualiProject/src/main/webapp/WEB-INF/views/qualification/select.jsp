@@ -8,8 +8,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#leftbar{
+width : 30%;
+height : 100%; 
+float : left;
+}
+#mainbar{
+width : 50%;
+height : 100%; 
+float : left;
+align : center;
+margin-top : 100px;
+}
+
+</style>
 </head>
 <body>
+<jsp:include page="../common/header.jsp"></jsp:include>
+<div>
+	<div id="leftbar">
+		<jsp:include page="leftbar.jsp"></jsp:include>
+	</div>
+	<div id="mainbar">
 	자격증 정보 상세조회
 	<div>
 		<div>
@@ -39,7 +60,7 @@
     function typeSelect(e) {
     	const qualiType = e.textContent;
     	$.ajax({
-    		url : "typeSelect.quali",
+    		url : "/quali/qualification/typeSelect.quali",
     		type : "get",
     		data : {
     			qualiType : qualiType
@@ -73,13 +94,14 @@
     function fieldSelect(e){
     	const fieldSelect = e.textContent;
     	$.ajax({
-    		url : "fieldSelect.quali",
+    		url : "/quali/qualification/fieldSelect.quali",
     		type : "get",
     		data : {
     			fieldSelect : fieldSelect
     		},
     		success : function(techCategoryList){
     			$('.addDiv2').remove();
+    			$('.addDiv3').remove();
     			var i = 0;
     			const categoryDiv = document.getElementById('category');   
     			$('#categoryName').html('분류');
@@ -95,7 +117,7 @@
     	const categorySelect = e.textContent;
     	//console.log(s);
     	$.ajax({
-    		url : "categorySelect.quali",
+    		url : "/quali/qualification/categorySelect.quali",
     		type : "post",
     		data : {
     			categorySelect : categorySelect,
@@ -132,5 +154,8 @@
     	// 누르면 시험
     }
 </script>
+
+</div>
+</div>
 </body>
 </html>

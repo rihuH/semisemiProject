@@ -8,9 +8,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#leftbar{
+width : 30%;
+height : 100%; 
+float : left;
+}
+#mainbar{
+width : 50%;
+height : 100%; 
+float : left;
+align : center;
+margin-top : 100px;
+}
 
+</style>
 </head>
 <body>
+<jsp:include page="../common/header.jsp"></jsp:include>
+<div>
+	<div id="leftbar">
+		<jsp:include page="leftbar.jsp"></jsp:include>
+	</div>
+	<div id="mainbar">
  서브젝트 리스트
  
  <button onclick="propro();">전문자격버튼</button>
@@ -148,5 +168,8 @@
  			location.href=`/quali/provisional_answer/subject_detail/\${firstTd}/\${period}/\${no}`;
  		}
  	</script>
+ 	
+ 	</div>
+</div>
 </body>
 </html>

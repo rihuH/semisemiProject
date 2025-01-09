@@ -7,6 +7,20 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <title>Insert title here</title>
+<style>
+#leftbar{
+width : 30%;
+height : 100%; 
+float : left;
+}
+#mainbar{
+width : 50%;
+height : 100%; 
+float : left;
+align : center;
+margin-top : 100px;
+}
+</style>
 
 <style>
 	table {
@@ -26,10 +40,14 @@
 </style>
 </head>
 <body>
+<jsp:include page="../common/header.jsp"></jsp:include>
 	시험장소 등록
 	
-	<%--  --%>
-	
+<div>
+	<div id="leftbar">
+		<jsp:include page="leftbar.jsp"></jsp:include>
+	</div>
+	<div id="mainbar">	
 	<table>
 	<thead>
 		<tr>
@@ -258,7 +276,8 @@
 		
 	
 </script>
-
+</div>
+</div>
 
 </body>
 </html>
