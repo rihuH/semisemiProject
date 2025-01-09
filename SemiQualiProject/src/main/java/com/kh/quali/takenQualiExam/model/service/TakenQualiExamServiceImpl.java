@@ -129,7 +129,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		list = takenExamRoundCheck(list);
 		map.put("techList", list);
 		
-		
+
 		return map;
 	}
 	@Override

@@ -170,10 +170,10 @@
 		                            </td>
 		                            <td>${ c.receptionStartDate } 10:00 ~ ${ c.receptionEndDate } 18:00</td>
 		                            <td>
-	                                    <form action="#" method="post">
-	    	                                <input type="hidden" id="examNo" name="examNo" value="${ c.examNo }" />
-		                                    <a class="btn">접수하기</a>
-	                                    </form> 
+	                                    <form action="/quali/taken_quali_exam/application_list/${c.examNo}" method="post">
+	    	                                <input type="hidden" name="examNo" value="${ c.examNo }" />
+			                                <button class="btn">접수하기</button>
+                                	    </form>	
                                     </td>
 		                        </tr>
 		                    </c:forEach>
@@ -186,9 +186,9 @@
 		            <table>
 		                <thead>
 		                    <tr>
-		                        <th style="width: 355px">응시시험</th>
-		                        <th style="width: 355px">접수기간</th>
-		                        <th style="width: 110px">선택</th>
+		                        <th style="width: 345px">응시시험</th>
+		                        <th style="width: 345px">접수기간</th>
+		                        <th style="width: 130px">선택</th>
 		                    </tr>
 		                </thead>
 		                <tbody>
@@ -207,11 +207,11 @@
 										</c:choose>
 									</td>
 									<td>${ c.receptionStartDate } 10:00 ~ ${ c.receptionEndDate } 18:00</td>
-                                    <td>
-	                                    <form action="#" method="post">
-	    	                                <input type="hidden" id="examNo" name="examNo" value="${ c.examNo }" />
-		                                    <a class="btn" onclick="examNo('${c.examNo}')">접수하기</a>
-	                                    </form> 
+		                            <td>
+	                                    <form action="/quali/taken_quali_exam/application_list/${c.examNo}" method="post">
+	    	                                <input type="hidden" name="examNo" value="${ c.examNo }" />
+			                                <button class="btn">접수하기</button>
+                                	    </form>	
                                     </td>
 								</tr>
 							</c:forEach>
@@ -227,7 +227,6 @@
         
 	<script>
 
-	
 	
 	</script>	
 
