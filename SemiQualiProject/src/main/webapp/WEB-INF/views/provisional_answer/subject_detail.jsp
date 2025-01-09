@@ -13,14 +13,16 @@
 	<form action="/quali/provisional_answer/answer_enroll" method="post" enctype="multipart/form-data">
 		<div>${title } ${period }교시</div>
 		<input type="hidden" name="mapAsJson" value="${title }&${period }"/>
-		
+		<input type="hidden" name="subjectNo" value="${subjectNo}"/>
+
 		가답안 등록하기
 		가답안 있으면 보여주기
 		
 		
 		<div class="upload1">
 			파일1 <br>
-			<img width="300" id="1_img" height="180" alt="1_img"> <p class="file1_text">파일첨부</p>
+			<img width="300" id="1_img" height="180" alt="1_img" scr="${subject.provisionalAnswers.get(0).filePath}"> 
+			<p class="file1_text">파일첨부</p>
 			
 		</div>
 		<div class="upload2">
@@ -30,8 +32,8 @@
 		</div>
 		
 		<div id="file_area" style="display:none;">
-			<input type="file" id="file1" name="upfile1" onchange="changeText1(this);">
-			<input type="file" id="file2" name="upfile2" onchange="changeText2(this)">
+			<input type="file" id="file1" name="upfiles" onchange="changeText1(this);">
+			<input type="file" id="file2" name="upfiles" onchange="changeText2(this)">
 		</div>
 		
 		<button type="submit">답안 등록</button>
@@ -40,10 +42,7 @@
 	
 	<script>
 	
-		window.onload = ()=>{
-			const val = $('input[type=hidden]').val();
-			console.log(val);
-		}
+		
 		$(function(){
 			
 			$('.upload1').click(function(){

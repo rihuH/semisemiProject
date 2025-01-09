@@ -129,6 +129,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		list = takenExamRoundCheck(list);
 		map.put("techList", list);
 		
+
 		return map;
 	}
 	@Override
@@ -365,7 +366,11 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 				// 이 시험에 등록된 시험장소 목록
 				// examNo로 examPlace 객체 리스트 받아오기
 				List<ExamPlace> examPlaceList = mapper.findAllExamPlaceByExamNo(examNo);
-				
+				// examPlace 리스트를 주면 takenQualiExam객체를 담아주는 메소드
+				for(int i = 0; i < examPlaceList.size(); i++) {
+					ExamPlace e = insertTakenQualiExamToExamPlace(examPlaceList.get(i), takenQualiExam);
+					examPlaceList.set(i, e);
+				}
 				
 				// map에 객체 담기
 				Map<String, Object> map = new HashMap();
@@ -392,6 +397,11 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 				
 				return map;
 	}
+	private ExamPlace insertTakenQualiExamToExamPlace(ExamPlace examPlace, TakenQualiExam takenQualiExam) {
+		examPlace.setTakenQualiExam(takenQualiExam);
+		return examPlace;
+	}
+	
 
 	
 

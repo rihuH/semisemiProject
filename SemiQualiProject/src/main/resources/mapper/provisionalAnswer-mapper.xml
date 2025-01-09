@@ -4,12 +4,8 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kh.quali.provisionalAnswer.model.dao.ProvisionalAnswerMapper">
 
-	<resultMap id="proProvisionalAnswer" type="provisionalAnswer">
-		<id column="PROVISIONAL_ANSWER_NO" property="provisionalAnswerNo"/>
-		<result column="ORIGINAL_FILE_NAME" property="originalFileName"/>
-		<result column="CHANGED_FILE_NAME" property="changedFileName"/>
-		<result column="PROVISIONAL_ANSWER_FILE" property="filePath"/>
-		<collection property="subject" ofType="subject">
+<!-- 
+<collection property="subject" ofType="subject">
 			<id column="SUBJECT_NO" property="subjectNo"/>
 			<result column="SUBJECT_PERIOD" property="subjectPeriod"/>
 			<collection property="takenQualiExam" ofType="takenQualiExam">
@@ -40,13 +36,7 @@
 				    </collection>
 				</collection>
 		</collection>
-	</resultMap> 
-	
-	<resultMap id="techProvisionalAnswer" type="provisionalAnswer">
-		<id column="PROVISIONAL_ANSWER_NO" property="provisionalAnswerNo"/>
-		<result column="ORIGINAL_FILE_NAME" property="originalFileName"/>
-		<result column="CHANGED_FILE_NAME" property="changedFileName"/>
-		<result column="PROVISIONAL_ANSWER_FILE" property="filePath"/>
+		
 		<collection property="subject" ofType="subject">
 			<id column="SUBJECT_NO" property="subjectNo"/>
 			<result column="SUBJECT_PERIOD" property="subjectPeriod"/>
@@ -82,6 +72,21 @@
 				    </collection>
 				</collection>
 		</collection>
+		 -->
+	<resultMap id="proProvisionalAnswer" type="provisionalAnswer">
+		<id column="PROVISIONAL_ANSWER_NO" property="provisionalAnswerNo"/>
+		<result column="ORIGINAL_FILE_NAME" property="originalFileName"/>
+		<result column="CHANGED_FILE_NAME" property="changedFileName"/>
+		<result column="PROVISIONAL_ANSWER_FILE" property="filePath"/>
+		<result column="Subject_No" property="subjectNo"/>
+	</resultMap> 
+	
+	<resultMap id="techProvisionalAnswer" type="provisionalAnswer">
+		<id column="PROVISIONAL_ANSWER_NO" property="provisionalAnswerNo"/>
+		<result column="ORIGINAL_FILE_NAME" property="originalFileName"/>
+		<result column="CHANGED_FILE_NAME" property="changedFileName"/>
+		<result column="PROVISIONAL_ANSWER_FILE" property="filePath"/>
+		<result column="Subject_No" property="subjectNo"/>
 	</resultMap>
 	
 	<resultMap id="subject" type="subject">
@@ -115,6 +120,15 @@
 				    </collection>
 				</collection>
 		</resultMap>
+		
+		<resultMap id="provisionalAnswer" type="provisionalAnswer">
+			<id column="PROVISIONAL_ANSWER_NO" property="provisionalAnswerNo"/>
+			<result column="ORIGINAL_FILE_NAME" property="originalFileName"/>
+			<result column="CHANGED_FILE_NAME" property="changedFileName"/>
+			<result column="PROVISIONAL_ANSWER_FILE" property="filePath"/>
+			<result column="Subject_No" property="subjectNo"/>
+			<result column="Status" property="status"/>
+		</resultMap> 
 	
 	<select id="findAllProSubject" resultMap="subject">
 	SELECT 
@@ -182,7 +196,7 @@
     ORDER BY EXAM_FINAL_DATE DESC
 	</select>
 	
-	<select id="findSubject" resultMap="subject">
+	<select id="findSubject" parameterType="takenQualiExam" resultMap="subject">
 	SELECT
         SUBJECT_NO,
    SUBJECT_PERIOD,
@@ -191,6 +205,33 @@
     WHERE TB_SUBJECT.EXAM_NO = #{examNo}
 	</select>
 	
+	<insert id="insertProvisionalAnswerFile" parameterType="provisionalAnswer">
+		INSERT INTO TB_PROVISIONAL_ANSWER (
+    PROVISIONAL_ANSWER_NO,
+	SUBJECT_NO,
+    ORIGINAL_FILE_NAME,
+    CHANGED_FILE_NAME,
+    FILE_PATH) 
+    VALUES (SEQ_PRO_ANSWER_NO.NEXTVAL, #{subjectNo}, #{originalFileName}, #{changedFileName}, #{filePath})
+	</insert>
+	
+	<select id="findProvisionalAnswerBySubject" parameterType="subject" resultMap="provisionalAnswer">
+	SELECT PROVISIONAL_ANSWER_NO,
+    ORIGINAL_FILE_NAME,
+    CHANGED_FILE_NAME,
+    FILE_PATH,
+    STATUS 
+    FROM TB_PROVISIONAL_ANSWER WHERE SUBJECT_NO = #{subjectNo}
+	</select>
+	
+	<select id="findSubjectByNo" parameterType="long" resultMap="subject">
+	SELECT
+        SUBJECT_NO,
+   SUBJECT_PERIOD,
+	TB_SUBJECT.EXAM_NO 
+    FROM TB_SUBJECT 
+    WHERE SUBJECT_NO = #{subjectNo}
+	</select>
 	
 	
 </mapper>

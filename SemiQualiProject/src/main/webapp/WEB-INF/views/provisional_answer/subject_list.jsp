@@ -21,14 +21,15 @@
  				<th>게시글번호</th>
  				<th>시험명</th>
  				<th>교시</th>
- 				<th>첨부파일</th>
+ 				<th>답안A</th>
+ 				<th>답안B</th>
  			</tr>
  		</thead>
  		<tbody id="proBody">
  			<c:forEach items="${ proSubjectList }" var="c" varStatus="s">
- 				<tr onclick="detail('${c.subjectNo}', '${c.takenQualiExam.round }', this);">
+ 				<tr>
  					<td>${s.count }</td>
- 					<td>제${c.takenQualiExam.round }회 ${c.takenQualiExam.qualificationExam.profesionalQualification.qualificationName } 
+ 					<td onclick="detail('${c.subjectNo}', '${c.subjectPeriod }', this);">제${c.takenQualiExam.round }회 ${c.takenQualiExam.qualificationExam.profesionalQualification.qualificationName } 
  						<c:choose>
  							<c:when test="${c.takenQualiExam.qualificationExam.qualificationRank eq 1}">
  								1차
@@ -38,16 +39,27 @@
  							</c:otherwise> 
  						</c:choose>
  					</td>
- 					<td>${c.subjectPeriod }</td>
- 					<td>첨부파일 있으면 표시해주기</td>
+ 					<td>${c.subjectPeriod }교시</td>
+ 					<c:forEach begin="0" end="1" var="i">
+ 						<td>
+	 						<c:choose>	
+		 						<c:when test="${ not empty c.provisionalAnswers[i] }">
+		 							<a href="${ c.provisionalAnswers[i].filePath }" download="${c.provisionalAnswers[i].originalFileName }">📧</a>
+		 						</c:when>
+		 						<c:otherwise>
+		 							💤 						
+		 						</c:otherwise>
+	 						</c:choose>
+ 						</td>
+ 					</c:forEach>
  				</tr>
  			</c:forEach>
  		</tbody>
- 		<tbody id="techBody" disabled>
+ 		<tbody id="techBody" style="display:none;">
  			<c:forEach items="${ techSubjectList }" var="c" varStatus="s">
- 				<tr onclick="detail('\${c.subjectNo}', '\${c.takenQualiExam.round }', this);">
+ 				<tr>
  					<td>${s.count }</td>
- 					<td>${c.takenQualiExam.round }회 ${c.takenQualiExam.qualificationExam.technicalQualification.qualificationName } 
+ 					<td onclick="detail('${c.subjectNo}', '${c.subjectPeriod }', this);">${c.takenQualiExam.round }회 ${c.takenQualiExam.qualificationExam.technicalQualification.qualificationName } 
  						<c:choose>
  							<c:when test="${c.takenQualiExam.qualificationExam.qualificationRank eq 1}">
  								필기
@@ -57,14 +69,27 @@
  							</c:otherwise> 
  						</c:choose>
  					</td>
- 					<td>${c.subjectPeriod }</td>
- 					<td>첨부파일 있으면 표시해주기</td>
+ 					<td>${c.subjectPeriod }교시</td>
+ 					<c:forEach begin="0" end="1" var="i">
+ 						<td>
+	 						<c:choose>	
+		 						<c:when test="${ not empty c.provisionalAnswers[i] }">
+		 							<a href="${ c.provisionalAnswers[i].filePath }" download="${c.provisionalAnswers[i].originalFileName }">📧</a>
+		 						</c:when>
+		 						<c:otherwise>
+		 							💤 						
+		 						</c:otherwise>
+	 						</c:choose>
+ 						</td>
+ 					</c:forEach>
  				</tr>
  			</c:forEach>
  		</tbody>
  	</table>
  	
  	<script>
+ 		
+ 	
  		function propro(){
  			$('#proBody').show();
  			$('#techBody').hide();
@@ -74,11 +99,11 @@
  			$('#techBody').show();
  		}
  		
- 		function detail(no, round, e){
- 			console.log(e);
- 			let firstTd = $(e).children().eq(1)[0].innerText;
- 			let secondTd = $(e).children().eq(2)[0].innerText;
- 			location.href=`/quali/provisional_answer/subject_detail/\${firstTd}/\${secondTd}/\${no}`;
+ 		function detail(no, period, e){
+ 			let firstTd = $(e).text().replace(/\s+/g, " ").trim();
+ 			console.log(firstTd);
+ 			let secondTd = $(e).next().text().replace(/\s+/g, " ").trim();
+ 			location.href=`/quali/provisional_answer/subject_detail/\${firstTd}/\${period}/\${no}`;
  		}
  	</script>
 </body>
