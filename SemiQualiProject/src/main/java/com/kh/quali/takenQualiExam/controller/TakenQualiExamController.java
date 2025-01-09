@@ -101,6 +101,7 @@ public class TakenQualiExamController {
 		
 		Map<String, Object> takenExamList = ts.getTakenExamList();
 		
+		log.info("{}", takenExamList);
 		
 		return mv.setViewNameAndData("application/application_list", takenExamList);
 	}

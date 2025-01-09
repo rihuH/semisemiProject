@@ -122,10 +122,36 @@
             border: 1px solid lightgray;
         }
         
-        #modalForm{
-        	width: 500px;
+        .modal{
+            position: absolute;
+            display: none;
+            justify-content: center;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+            
+            background-color: none;
+            
         }
         
+        .modal-body{
+            position: absolute;
+            top: 50%;
+
+            background-color: white;
+            
+            transform: translateY(-50%);
+            
+            width: 500px;
+            height: 700px;
+            
+            border-radius: 10px;
+            box-shadow: 10px 10px 20px lightgray;
+            text-align: center;
+        }
 
     </style>
 </head>
@@ -181,7 +207,7 @@
                                             <form action="" method="post">
                                                 <input type="hidden" id="examNo" name="examNo" value="${ p }" />
                                             </form>	
-                                            <button type="button" class="btn" data-toggle="modal" data-target="#deleteForm">접수하기</button>
+                                            <button type="button" class="btn" data-toggle="modal" data-target="">접수하기</button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -195,12 +221,40 @@
 
         </div>
 
+
+        <div class="modal">
+            <div class="modal-body">
+                <div class="modal-header">
+                    약관에 동의하셔야 접수가 가능합니다.
+                </div>
+                <div class="modal-content">
+                    <label><input type="checkbox" class="agree-checkbox"> 약관내용 1</label>
+                    <label><input type="checkbox" class="agree-checkbox"> 약관내용 2</label>
+                    <label><input type="checkbox" class="agree-checkbox"> 약관내용 3</label>
+                    <label><input type="checkbox" class="agree-checkbox"> 약관내용 4</label>
+                    <label><input type="checkbox" class="agree-checkbox"> 약관내용 5</label>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" id="agree-btn" disabled>완료</button>
+                </div>
+            </div>
+        </div>
             
     </div>
         
         
 	<script>
-
+	    $('.btn').on('click', function(){
+	        $('.modal').css('display', 'flex');
+	    })
+	
+	    $(document).ready(function () {
+	        $('.agree-checkbox').on('change', function () {
+	            const allChecked = $('.agree-checkbox').length === $('.agree-checkbox:checked').length;
+		
+	            $('#agree-btn').prop('disabled', !allChecked);
+	        });
+	    });
 	
 	</script>	
 
