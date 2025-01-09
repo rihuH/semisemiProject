@@ -4,9 +4,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.quali.application.model.service.ApplicationService;
 import com.kh.quali.common.ModelAndViewUtil;
 import com.kh.quali.member.model.service.MemberService;
 import com.kh.quali.member.model.vo.EducationStatus;
@@ -24,10 +26,12 @@ public class MemberController {
 	private final MemberService memberService;
 	private final ModelAndViewUtil mv;
 	
-	@GetMapping("mypage.me")
-	public String applicatioRecord1() {
+	@GetMapping("application_record/{memberId}")
+	public String selectApplication(@PathVariable(name="memberId") String memberId, String memNo) {
 		
-		// header占쎌벥 筌띾뜆�뵠占쎈읂占쎌뵠筌욑옙�몴占� 占쎈땭占쏙옙占쎌뱽 野껋럩�뒭
+		
+		
+		
 		return "/application/applicationRecord";
 	}
 	

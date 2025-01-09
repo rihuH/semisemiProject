@@ -92,7 +92,6 @@ public class TakenQualiExamController {
 		ts.insertExamPlace(insertPlaceNo, examNo);
 		return "redirect:../eligibility-check.do";
 	}
-	
 
 	@GetMapping("taken_quali_exam/application_list")
 	public ModelAndView selectApplicationList() {
@@ -125,7 +124,5 @@ public class TakenQualiExamController {
 	}
 
 	
-	
-
 	
 }

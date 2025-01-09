@@ -129,7 +129,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		list = takenExamRoundCheck(list);
 		map.put("techList", list);
 		
-		
+
 		return map;
 	}
 	@Override
@@ -240,6 +240,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		String categoryName = null;
 		String fieldName = null;
 		String qualificationName = null;
+		String rank = null;
 
 		//examLocationNo로 examNo 반환
 		Long examNo = mapper.findExamNoByExamLocationNo(examLocationNo);
@@ -261,6 +262,11 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 			TechQualificationExam techQualificationExam = mapper.findTechQualiExamByExamTypeNo(examTypeNo);
 			takenQualiExam.setQualificationExam(techQualificationExam);
 			qualificationRank = techQualificationExam.getQualificationRank();
+			if(qualificationRank == 1) {
+				rank = "필기";
+			} else {
+				rank = "실기";
+			}
 			categoryName = techQualificationExam.getTechnicalQualification().getTechCategory().getCategoryName();
 			fieldName =  techQualificationExam.getTechnicalQualification().getTechCategory().getTechnicalField().getFieldName();
 			qualificationName = techQualificationExam.getTechnicalQualification().getQualificationName();
@@ -271,6 +277,11 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 			relevantDepartment = proQualificationExam.getProfesionalQualification().getProfesionalDept().getRelevantDepartment();
 			takenQualiExam.setQualificationExam(proQualificationExam);
 			qualificationRank = proQualificationExam.getQualificationRank();
+			if(qualificationRank == 1) {
+				rank = "1차";
+			} else {
+				rank = "2차";
+			}
 			qualificationName = proQualificationExam.getProfesionalQualification().getQualificationName();
 		}
 		takenQualiExam = takenExamRoundCheck(takenQualiExam);
@@ -306,6 +317,9 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		map.put("round", takenQualiExam.getRound());
 		// 시험 시작 일자
 		map.put("examStartDate", takenQualiExam.getExamStartDate());
+		// 2025년
+		String year = takenQualiExam.getExamStartDate().substring(0, 4);
+		map.put("year", year);
 		// 시험 종료 일자
 		map.put("examFinalDate", takenQualiExam.getExamFinalDate());
 		// 시험장소 서울특별시, 경기도 여부
@@ -314,6 +328,15 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 		map.put("district", place.getDistrict().getDistrict());
 		// 시험장소의 최종 이름 영등포중학교
 		map.put("locationName", place.getLocationName());		
+		
+		// 2025년 사회복지사 1급 2회 1차, 서울특별시 강동구 선사고등학교
+		String examFullName = year + "년 " + qualificationName + " " 
+		+ takenQualiExam.getRound() + "회 " + rank;
+		String examPlaceFullName = place.getDistrict().getCityName() + " " + 
+				place.getDistrict().getDistrict() + " " + 
+				place.getLocationName();
+		map.put("examFullName", examFullName);
+		map.put("examPlaceFullName", examPlaceFullName);
 		
 		return map;
 	}
@@ -366,6 +389,7 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 				// 이 시험에 등록된 시험장소 목록
 				// examNo로 examPlace 객체 리스트 받아오기
 				List<ExamPlace> examPlaceList = mapper.findAllExamPlaceByExamNo(examNo);
+				
 				// examPlace 리스트를 주면 takenQualiExam객체를 담아주는 메소드
 				for(int i = 0; i < examPlaceList.size(); i++) {
 					ExamPlace e = insertTakenQualiExamToExamPlace(examPlaceList.get(i), takenQualiExam);
@@ -398,10 +422,13 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 				return map;
 	}
 	private ExamPlace insertTakenQualiExamToExamPlace(ExamPlace examPlace, TakenQualiExam takenQualiExam) {
+		
 		examPlace.setTakenQualiExam(takenQualiExam);
+		
 		return examPlace;
 	}
-	@Override
+
+  @Override
 	public void searchedAvailPlaceByNo(String searched, String examno) {
 		// 
 		
@@ -440,6 +467,5 @@ public class TakenQualiExamServiceImpl implements TakenQualiExamService{
 	}
 	
 
-	
 
 }
