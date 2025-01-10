@@ -103,7 +103,7 @@
                 </div>
                 <div class="descript-menu" style="display: block;">
                     <li><a href="application-history" class="descript-menu-a" data-main="descript-main1" style="color: skyblue;">원서접수내역</a></li>
-                    <li><a href="application-apply" class="descript-menu-a" data-main="descript-main1">원서접수신청</a></li>
+                    <li><a href="taken_quali_exam/application_list" class="descript-menu-a" data-main="descript-main1">원서접수신청</a></li>
                     <li><a href="exam-results" class="descript-menu-a" data-main="descript-main1">시험결과보기</a></li>
                     <li><a href="refund-request" class="descript-menu-a" data-main="descript-main1">사후환불신청</a></li>
                 </div>
@@ -129,7 +129,6 @@
                 </div>
                 <div class="descript-menu">
                     <li><a href="mypage" class="descript-menu-a" data-main="descript-main4">개인정보/학력수정</a></li>
-                    <li><a href="account-deletee" class="descript-menu-a" data-main="descript-main4">회원탈퇴</a></li>
                     <li><a href="favorite-certificates" class="descript-menu-a" data-main="descript-main4">관심자격증등록</a></li>
                 </div>
 

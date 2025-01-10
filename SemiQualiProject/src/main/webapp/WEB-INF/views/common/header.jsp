@@ -237,8 +237,7 @@
 
 	<c:if test="${ not empty sessionScope.alertMsg }">
 		<script>
-			alertify.alert('메세지', '${alertMsg}', 
-				function(){alertify.success('요청성공')});
+			alertify.alert('메세지', '${alertMsg}');
 		</script>
 		<c:remove var="alertMsg" scope="session"/>
 	</c:if>

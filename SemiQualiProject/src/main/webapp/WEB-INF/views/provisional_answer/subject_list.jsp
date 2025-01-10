@@ -132,18 +132,40 @@ margin-top : 100px;
  						</c:choose>
  					</td>
  					<td>${c.subjectPeriod }교시</td>
- 					<c:forEach begin="0" end="1" var="i">
- 						<td>
-	 						<c:choose>	
-		 						<c:when test="${ not empty c.provisionalAnswers[i] }">
-		 							<a href="${ c.provisionalAnswers[i].filePath }" download="${c.provisionalAnswers[i].originalFileName }">📧</a>
-		 						</c:when>
-		 						<c:otherwise>
-		 							💤 						
-		 						</c:otherwise>
-	 						</c:choose>
- 						</td>
- 					</c:forEach>
+ 					<c:choose>
+            <c:when test="${ c.provisionalAnswers.size() == 0 }">
+                <td>💤</td>
+                <td>💤</td>
+            </c:when>
+
+            <c:when test="${ c.provisionalAnswers.size() == 1 }">
+                <c:choose>
+                    <c:when test="${ (not empty c.provisionalAnswers[0]) and c.provisionalAnswers[0].changedFileNo == 0 }">
+                        <td><a href="${ c.provisionalAnswers[0].filePath }" download="${c.provisionalAnswers[0].originalFileName }">📧</a></td>
+                		<td>💤</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td>💤</td>
+                        <td><a href="${ c.provisionalAnswers[0].filePath }" download="${c.provisionalAnswers[0].originalFileName }">📧</a></td>
+                    </c:otherwise>
+                </c:choose>
+            </c:when>
+
+            <c:when test="${ c.provisionalAnswers.size() >= 2 }">
+                <c:forEach items="${c.provisionalAnswers}" var="answer" varStatus="idx">
+                    <td>
+                        <c:choose>
+                            <c:when test="${ not empty answer }">
+                                <a href="${ answer.filePath }" download="${answer.originalFileName }">📧</a>
+                            </c:when>
+                            <c:otherwise>
+                                💤
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </c:forEach>
+            </c:when>
+        </c:choose>
  				</tr>
  			</c:forEach>
  		</tbody>

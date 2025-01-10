@@ -47,13 +47,13 @@
                 <!-- Email input -->
                 <div data-mdb-input-init class="form-outline mb-4">
                   <label class="form-label" for="form2Example1"">아이디</label>
-                  <input type="text" id="form2Example1" class="form-control" name="memberId"/>
+                  <input type="text" id="form2Example1" class="form-control" name="memberId" required/>
                 </div>
               
                 <!-- Password input -->
                 <div data-mdb-input-init class="form-outline mb-4">
                   <label class="form-label" for="form2Example2">비밀번호</label>
-                  <input type="password" id="form2Example2" class="form-control" name="memberPwd"/>
+                  <input type="password" id="form2Example2" class="form-control" name="memberPwd" required/>
                 </div>
               
 
