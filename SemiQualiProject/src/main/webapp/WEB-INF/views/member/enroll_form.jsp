@@ -151,8 +151,7 @@
                     <div class="input-title" style="width: 300px; font-weight: bold;">
                         비밀번호 확인 <div id="password-result" class="ckeckForm"></div>
                     </div><br>
-                    <input type="password" class="input-detail"  id="check-password" name="memberPwd" required> 
-                    <button type="button" id="check-password-btn">확인</button><br>
+                    <input type="password" class="input-detail"  id="check-password" name="memberPwd" required> <br>
                     <div class="input-title" style="font-weight: bold;">
                         이름
                     </div><br>

@@ -139,6 +139,8 @@ public class AnswerServiceImpl implements AnswerService {
 		
 		Comment comment = mapper.findCommentById(answerNo);
 		
+		
+		
 		Map<String, Object> responseData = new HashMap();
 		responseData.put("answer", answer);
 		responseData.put("comment", comment);

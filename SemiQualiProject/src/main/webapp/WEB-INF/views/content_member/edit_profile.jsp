@@ -132,8 +132,7 @@
                         비밀번호 확인 <div id="password-result"></div>
                     </div><br>
                     <!-- 비밀번호 확인을 입력하고, 현재 비밀번호와 같아야 정보수정가능 ajax 사용하면 바로 처리가능 -->
-                    <input type="password" class="input-detail"  id="check-password" name="memberPwd" value="${ sessionScope.loginMember.memberPwd }" required> 
-                    <button type="button" id="check-password-btn">확인</button><br>
+                    <input type="password" class="input-detail"  id="check-password" name="memberPwd" value="${ sessionScope.loginMember.memberPwd }" required> <br>
                     <div class="input-title" style="font-weight: bold;">
                         이름
                     </div><br>
