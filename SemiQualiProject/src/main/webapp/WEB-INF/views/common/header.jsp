@@ -243,6 +243,7 @@
 		<c:remove var="alertMsg" scope="session"/>
 	</c:if>
 
+<div onclick="location.href='/quali';">홈버튼</div>
 
     <div id="menubar">
         <div id="menubar-left"></div>
@@ -264,7 +265,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="eligibility-check.do">
+                    <a href="/quali/qualification/insert_form">
                         자격증
                     </a>
                 </li>                
